@@ -28,6 +28,4 @@ mongoose.connect(process.env.DBURI)
     })
 
 
-// git add .
-// git commit -m "COMMIT"
-// git push origin main
+// git add . && git commit -m "COMMIT" && git push origin main
