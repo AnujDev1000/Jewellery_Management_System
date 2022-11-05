@@ -26,3 +26,8 @@ mongoose.connect(process.env.DBURI)
     .catch(err =>{
         console.log(err)
     })
+
+
+// git add .
+// git commit -m "COMMIT"
+// git push origin main
