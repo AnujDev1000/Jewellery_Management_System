@@ -13,7 +13,7 @@ app.use((req, res, next) => {
 })
 
 // routes
-app.use("/signin" ,require("./routes/mainRoutes"))
+app.use("/users" ,require("./routes/userRoutes"))
 
 
 // Connection to Database
