@@ -1,7 +1,10 @@
 const mongoose = require("mongoose")
 const validator = require("validator")
 const bcrypt = require("bcrypt")
-const generateToken = require("../utils/generateToken")
+const otpGenerator = require('otp-generator')
+
+const generateToken = require("../utils/generateToken");
+const transporter = require("../utils/transporter");
 
 // Schema
 const userSchema = new mongoose.Schema({
@@ -22,6 +25,19 @@ const userSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 
+const otpSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    otp: {
+        type: String,
+        require: true
+    }
+}, { timestamps: true })
+
+
 // Register method
 userSchema.statics.register = async function(email, password) {
     
@@ -35,9 +51,26 @@ userSchema.statics.register = async function(email, password) {
                     throw Error("REPLICATION")
                 }
                 else{
-                    const salt = await bcrypt.genSalt(10)
-                    const hash = await bcrypt.hash(password, salt)
-                    return await this.create({email, password: hash})
+                    // const salt = await bcrypt.genSalt(10)
+                    // const hash = await bcrypt.hash(password, salt)
+                    // return await this.create({email, password: hash})
+                    const otp = otpGenerator.generate(6, { upperCaseAlphabets: false, lowerCaseAlphabets: false, specialChars: false });
+                    const mailOptions={
+                        from: process.env.EMAIL,
+                        to: email,
+                        subject: "VERIFICATION",
+                        html: "<h3>OTP for account verification is </h3>"  + "<h1 style='font-weight:bold;color: lime'>" + otp +"</h1>"
+                    };
+
+                    const info = await transporter.sendMail(mailOptions)
+                    if(info.response){
+                        const salt = await bcrypt.genSalt(10)
+                        const hash = await bcrypt.hash(otp, salt)
+                        return ({emailSent: true, otp: otp})
+                    }
+                    else{
+                        throw Error("OTP")
+                    }  
                 }
             }
             else{

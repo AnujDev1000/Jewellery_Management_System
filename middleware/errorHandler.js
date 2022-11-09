@@ -20,6 +20,10 @@ const errorHandler = (err) => {
             return {code: err, message: "Invalid email or password"}
             break
         }
+        case "OTP": {
+            return {code: err, message: "otp not sent!"}
+            break
+        }
         default:{
             return {code: "TECHNICAL", message: err}
             break
