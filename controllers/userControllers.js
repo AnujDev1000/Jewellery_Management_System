@@ -12,6 +12,15 @@ const loginUser = async (req, res) => {
 }
 
 
+const verifyUser = async (req, res) => {
+    const {email, password, otp} = req.body
+    try {
+        const user = await User.verify(email, password, otp)
+        res.status(200).json(user)
+    } catch (err) {
+        res.status(404).json(errorHandler(err.message))
+    }
+}
 
 const registerUser = async (req, res) => {
     const {email, password} = req.body
@@ -24,4 +33,4 @@ const registerUser = async (req, res) => {
     }
 }
 
-module.exports = {loginUser, registerUser}
+module.exports = {loginUser, registerUser, verifyUser}

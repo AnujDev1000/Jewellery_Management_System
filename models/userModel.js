@@ -3,8 +3,12 @@ const validator = require("validator")
 const bcrypt = require("bcrypt")
 const otpGenerator = require('otp-generator')
 
+const UserOtp = require("../models/userOtpModel")
 const generateToken = require("../utils/generateToken");
 const transporter = require("../utils/transporter");
+
+const toId = mongoose.Schema.Types.ObjectId;
+
 
 // Schema
 const userSchema = new mongoose.Schema({
@@ -21,19 +25,12 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: false
-    }
-}, { timestamps: true })
-
-
-const otpSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        required: true,
-        unique: true,
     },
     otp: {
-        type: String,
-        require: true
+        type: toId,
+        default: null,
+        require: true,
+        unique: true
     }
 }, { timestamps: true })
 
@@ -65,8 +62,26 @@ userSchema.statics.register = async function(email, password) {
                     const info = await transporter.sendMail(mailOptions)
                     if(info.response){
                         const salt = await bcrypt.genSalt(10)
-                        const hash = await bcrypt.hash(otp, salt)
-                        return ({emailSent: true, otp: otp})
+                        const hashedOtp = await bcrypt.hash(otp, salt) 
+                        if(await UserOtp.findOne({email})){
+                            const userOtp = await UserOtp.updateOne({email: email}, {otp: hashedOtp})
+                            if(userOtp){
+                                return ({emailSent: true})
+                            }
+                            else{
+                                throw Error("TECHNICAL")
+                            }
+                        }
+                        else{
+                            const userOtp = await UserOtp.create({ email: email, otp: hashedOtp})
+                            if(userOtp){
+                                return ({emailSent: true})
+                            }
+                            else{
+                                throw Error("TECHNICAL")
+                            }
+                        }
+                        
                     }
                     else{
                         throw Error("OTP")
@@ -104,6 +119,28 @@ userSchema.statics.login = async function(email, password) {
         else{
             throw Error("EMAIL")
         }
+    }
+}
+ 
+
+// Verify method
+userSchema.statics.verify = async function(email, password, otp) {
+    const userOtp = await UserOtp.findOne({email})
+    if(userOtp && await bcrypt.compare(otp,userOtp.otp)){
+        const salt = await bcrypt.genSalt(10)
+        const hashedPass = await bcrypt.hash(password, salt)
+        const user = await this.create({email, password: hashedPass, otp: userOtp._id})
+        userOtp.user = user._id
+        await userOtp.save()
+        if(user) {
+            return { verified: true }
+        }
+        else{
+            throw("TECHNICAL")
+        }
+    }
+    else{
+        throw Error("INVALID_OTP")
     }
 }
 

@@ -24,6 +24,10 @@ const errorHandler = (err) => {
             return {code: err, message: "otp not sent!"}
             break
         }
+        case "INVALID_OTP": {
+            return {code: err, message: "Invalid otp!"}
+            break
+        }
         default:{
             return {code: "TECHNICAL", message: err}
             break
