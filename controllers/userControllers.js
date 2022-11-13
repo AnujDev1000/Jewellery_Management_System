@@ -13,9 +13,9 @@ const loginUser = async (req, res) => {
 
 
 const verifyUser = async (req, res) => {
-    const {email, password, otp} = req.body
+    const {email, password, otp, firstName, lastName} = req.body
     try {
-        const user = await User.verify(email, password, otp)
+        const user = await User.verify(email, password, otp, firstName, lastName)
         res.status(200).json(user)
     } catch (err) {
         res.status(404).json(errorHandler(err.message))
@@ -23,10 +23,10 @@ const verifyUser = async (req, res) => {
 }
 
 const registerUser = async (req, res) => {
-    const {email, password} = req.body
+    const {email, password, firstName, lastName} = req.body
 
     try {
-        const user = await User.register(email, password)
+        const user = await User.register(email, password, firstName, lastName)
         res.status(200).json(user)
     } catch (err) {
         res.status(404).json(errorHandler(err.message))

@@ -12,10 +12,14 @@ const userOtpSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    verified: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
     user: {
         type: toId,
         default: null,
-        require: true,
         unique: true
     }
 }, { timestamps: true })
