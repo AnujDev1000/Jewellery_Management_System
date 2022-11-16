@@ -1,4 +1,3 @@
-import React from 'react'
 
 const useVerify = () => {
     const verify = async (email, password, firstName, lastName, otp) => {

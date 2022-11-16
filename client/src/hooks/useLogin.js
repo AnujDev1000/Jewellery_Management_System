@@ -1,4 +1,3 @@
-import React from 'react'
 
 const useLogin = () => {
     const login = async (email, password) => {

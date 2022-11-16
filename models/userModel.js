@@ -68,6 +68,7 @@ userSchema.statics.register = async function(email, password, firstName, lastNam
                     if(info.response){
                         const salt = await bcrypt.genSalt(10)
                         const hashedOtp = await bcrypt.hash(otp, salt) 
+                        await UserOtp.findOneAndDelete({user: null})
                         if(await UserOtp.findOne({email})){
                             const userOtp = await UserOtp.updateOne({email: email}, {otp: hashedOtp, verified: false})
                             if(userOtp){

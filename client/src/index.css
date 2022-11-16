@@ -7,3 +7,12 @@
     box-sizing: border-box;
     transition: .5s all;
 }
+
+.h-screen
+{
+    height: 100vh;
+}
+.object-fit-cover
+{
+    object-fit: cover;
+}

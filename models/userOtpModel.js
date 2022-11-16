@@ -20,7 +20,6 @@ const userOtpSchema = new mongoose.Schema({
     user: {
         type: toId,
         default: null,
-        unique: true
     }
 }, { timestamps: true })
 

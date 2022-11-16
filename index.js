@@ -12,16 +12,20 @@ app.use((req, res, next) => {
     next()
 })
 
+
 // routes
 app.use("/users" ,require("./routes/userRoutes"))
+app.use("/products" ,require("./routes/productsRoutes"))
 
+// Listening to port
+app.listen(process.env.PORT, () => {
+    console.log("Listening to port : " + process.env.PORT)
+})
 
 // Connection to Database
 mongoose.connect(process.env.DBURI)
     .then(() => {
-        app.listen(process.env.PORT, () => {
-            console.log("Connnected to DB!")
-        })
+        console.log("Connnected to DB!")
     })
     .catch(err =>{
         console.log(err)

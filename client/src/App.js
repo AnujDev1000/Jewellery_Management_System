@@ -15,7 +15,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={!user ? <Login /> : <Navigate to="/home" />} />
           <Route path="/register" element={!user ? <Register /> : <Navigate to="/home" />} />
-          <Route path="/home" element={user ? <Home /> : <Login />} />
+          <Route path="/home" element={user ? <Home /> : <Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
     </div>
