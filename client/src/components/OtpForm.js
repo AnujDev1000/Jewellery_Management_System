@@ -10,7 +10,7 @@ const OtpForm = ({inputs, setInputs, handleSubmit, handleSubmitOtp, loading}) =>
                 <button onClick={handleSubmitOtp} className="btn btn-dark me-0 mb-3 mb-sm-0" >
                     {!loading? "Submit" : <div className="spinner-border spinner-border-sm" role="status"></div>}
                 </button>
-            <p className="text-secondary mt-1 text-center">Didn't get an otp <span onClick={handleSubmitOtp} className="link-primary">Resend</span></p>
+            <p className="text-secondary mt-1 text-center">Didn't get an otp <button onClick={handleSubmit} className="btn btn-link p-0">Resend</button></p>
         </form>
     )
 }

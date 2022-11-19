@@ -16,6 +16,7 @@ app.use((req, res, next) => {
 // routes
 app.use("/users" ,require("./routes/userRoutes"))
 app.use("/products" ,require("./routes/productsRoutes"))
+app.use("/categories" ,require("./routes/categoryRoutes"))
 
 // Listening to port
 app.listen(process.env.PORT, () => {

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import useSignup from '../hooks/useSignup'
 import useVerify from '../hooks/useVerify'
 
@@ -35,6 +38,7 @@ const Register = () => {
             setLoading(false)
         }
         else{
+            toast.success("Otp Sent Successfully")
             console.log(user)
             setInputs({...inputs, emailSent: true})
             setLoading(false)
@@ -55,6 +59,7 @@ const Register = () => {
                 setLoading(false)
             }
             else{
+                toast.success("Otp Sent Successfully")
                 setInputs({email: String, password: String, cPassword: String, firstName:String, lastName: String, otp:String, emailSent: false})
                 setLoading(false)
                 navigate("/")

@@ -1,14 +1,17 @@
 const mongoose = require("mongoose")
 
+const toId = mongoose.Schema.Types.ObjectId;
+
+
 const productsModel = mongoose.Schema({
     name: { type: String, required: true, default: "none" },
     metal: { type: String, required: true, default: "none" },
-    carat: { type: Number, required: true, default: 0 },
-    category: { type: String, required: true, default: "none" },
-    stone: { type: String, required: true, default: "none" },
+    carat: { type: Number, default: 0 },
+    category: { type: {}, default: {} },
+    stone: { type: String, default: "none" },
+    weight: { type: Number, required: true, default: 0 },
     price: { type: Number, required: true, default: 0 },
-    company: { type: String, required: true, default: "none" },
-    supplier: { type: [], required: true, default: [] },
+    supplier: { type: {}, required: true, default: {} },
     discription: { type: String, required: true, default: "none" },
 
 }, { timestamps: true })

@@ -28,7 +28,7 @@ const RegisterForm = ({inputs, setInputs, handleSubmit, loading}) => {
                 </div>
             </div>
             <button onClick={handleSubmit} className="btn btn-dark mt-2" >
-                {!loading? "Register" : <div class="spinner-border spinner-border-sm" role="status"></div>}
+                {!loading? "Send Otp" : <div class="spinner-border spinner-border-sm" role="status"></div>}
             </button>
             <p className="text-secondary mt-1 text-center">Already have an account <a href="/" className="link-primary">Login</a></p>
         </form>

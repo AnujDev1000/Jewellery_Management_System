@@ -1,5 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { AuthContext } from '../context/AuthContext'
 import useLogin from '../hooks/useLogin'
 
@@ -26,6 +29,7 @@ const Login = () => {
             setLoading(false)
         }
         else{
+            toast.success("Login Successful")
             localStorage.setItem("user", JSON.stringify(user))
             dispatch({command: "LOGIN", payload: user})
             setInputs({email: String, password: String})
