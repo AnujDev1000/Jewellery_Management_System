@@ -20,6 +20,7 @@ app.use("/categories" ,require("./routes/categoryRoutes"))
 app.use("/suppliers" ,require("./routes/suppliersRoutes"))
 app.use("/stocks" ,require("./routes/stockRoutes"))
 app.use("/orders" ,require("./routes/orderRoutes"))
+app.use("/employees" ,require("./routes/employeeRoutes"))
 
 // Listening to port
 app.listen(process.env.PORT, () => {

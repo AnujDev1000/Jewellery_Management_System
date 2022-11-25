@@ -7,7 +7,10 @@
     box-sizing: border-box;
     transition: .5s all;
 }
-
+body
+{
+    background-color: rgb(243, 243, 243);
+}
 .h-screen
 {
     height: 100vh;
@@ -15,4 +18,32 @@
 .object-fit-cover
 {
     object-fit: cover;
+}
+.fs
+{
+    font-size: .9rem;
+}
+.fs-big
+{
+    font-size: 3rem;
+}
+.bg-melon
+{
+    background-color: #ff896c;
+}
+.bg-green
+{
+    background-color: #38ff73;
+}
+.bg-purple
+{
+    background-color: #c955ff;
+}
+.bg-cyan
+{
+    background-color: #55ddff;
+}
+.text-gold
+{
+    color: #ffca1b;
 }
