@@ -9,7 +9,7 @@
 }
 body
 {
-    background-color: rgb(243, 243, 243);
+    background-color: rgb(245, 244, 244);
 }
 .h-screen
 {
@@ -33,7 +33,7 @@ body
 }
 .bg-green
 {
-    background-color: #38ff73;
+    background-color: #50fd84;
 }
 .bg-purple
 {
@@ -41,9 +41,14 @@ body
 }
 .bg-cyan
 {
-    background-color: #55ddff;
+    background-color: #8855ff;
 }
-.text-gold
+.bg-light-cyan
 {
-    color: #ffca1b;
+    background-color: #ff89ca;
+}
+.wh-100
+{
+    height: 100%;
+    width: 100%;
 }

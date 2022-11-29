@@ -8,13 +8,11 @@ import UserRoutes from './routes/UserRoutes';
 const App = () => {
 
   return(
-    <div className="app">
+    <div className="app h-screen">
       <ToastContainer autoClose={2000} theme="colored" hideProgressBar={true} />
       <BrowserRouter>
         <UserRoutes />
-        <div className="pages container">
-          <PagesRoutes />
-        </div>
+        <PagesRoutes />
       </BrowserRouter>
     </div>
   )

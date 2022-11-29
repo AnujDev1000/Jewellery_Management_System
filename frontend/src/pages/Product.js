@@ -1,67 +1,66 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import Navbar from "../components/Navbar"
+import ProductTable from '../components/tables/ProductTable'
+import fetchHeaders from '../utils/fetchHeaders'
 
 const Product = () => {
-    const tabs = ["Products", "Amount", "Gold", "Silver"]
+    const { getHeaders } = fetchHeaders()
+    const [products, setProducts] = useState([])
+    const [tabs, setTabs] = useState([{name: "products", value: 0}, {name: "amount", value: 0}, {name: "gold", value: 0}, {name: "silver", value: 0}])
+    const [loading, setLoading] = useState(true)
+    const [errors, setErrors] = useState({})
+
     
+    
+    useEffect(() => {
+        setLoading(true)
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch("/products/get", getHeaders())    
+                const json = await response.json()
+                if(json.error){
+                    setErrors(errors)
+                }
+                else{
+                    setProducts(json)
+                    setLoading(false)
+                }
+            } catch (error) {
+                setErrors({error: error.message})
+            }
+        }
+
+        fetchProducts()     
+    }, [])    
+
 
     return (
-        <div className="products">
-            <div className="display-tabs">
-                <div className="row m-0">
-                    {tabs.map(tab => {
-                        return (
-                            <div className="col-6 col-md-3 p-2 h-100">
-                                <div className="tabs bg-melon text-white rounded shadow-sm p-2 h-100">
-                                    <h4>{tab.toUpperCase()}</h4>
-                                    <h2>0</h2>
+        <>
+            <Navbar />
+            <div className="products">
+                <div className="display-tabs">
+                    <div className="row p-1">
+                        {tabs.map(tab => {
+                            return (
+                                <div className="col-6 col-md-3 p-2 h-100">
+                                    <div className="tabs bg-light-cyan rounded shadow-sm p-2 h-100">  
+                                        <h4 className="text-uppercase fw-bold">{tab.name}</h4>
+                                        {loading ? <div className="spinner-border spinner-border-sm" role="status"></div> 
+                                                : <h2>{tab.value}</h2>  
+                                        }
+                                    </div>
                                 </div>
-                            </div>
-                        )
-                    })}
+                            )
+                        })}
+                    </div>
+                </div>
+                <div className="product-table table-responsive p-1">
+                    {loading ? <div className="spinner-border spinner-border-sm" role="status"></div>
+                            :<ProductTable products={products} />
+                    }
                 </div>
             </div>
-            <div className="product-table table-responsive p-2">
-            <table class="table table-bordered">
-                    <thead>
-                        <tr className="bg-dark text-white">
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
-                            <th scope="col">Edits</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>
-                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined button group">
-                                  <button type="button" class="btn btn-outline-primary">U</button>
-                                  <button type="button" class="btn btn-outline-primary">D</button>
-                                  <button type="button" class="btn btn-outline-primary">A</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td>
-                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined button group">
-                                  <button type="button" class="btn btn-outline-primary">U</button>
-                                  <button type="button" class="btn btn-outline-primary">D</button>
-                                  <button type="button" class="btn btn-outline-primary">A</button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        </>
     )
 }
 

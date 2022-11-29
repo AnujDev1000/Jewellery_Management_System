@@ -1,10 +1,10 @@
 const Employees = require("../models/employeeModel")
 
 const addEmployee = async (req, res) => {
-    const { availableStock, product } = req.body
-
+    const { name, phone, address, salary, type } = req.body
+ 
     try {
-        const employee = await Employees.create({ availableemployee, product })
+        const employee = await Employees.create({ name, phone, address, salary, type })
         if(employee){
             res.status(200).json(employee)
         }

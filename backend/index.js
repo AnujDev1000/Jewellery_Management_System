@@ -14,13 +14,13 @@ app.use((req, res, next) => {
 
 
 // routes
-app.use("/users" ,require("./routes/userRoutes"))
-app.use("/products" ,require("./routes/productsRoutes"))
-app.use("/categories" ,require("./routes/categoryRoutes"))
-app.use("/suppliers" ,require("./routes/suppliersRoutes"))
-app.use("/stocks" ,require("./routes/stockRoutes"))
-app.use("/orders" ,require("./routes/orderRoutes"))
-app.use("/employees" ,require("./routes/employeeRoutes"))
+app.use("/api/users" ,require("./routes/userRoutes"))
+app.use("/api/products" ,require("./routes/productsRoutes"))
+app.use("/api/categories" ,require("./routes/categoryRoutes"))
+app.use("/api/suppliers" ,require("./routes/suppliersRoutes"))
+app.use("/api/stocks" ,require("./routes/stockRoutes"))
+app.use("/api/orders" ,require("./routes/orderRoutes"))
+app.use("/api/employees" ,require("./routes/employeeRoutes"))
 
 // Listening to port
 app.listen(process.env.PORT, () => {
