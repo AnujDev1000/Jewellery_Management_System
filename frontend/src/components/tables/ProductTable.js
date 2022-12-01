@@ -5,7 +5,7 @@ const ProductTable = ({products}) => {
     const keys = Object.keys(products[0]).filter(key => key != "_id" && key != "__v" && key != "stock" && key != "discription" )    
 
     return (
-        <table className="table table-sm table-bordered m-0">
+        <table className="table table-sm table-borderless m-0">
                 <thead>
                     <tr className="">
                         <th scope="col">#</th>
@@ -16,25 +16,32 @@ const ProductTable = ({products}) => {
                 <tbody>
                     {products.map((product,i) => {
                         return (
-                            <tr key={i}>
-                                <th scope="row">{i}</th>
+                            <tr key={i} className="">
+                                <td scope="row" className="fw-bold">{i}</td>
                                 {/* {keys.map(key => <td>{}</td>)} */}
-                                <td>{product.name}</td>
-                                <td>{product.metal}</td>
-                                <td>{product.carat}</td>
-                                <td>{product.stone}</td>
-                                <td>{product.weight}</td>
-                                <td>{product.price}</td>
-                                <td>{product.category.name}</td>
-                                <td>{product.supplier.name}</td>
-                                <td>{product.createdAt}</td>
-                                <td>{product.updatedAt}</td>
-                                <td>
-                                    <button className="btn btn-info btn-sm me-2 text-white">
-                                        <FaEdit />
+                                <td className="text-truncate">{product.name}</td>
+                                <td className="text-truncate">
+                                    {product.metal == "gold" ? 
+                                                    <span className="badge bg-warning">{product.metal}</span>
+                                                            : 
+                                                    <span className="badge bg-secondary">{product.metal}</span>}
+                                </td>
+                                <td className="text-truncate">{product.carat}</td>
+                                <td className="text-truncate">{product.stone}</td>
+                                <td className="text-truncate">{product.weight}</td>
+                                <td className="text-truncate">
+                                    <span className="badge bg-info">{product.price}</span>
+                                </td>
+                                <td className="text-truncate">{product.category.name}</td>
+                                <td className="text-truncate">{product.supplier.name}</td>
+                                <td className="text-truncate">{product.createdAt.split("T")[0]}</td>
+                                <td className="text-truncate">{product.updatedAt.split("T")[0]}</td>
+                                <td className="text-truncate">
+                                    <button className="btn btn-link btn-sm p-0 me-2">
+                                        <FaEdit className="fs-5" />
                                     </button>
-                                    <button className="btn btn-info btn-sm text-white">
-                                        <FaTrash />
+                                    <button className="btn btn-link btn-sm p-0">
+                                        <FaTrash className="fs-5" />
                                     </button>
                                 </td>
                             </tr>

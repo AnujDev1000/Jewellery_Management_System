@@ -1,5 +1,5 @@
 const randomColor = (index) => {
-    let classValue = "menu text-center d-flex flex-column align-items-center p-3 rounded  text-dark"
+    let classValue = "menu text-center d-flex flex-column align-items-center p-3 rounded  text-white shadow-sm"
     switch(index){
         case 0: {
             classValue = classValue.concat(" bg-melon")

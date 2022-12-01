@@ -25,7 +25,7 @@ body
 }
 .fs-big
 {
-    font-size: 3rem;
+    font-size: 3.7rem;
 }
 .bg-melon
 {
@@ -33,7 +33,7 @@ body
 }
 .bg-green
 {
-    background-color: #50fd84;
+    background-color: #2feb67;
 }
 .bg-purple
 {
@@ -52,9 +52,25 @@ body
     height: 100%;
     width: 100%;
 }
-.table th:last-child,
-.table td:last-child {
-  position: sticky;
-  right: -5px;
-  background-color: #eeeeee;
+.table
+{
+    border-collapse: separate;
+    border-spacing: 0 7px;
+}
+.table td
+{
+    padding-top: .7rem;
+    background-color: white;
+    box-shadow: .1rem .1rem .1rem rgba(0, 0, 0, 0.055);
+}
+.table td:first-child
+{
+    padding: .7rem;
+    border-top-left-radius: .3rem;
+    border-bottom-left-radius: .3rem;
+}
+.table td:last-child
+{
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
 }

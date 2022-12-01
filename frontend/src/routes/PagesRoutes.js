@@ -21,7 +21,7 @@ const PagesRoutes = () => {
     const { user } = useContext(AuthContext)
 
     return (  
-            <div className="container h-screen bg-white">     
+            <div className="container bg-white pb-1">     
                 <Routes>
                     <Route path="/home" element={<Home />} />
                     <Route path="/products" element={<Product />} />
