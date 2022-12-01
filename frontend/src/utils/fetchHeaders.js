@@ -3,7 +3,7 @@ import React from 'react'
 const fetchHeaders = () => {
     const headers = {
         'Content-Type': 'application/json',
-        'authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzRlOTRiMTI4YTI1MGRhMTQyZmQ5MSIsImlhdCI6MTY2ODY5MzcyMSwiZXhwIjoxNjcxMjg1NzIxfQ.u6YVAkWpLkx0Wp8QQ58nXiS07wKa30cQDVe_mgKKQuo`
+        'authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzRlOTRiMTI4YTI1MGRhMTQyZmQ5MSIsImlhdCI6MTY2OTg5MjA3NSwiZXhwIjoxNjY5OTc4NDc1fQ.-rPbXNzsmIDvXxkoj1A554vvSsSpudPxzNRZ9GtFJ9U`
     }
 
     function getHeaders() {

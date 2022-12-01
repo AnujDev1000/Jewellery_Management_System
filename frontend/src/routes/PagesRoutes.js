@@ -15,6 +15,7 @@ import Navigater from '../components/Navigate';
 
 // context
 import { AuthContext } from '../context/AuthContext';
+import useGetProducts from '../hooks/useProducts';
 
 const PagesRoutes = () => {
     const { user } = useContext(AuthContext)

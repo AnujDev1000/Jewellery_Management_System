@@ -1,38 +1,52 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import HeadingTabs from '../components/HeadingTabs'
 import Navbar from "../components/Navbar"
 import ProductTable from '../components/tables/ProductTable'
-import fetchHeaders from '../utils/fetchHeaders'
+import { Context } from '../context/Context'
 
 const Product = () => {
-    const { getHeaders } = fetchHeaders()
-    const [products, setProducts] = useState([])
-    const [tabs, setTabs] = useState([{name: "products", value: 0}, {name: "amount", value: 0}, {name: "gold", value: 0}, {name: "silver", value: 0}])
-    const [loading, setLoading] = useState(true)
-    const [errors, setErrors] = useState({})
+    const { state } = useContext(Context)
+    const products = state.products
+    const categories = state.categories
+    const [tabs, setTabs] = useState([{name: "products", value: products.length}, {name: "amount", value: 0}, {name: "gold", value: 0}, {name: "silver", value: 0}])
+    const [loading, setLoading] = useState(false)
+    const [filterProducts, setFilterProducts] = useState(products)
 
-    
-    
-    useEffect(() => {
-        setLoading(true)
-        const fetchProducts = async () => {
-            try {
-                const response = await fetch("/products/get", getHeaders())    
-                const json = await response.json()
-                if(json.error){
-                    setErrors(errors)
-                }
-                else{
-                    setProducts(json)
-                    setLoading(false)
-                }
-            } catch (error) {
-                setErrors({error: error.message})
+    const setdata = () => {
+        let total = 0
+        let totalGold = 0
+        let totalSilver = 0
+        products.map(product => {
+            total += product.price
+            if(product.metal == "gold"){
+                totalGold++
             }
-        }
+            else{
+                totalSilver++
+            }
+        })
 
-        fetchProducts()     
-    }, [])    
+        const newTabs = tabs.map(tab => {
+            if(tab.name == "products"){
+                tab.value = products.length
+            }
+            else if(tab.name == "amount"){
+                tab.value = total
+            }
+            else if(tab.name == "gold"){
+                tab.value = totalGold
+            }
+            else{
+                tab.value = totalSilver
+            }
+        })
+        setTabs(newTabs)
+    }
+    // setdata()
 
+    const handleSelectCategory = (arg) => {
+        setFilterProducts(products.filter(product => product.category.name == arg))
+    }
 
     return (
         <>
@@ -40,23 +54,33 @@ const Product = () => {
             <div className="products">
                 <div className="display-tabs">
                     <div className="row p-1">
-                        {tabs.map(tab => {
+                        {tabs.map((tab,i) => {
                             return (
-                                <div className="col-6 col-md-3 p-2 h-100">
-                                    <div className="tabs bg-light-cyan rounded shadow-sm p-2 h-100">  
-                                        <h4 className="text-uppercase fw-bold">{tab.name}</h4>
-                                        {loading ? <div className="spinner-border spinner-border-sm" role="status"></div> 
-                                                : <h2>{tab.value}</h2>  
-                                        }
-                                    </div>
-                                </div>
+                                <HeadingTabs tab={tab} loading={loading} key={i} />
                             )
                         })}
                     </div>
                 </div>
+                <ul className="nav nav-tabs">
+                    <li className="nav-item">
+                        <span className={`nav-link active=${true}`} onClick={e => {setFilterProducts(products)}}>All</span>
+                    </li>
+                    {categories && categories.map((category, i) => 
+                        <li key={i} className="nav-item">
+                            <span className="nav-link" onClick={e => {handleSelectCategory(category.name)}}>{category.name}</span>
+                        </li>
+                    )}
+                </ul>
+
                 <div className="product-table table-responsive p-1">
-                    {loading ? <div className="spinner-border spinner-border-sm" role="status"></div>
-                            :<ProductTable products={products} />
+                    {!products.length ? 
+                            <div className="spinner-border spinner-border-sm" role="status"></div>
+                            :
+                            <>
+                                {!filterProducts.length ? <ProductTable products={products} />
+                                    : <ProductTable products={filterProducts} />
+                                }
+                            </>
                     }
                 </div>
             </div>

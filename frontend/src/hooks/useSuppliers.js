@@ -2,36 +2,36 @@ import { useEffect, useState } from 'react'
 import fetchHeaders from '../utils/fetchHeaders'
 
 
-const useGetProducts = () => {
-    const [products, setProducts] =  useState([])
+const useGetSuppliers = () => {
+    const [suppliers, setSuppliers] =  useState([])
     const [errors, setErrors] =  useState([])
     const { getHeaders } = fetchHeaders()
    
     useEffect(() => {
-        const fetchProducts = async () => {
+        const fetchSuppliers = async () => {
             try {
-                const response = await fetch("/products/get", getHeaders())    
+                const response = await fetch("/suppliers/get", getHeaders())    
                 const json = await response.json()
                 if(json.error){
                    setErrors(json) 
                 }
                 else{
-                    setProducts(json)
+                    setSuppliers(json)
                 }
             } catch (error) {
                 setErrors({error: error.message})
             }
         }
 
-        fetchProducts()  
+        fetchSuppliers()  
     }, [])
 
-    if(products.length){
-        return products
+    if(suppliers.length){
+        return suppliers
     }
     else{
         return errors
     }
 }
 
-export default useGetProducts
+export { useGetSuppliers }

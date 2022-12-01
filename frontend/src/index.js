@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { AuthContextProvider } from './context/AuthContext';
+import { ContextProvider } from './context/Context';
 
 ReactDOM.render(
     <AuthContextProvider>
-      <App />
+      <ContextProvider>
+        <App />
+      </ContextProvider>
     </AuthContextProvider>
 ,document.getElementById('root'));
