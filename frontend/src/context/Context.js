@@ -1,5 +1,7 @@
 import React, { createContext, useReducer } from 'react'
 import useGetCategories from '../hooks/useCategories'
+import useGetEmployees from '../hooks/useEmployees'
+import useGetOrders from '../hooks/useOrders'
 import useGetProducts from '../hooks/useProducts'
 import { useGetSuppliers } from "../hooks/useSuppliers"
 
@@ -25,11 +27,15 @@ export const ContextProvider = ({ children }) => {
         categories: [],
         suppliers: [],
         stocks: [],
+        orders:[],
+        employees: []
     })
 
     state.products = useGetProducts()
     state.categories = useGetCategories()
     state.suppliers = useGetSuppliers()
+    state.orders = useGetOrders()
+    state.employees = useGetEmployees()
 
     console.log(state)
 

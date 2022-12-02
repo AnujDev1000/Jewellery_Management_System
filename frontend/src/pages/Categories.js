@@ -14,7 +14,7 @@ const Categories = () => {
     return (
         <>
             <Navbar />
-            <div className="products my-2">
+            <div className="categories my-2">
                 <div className="display-tabs">
                     <div className="row p-1">
                         {tabs.map((tab,i) => {
