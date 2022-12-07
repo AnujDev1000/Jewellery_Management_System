@@ -1,27 +1,37 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
 
-const fetchHeaders = () => {
+const useFetchHeaders = () => {
+    const { user } = useContext(AuthContext)
+
     const headers = {
         'Content-Type': 'application/json',
-        'authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzRlOTRiMTI4YTI1MGRhMTQyZmQ5MSIsImlhdCI6MTY2OTg5MjA3NSwiZXhwIjoxNjY5OTc4NDc1fQ.-rPbXNzsmIDvXxkoj1A554vvSsSpudPxzNRZ9GtFJ9U`
+        'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzRlOTRiMTI4YTI1MGRhMTQyZmQ5MSIsImlhdCI6MTY2ODY5MzcyMSwiZXhwIjoxNjcxMjg1NzIxfQ.u6YVAkWpLkx0Wp8QQ58nXiS07wKa30cQDVe_mgKKQuo'
     }
 
     function getHeaders() {
         return { 
-            method: 'GET',
+            method: "GET",
             headers: headers,
         }
     }
 
-    function postHeaders(body) {
+    function postHeaders(name, metal, carat, stone, weight, price, category, supplier) {
         return { 
-            method: 'POST',
-            body: body,
+            method: "POST",
+            body: JSON.stringify({name, metal, carat, stone, weight, price, category, supplier}),
             headers: headers,
         }
     }
 
-    return {getHeaders, postHeaders}
+    function deleteHeaders() {
+        return { 
+            method: "DELETE",
+            headers: headers,
+        }
+    }
+
+    return {getHeaders, postHeaders, deleteHeaders}
 }
 
-export default fetchHeaders
+export default useFetchHeaders

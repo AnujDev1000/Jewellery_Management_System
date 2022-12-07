@@ -59,7 +59,7 @@ const Register = () => {
                 setLoading(false)
             }
             else{
-                toast.success("Otp Sent Successfully")
+                toast.success("User Registered Successfully!")
                 setInputs({email: String, password: String, cPassword: String, firstName:String, lastName: String, otp:String, emailSent: false})
                 setLoading(false)
                 navigate("/")

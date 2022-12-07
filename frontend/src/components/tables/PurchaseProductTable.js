@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
-import { FaEdit, FaTrash } from "react-icons/fa"
-import ProductDeleteForm from '../forms/ProductDeleteForm'
-import ProductEditForm from '../forms/ProductEditForm'
+import { FaPlus } from "react-icons/fa"
 
-const ProductTable = ({ products }) => {
-    const [updateProduct, setUpdateProduct] = useState([])
-    const [deleteId, setDeleteId] = useState("")
-    const keys = Object.keys(products[0]).filter(key => key != "_id" && key != "__v" && key != "stock" && key != "discription")
+const PurchaseProductTable = ({ products }) => {
+    const keys = Object.keys(products[0]).filter(key => key != "_id" && key != "__v" && key != "stock" && key != "discription" && key != "supplier" && key != "createdAt" && key != "updatedAt")
 
 
     return (
@@ -38,31 +34,20 @@ const ProductTable = ({ products }) => {
                                 <span className="badge bg-info">{product.price}</span>
                             </td>
                             <td className="text-truncate">{product.category.name}</td>
-                            <td className="text-truncate">{product.supplier.name}</td>
-                            <td className="text-truncate">{product.createdAt.split("T")[0]}</td>
-                            <td className="text-truncate">{product.updatedAt.split("T")[0]}</td>
                             <td className="text-truncate">
-                                <button className="btn btn-link btn-sm p-0 me-2" data-bs-toggle="modal" data-bs-target="#editexampleModal"
-                                    onClick={e => setUpdateProduct(product)}>
-                                    <FaEdit className="fs-5"
-                                    />
-
-
-                                </button>
-                                <button className="btn btn-link btn-sm p-0" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                onClick={e => setDeleteId(product._id)}>
-                                    <FaTrash className="fs-5" />
+                                <button className="btn btn-danger btn-sm mb-1" 
+                                    // onClick={e => setUpdateProduct(product)}
+                                    >
+                                    Add to cart
                                 </button>
                             </td>
                         </tr>
                     )
                 })}
 
-                <ProductEditForm updateProduct={updateProduct} setUpdateProduct={setUpdateProduct} />
-                {deleteId.length ? <ProductDeleteForm deleteId={deleteId} setDeleteId={setDeleteId} /> : null }
             </tbody>
         </table>
     )
 }
 
-export default ProductTable
+export default PurchaseProductTable

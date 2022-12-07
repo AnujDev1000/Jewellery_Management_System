@@ -8,24 +8,28 @@ const addProduct = async (req, res) => {
     const { name, metal, carat, category, stone, weight, price, supplier, discription } = req.body
 
     try {
-        const product = new Products({ name, metal, carat, category, stone, weight, price, supplier, discription })
+        const fCategory = await Categories.findOne({_id: category})
+        const fSupplier = await Suppliers.findOne({_id: supplier})
+        const newCategory = { _id: category, name: fCategory.name}
+        const newSupplier = { _id: supplier, name: fSupplier.name}
+        // console.log(newCategory, newSupplier)
+        const product = new Products({ name, metal, carat, category: newCategory, stone, weight, price, supplier: newSupplier, discription })
         const stock = new Stocks({ availableStock: 0, product: {_id:product._id, name:product.name} })
         
         try {
             const session = await mongoose.startSession()
             await session.startTransaction()
-            // products
+
+            // // products
             product.stock = { _id: stock._id }
             await product.save({session: session})
 
             // categories
-            const fCategory = await Categories.findOne({_id: category._id})
             fCategory.products.push({_id:product._id, name:product.name})
             fCategory.productCount = fCategory.productCount + 1
             await fCategory.save({session: session})
 
             // suppliers
-            const fSupplier = await Suppliers.findOne({_id: supplier._id})
             fSupplier.products.push({_id:product._id, name:product.name})
             fSupplier.productCount = fSupplier.productCount + 1
             await fSupplier.save({session: session})
@@ -37,10 +41,12 @@ const addProduct = async (req, res) => {
             session.endSession()
             res.status(200).json(product)
         } catch (error) {
-            res.status(400).json(error.message)
+            console.log(error)
+            res.status(400).json({error: error.message})
         }
     } catch (error) {
-        res.status(404).json(error.message)
+        console.log(error)
+        res.status(404).json({error: error.message})
     }
 }
 
@@ -100,7 +106,7 @@ const deleteProduct = async (req, res) => {
     } catch (error) {
         await session.abortTransaction()
         session.endSession()
-        res.status(404).json(error.message)
+        res.status(404).json({error: error.message})
     }
     
 }

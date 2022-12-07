@@ -1,24 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react'
+import ProductForm from '../components/forms/ProductForm'
 import HeadingTabs from '../components/HeadingTabs'
 import Navbar from "../components/Navbar"
-import NavigateBack from '../components/NavigateBack'
 import ProductTable from '../components/tables/ProductTable'
 import { Context } from '../context/Context'
 
 const Product = () => {
     const { state } = useContext(Context)
-    const products = state.products
-    const categories = state.categories
+    // const products = state.products
+    // const categories = state.categories
+
     const [tabs, setTabs] = useState([{name: "products", value: 0}, {name: "amount", value: 0}, {name: "gold", value: 0}, {name: "silver", value: 0}])
     const [loading, setLoading] = useState(false)
-    const [filterProducts, setFilterProducts] = useState(products)
+    const [filterProducts, setFilterProducts] = useState(state.products)
 
     useEffect(() => {
         const setdata = () => {
             let total = 0
             let totalGold = 0
             let totalSilver = 0
-            products.map(product => {
+            state.products.map(product => {
                 total += product.price
                 if(product.metal === "gold"){
                     totalGold++
@@ -30,7 +31,7 @@ const Product = () => {
     
             const newTabs = tabs.map(tab => {
                 if(tab.name === "products"){
-                    tab.value = products.length
+                    tab.value = state.products.length
                     return tab
                 }
                 else if(tab.name === "amount"){
@@ -50,10 +51,10 @@ const Product = () => {
         }
         setdata()
         
-    }, [])
+    }, [state, filterProducts])
 
     const handleSelectCategory = (arg) => {
-        setFilterProducts(products.filter(product => product.category.name === arg))
+        setFilterProducts(state.products.filter(product => product.category.name === arg))
     }
 
     return (
@@ -69,27 +70,37 @@ const Product = () => {
                         })}
                     </div>
                 </div>
-                <ul className="nav nav-tabs">
-                    <li className="nav-item">
-                        <span className={`nav-link active=${true}`} onClick={e => {setFilterProducts(products)}}>All</span>
-                    </li>
-                    {categories && categories.map((category, i) => 
-                        <li key={i} className="nav-item">
-                            <span className="nav-link" onClick={e => {handleSelectCategory(category.name)}}>{category.name}</span>
-                        </li>
-                    )}
-                </ul>
+                <div className="bg-white shadow-sm rounded p-3 mt-2">
 
-                <div className="product-table table-responsive bg-light p-2">
-                    {!products.length ? 
+                    <ul className="nav nav-tabs d-flex justify-content-between">
+                        <div className='d-flex justify-content-start'>
+                            <li className="nav-item">
+                                <span className={`nav-link active=${true}`} onClick={e => { setFilterProducts(state.products) }}>All</span>
+                            </li>
+                            {state.categories && state.categories.map((category, i) =>
+                                <li key={i} className="nav-item">
+                                    <span className="nav-link" onClick={e => { handleSelectCategory(category.name) }}>{category.name}</span>
+                                </li>
+                            )}
+                        </div>
+                        <button type="button"
+                            className="btn btn-danger btn-sm my-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Add Product
+                        </button>
+                    </ul>
+                    <ProductForm />
+                    
+                    <div className="mh-table product-table table-responsive bg-light p-2">
+                        {!state.products.length ? 
                             <div className="spinner-border spinner-border-sm" role="status"></div>
                             :
                             <>
-                                {!filterProducts.length ? <ProductTable products={products} />
+                                {!filterProducts.length ? <ProductTable products={state.products} />
                                     : <ProductTable products={filterProducts} />
                                 }
                             </>
-                    }
+                        }
+                    </div>
                 </div>
             </div>
         </>

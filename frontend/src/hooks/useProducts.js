@@ -34,4 +34,4 @@ const useGetProducts = () => {
     }
 }
 
-export default useGetProducts
+export { useGetProducts }

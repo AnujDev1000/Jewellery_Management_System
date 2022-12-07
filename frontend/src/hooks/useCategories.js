@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import fetchHeaders from '../utils/fetchHeaders'
+import useFetchHeaders from '../utils/fetchHeaders'
 
 
 const useGetCategories = () => {
     const [categories, setCategories] =  useState([])
     const [errors, setErrors] =  useState([])
-    const { getHeaders } = fetchHeaders()
+    const { getHeaders } = useFetchHeaders()
    
     useEffect(() => {
         const fetchCategories = async () => {
@@ -34,4 +34,4 @@ const useGetCategories = () => {
     }
 }
 
-export default useGetCategories
+export { useGetCategories }

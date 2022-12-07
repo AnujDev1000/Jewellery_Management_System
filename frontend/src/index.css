@@ -74,3 +74,21 @@ body
     border-top-right-radius: .3rem;
     border-bottom-right-radius: .3rem;
 }
+.cursor-pointer
+{
+    cursor: pointer;
+}
+.mh-table
+{
+    max-height: 410px;
+    overflow: auto;
+}
+.mh-table2
+{
+    max-height: 325px;
+    overflow: auto;
+}
+.h-specific
+{
+    height: 600px;
+}

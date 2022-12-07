@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import fetchHeaders from '../utils/fetchHeaders'
+import useFetchHeaders from '../utils/fetchHeaders'
 
 
 const useGetSuppliers = () => {
     const [suppliers, setSuppliers] =  useState([])
     const [errors, setErrors] =  useState([])
-    const { getHeaders } = fetchHeaders()
+    const { getHeaders } = useFetchHeaders()
    
     useEffect(() => {
         const fetchSuppliers = async () => {

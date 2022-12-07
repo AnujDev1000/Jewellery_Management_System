@@ -33,7 +33,7 @@ mongoose.connect(process.env.DBURI)
         console.log("Connnected to DB!")
     })
     .catch(err =>{
-        console.log(err)
+        console.log(err)    
     })
 
 

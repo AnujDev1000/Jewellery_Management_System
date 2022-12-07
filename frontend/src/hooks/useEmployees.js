@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
-import fetchHeaders from '../utils/fetchHeaders'
+import { lazy, useEffect, useState } from 'react'
+import useFetchHeaders from '../utils/fetchHeaders'
 
 
 const useGetEmployees = () => {
     const [employees, setEmployees] =  useState([])
     const [errors, setErrors] =  useState([])
-    const { getHeaders } = fetchHeaders()
+    const { getHeaders } = useFetchHeaders()
    
     useEffect(() => {
         const fetchEmployees = async () => {
@@ -34,4 +34,4 @@ const useGetEmployees = () => {
     }
 }
 
-export default useGetEmployees
+export { useGetEmployees } 

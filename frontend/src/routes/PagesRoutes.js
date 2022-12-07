@@ -15,24 +15,22 @@ import Navigater from '../components/Navigate';
 
 // context
 import { AuthContext } from '../context/AuthContext';
-import useGetProducts from '../hooks/useProducts';
 
 const PagesRoutes = () => {
     const { user } = useContext(AuthContext)
 
     return (  
-            <div className="container bg-white pb-1">     
+            <div className="container">     
                 <Routes>
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/products" element={<Product />} />
-                    <Route path="/purchase" element={<Purchase />} />
-                    <Route path="/sales" element={<Sales  />} />
-                    <Route path="/categories" element={<Categories />} />
-                    <Route path="/stocks" element={<Stocks />} />
-                    <Route path="/employees" element={<Employees />} />
-                    <Route path="/suppliers" element={<Suppliers />} />
-                    <Route path="/orders" element={<Orders />} />
-                    {/* {user ? <Home /> : <Navigater path="/" command="notExists" />} */}
+                    <Route path="/home" element={user && user ? <Home /> : <Navigater path="/" command="notExists" />} />
+                    <Route path="/products" element={user && user ? <Product /> : <Navigater path="/" command="authorise" />}/>
+                    <Route path="/sales" element={user &&  user.isAdmin ? <Sales  /> : <Navigater path="/" command="authorise" />}/>
+                    <Route path="/purchase" element={user &&  user.isAdmin ? <Purchase  /> : <Navigater path="/" command="authorise" />}/>
+                    <Route path="/categories" element={user &&  user ? <Categories /> : <Navigater path="/" command="authorise" />}/>
+                    <Route path="/stocks" element={user &&  user ? <Stocks /> : <Navigater path="/" command="authorise" />}/>
+                    <Route path="/employees" element={user &&  user.isAdmin ? <Employees /> : <Navigater path="/" command="authorise" />}/>
+                    <Route path="/suppliers" element={user &&  user ? <Suppliers /> : <Navigater path="/" command="authorise" />}/>
+                    <Route path="/orders" element={user &&  user ? <Orders /> : <Navigater path="/" command="authorise" />}/>
                 </Routes>   
             </div>    
     )

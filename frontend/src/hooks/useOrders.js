@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import fetchHeaders from '../utils/fetchHeaders'
+import useFetchHeaders from '../utils/fetchHeaders'
 
 
 const useGetOrders = () => {
     const [orders, setOrders] =  useState([])
     const [errors, setErrors] =  useState([])
-    const { getHeaders } = fetchHeaders()
+    const { getHeaders } = useFetchHeaders()
    
     useEffect(() => {
         const fetchOrders = async () => {
@@ -34,4 +34,4 @@ const useGetOrders = () => {
     }
 }
 
-export default useGetOrders
+export { useGetOrders }
