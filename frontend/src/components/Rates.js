@@ -14,19 +14,19 @@ const GoldApi = () => {
     }
 
 
-    useEffect(() => {
-        setLoading(true)
-        Promise.all([
-            fetch("https://www.goldapi.io/api/XAU/INR", config),
-            fetch("https://www.goldapi.io/api/XAG/INR", config)
-        ])
-        .then(([goldRes, silverRes]) => Promise.all([goldRes.json(), silverRes.json()]))
-        .then(([goldData, silverData]) => {
-            setGoldRate(goldData)
-            setSilverRate(silverData)
-            setLoading(false)
-        })  
-    }, [])
+    // useEffect(() => {
+    //     setLoading(true)
+    //     Promise.all([
+    //         fetch("https://www.goldapi.io/api/XAU/INR", config),
+    //         fetch("https://www.goldapi.io/api/XAG/INR", config)
+    //     ])
+    //     .then(([goldRes, silverRes]) => Promise.all([goldRes.json(), silverRes.json()]))
+    //     .then(([goldData, silverData]) => {
+    //         setGoldRate(goldData)
+    //         setSilverRate(silverData)
+    //         setLoading(false)
+    //     })  
+    // }, [])
 
     // console.log(goldRate)
     // console.log(silverRate)
@@ -40,10 +40,14 @@ const GoldApi = () => {
                         <div className="gold-rate ">
                             <h2 className="title text-uppercase fw-bold">gold</h2>
                             <div className="rates">
-                                <div className="badge m-1 p-2 bg-warning"><span className="fw-bold">24k</span> {goldRate.price_gram_24k}</div>
-                                <div className="badge m-1 p-2 bg-warning"><span className="fw-bold">22k</span> {goldRate.price_gram_22k}</div>
-                                <div className="badge m-1 p-2 bg-warning"><span className="fw-bold">20k</span> {goldRate.price_gram_20k}</div>
-                                <div className="badge m-1 p-2 bg-warning"><span className="fw-bold">18k</span> {goldRate.price_gram_18k}</div>
+                                <div className="badge m-1 p-2 bg-warning"><span className="fw-bold">24k</span> </div>
+                                {/* {goldRate.price_gram_24k} */}
+                                <div className="badge m-1 p-2 bg-warning"><span className="fw-bold">22k</span> </div>
+                                {/* {goldRate.price_gram_22k} */}
+                                <div className="badge m-1 p-2 bg-warning"><span className="fw-bold">20k</span> </div>
+                                {/* {goldRate.price_gram_20k} */}
+                                <div className="badge m-1 p-2 bg-warning"><span className="fw-bold">18k</span> </div>
+                                {/* {goldRate.price_gram_18k} */}
                             </div>
                         </div>
                     }
@@ -57,10 +61,14 @@ const GoldApi = () => {
                         <div className="silver-rate ">
                             <h2 className="title text-uppercase fw-bold">silver</h2>
                             <div className="rates">
-                                <div className="badge m-1 p-2 bg-warning"><span className="fw-bold">24k</span> {silverRate.price_gram_24k}</div>
-                                <div className="badge m-1 p-2 bg-warning"><span className="fw-bold">22k</span> {silverRate.price_gram_22k}</div>
-                                <div className="badge m-1 p-2 bg-warning"><span className="fw-bold">20k</span> {silverRate.price_gram_20k}</div>
-                                <div className="badge m-1 p-2 bg-warning"><span className="fw-bold">18k</span> {silverRate.price_gram_18k}</div>
+                                <div className="badge m-1 p-2 bg-warning"><span className="fw-bold">24k</span> </div>
+                                {/* {silverRate.price_gram_24k} */}
+                                <div className="badge m-1 p-2 bg-warning"><span className="fw-bold">22k</span> </div>
+                                {/* {silverRate.price_gram_22k} */}
+                                <div className="badge m-1 p-2 bg-warning"><span className="fw-bold">20k</span> </div>
+                                {/* {silverRate.price_gram_20k} */}
+                                <div className="badge m-1 p-2 bg-warning"><span className="fw-bold">18k</span> </div>
+                                {/* {silverRate.price_gram_18k} */}
                             </div>
                         </div>
                     }

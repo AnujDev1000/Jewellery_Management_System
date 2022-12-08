@@ -22,10 +22,12 @@ const PagesRoutes = () => {
     return (  
             <div className="container">     
                 <Routes>
-                    <Route path="/home" element={user && user ? <Home /> : <Navigater path="/" command="notExists" />} />
+                    <Route path="/home" element={ <Home />} />
+                    {/* <Route path="/home" element={user && user ? <Home /> : <Navigater path="/" command="notExists" />} /> */}
                     <Route path="/products" element={user && user ? <Product /> : <Navigater path="/" command="authorise" />}/>
                     <Route path="/sales" element={user &&  user.isAdmin ? <Sales  /> : <Navigater path="/" command="authorise" />}/>
-                    <Route path="/purchase" element={user &&  user.isAdmin ? <Purchase  /> : <Navigater path="/" command="authorise" />}/>
+                    <Route path="/puchase" element={ <Purchase  />} />
+                    {/* <Route path="/purchase" element={user &&  user.isAdmin ? <Purchase  /> : <Navigater path="/" command="authorise" />}/> */}
                     <Route path="/categories" element={user &&  user ? <Categories /> : <Navigater path="/" command="authorise" />}/>
                     <Route path="/stocks" element={user &&  user ? <Stocks /> : <Navigater path="/" command="authorise" />}/>
                     <Route path="/employees" element={user &&  user.isAdmin ? <Employees /> : <Navigater path="/" command="authorise" />}/>
