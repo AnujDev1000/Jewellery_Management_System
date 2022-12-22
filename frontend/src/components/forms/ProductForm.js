@@ -4,27 +4,23 @@ import { Context } from '../../context/Context'
 import useProductOperations from '../../hooks/useProductOperations'
 
 const ProductAddForm = () => {
-    const { dispatch } = useContext(Context)
+    const { products, categories, suppliers,  dispatch } = useContext(Context)
     const { addProduct } = useProductOperations()
-    const { state } = useContext(Context)
 
-    const categories = state.categories
-    const suppliers = state.suppliers
     const [errors, setErrors] = useState(null)
     const [loading, setLoading] = useState(true)
-    const [inputs, setInputs] = useState({ name: "", metal: "", carat: 0, stone: "", weight: 0, price: 0, category: null, supplier: null })
-    
+    const [inputs, setInputs] = useState({ name: "", metal: "", carat: 0, stone: "", weight: 0, price: 0, category: "Categories", supplier: "Suppliers" })
+
     useEffect(() => {
         // console.log(inputs);
-    }, [inputs, errors])
+    }, [inputs, errors, setInputs])
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
         setErrors("")
 
-        console.log(inputs)
-        const product = await addProduct(inputs.name, inputs.metal, inputs.carat, inputs.stone, inputs.weight, inputs.price, inputs.category, inputs.supplier)
+        const product = await addProduct(inputs)
         if(product.error){
             setErrors(product.error.error)
             console.log(errors)
@@ -33,14 +29,12 @@ const ProductAddForm = () => {
         else{
             console.log(product)
             toast.success("Product Added Successful")
-            dispatch({command: "ADD_PRODUCTS", payload: product})
-            setInputs({ name: "", metal: "", carat: 0, stone: "", weight: 0, price: 0, category: null, supplier: null })
+            dispatch("ADD_PRODUCTS", product)
+            setInputs({ name: "", metal: "", carat: 0, stone: "", weight: 0, price: 0, category: "Categories", supplier: "Suppliers" })
             setLoading(false)
-            
         }
     }
-
-
+    
     return <>
         <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
@@ -59,6 +53,7 @@ const ProductAddForm = () => {
                                         className="form-control"
                                         id="name"
                                         placeholder="Enter Product name"
+                                        value={inputs.name}
                                         onChange={e => setInputs({ ...inputs, name: e.target.value })}
                                     />
                                     <div className="valid-feedback">Looks good!</div>
@@ -72,6 +67,7 @@ const ProductAddForm = () => {
                                             className="form-control"
                                             id="metal"
                                             placeholder="Enter metal name"
+                                            value={inputs.metal}
                                             onChange={e => setInputs({ ...inputs, metal: e.target.value })}
                                         />
                                         <div className="valid-feedback">Looks good!</div>
@@ -84,6 +80,7 @@ const ProductAddForm = () => {
                                             className="form-control"
                                             id="carat"
                                             placeholder="Enter carat"
+                                            value={inputs.carat}
                                             onChange={e => setInputs({ ...inputs, carat: e.target.value })}
                                         />
                                         <div className="valid-feedback">Looks good!</div>
@@ -98,6 +95,7 @@ const ProductAddForm = () => {
                                         className="form-control"
                                         id="stone"
                                         placeholder="Enter stone"
+                                        value={inputs.stone}
                                         onChange={e => setInputs({ ...inputs, stone: e.target.value })}
                                     />
                                     <div className="valid-feedback">Looks good!</div>
@@ -111,6 +109,7 @@ const ProductAddForm = () => {
                                             className="form-control"
                                             id="weight"
                                             placeholder="Enter Weight"
+                                            value={inputs.weight}
                                             onChange={e => setInputs({ ...inputs, weight: e.target.value })}
                                         />
                                         <div className="valid-feedback">Looks good!</div>
@@ -123,6 +122,7 @@ const ProductAddForm = () => {
                                             className="form-control"
                                             id="price"
                                             placeholder="Enter Price"
+                                            value={inputs.price}
                                             onChange={e => setInputs({ ...inputs, price: e.target.value })}
 
                                         />

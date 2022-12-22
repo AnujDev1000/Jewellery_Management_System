@@ -7,12 +7,12 @@ import PurchaseProductTable from '../components/tables/PurchaseProductTable'
 import { Context } from '../context/Context'
 
 const Purchase = () => {
-    const { state } = useContext(Context)
+    const { products, categories } = useContext(Context)
     const [loading, setLoading] = useState(false)
-    const [filterProducts, setFilterProducts] = useState(state.products)
+    const [filterProducts, setFilterProducts] = useState(products)
 
     const handleSelectCategory = (arg) => {
-        setFilterProducts(state.products.filter(product => product.category.name === arg))
+        setFilterProducts(products.filter(product => product.category.name === arg))
     }
 
     return (
@@ -34,9 +34,9 @@ const Purchase = () => {
                                 <ul className="nav nav-tabs d-flex justify-content-between">
                                     <div className='d-flex justify-content-start'>
                                         <li className="nav-item">
-                                            <span className={`nav-link active=${true}`} onClick={e => { setFilterProducts(state.products) }}>All</span>
+                                            <span className={`nav-link active=${true}`} onClick={e => { setFilterProducts(products) }}>All</span>
                                         </li>
-                                        {state.categories && state.categories.map((category, i) =>
+                                        {categories && categories.map((category, i) =>
                                             <li key={i} className="nav-item">
                                                 <span className="nav-link" onClick={e => { handleSelectCategory(category.name) }}>{category.name}</span>
                                             </li>
@@ -44,11 +44,11 @@ const Purchase = () => {
                                     </div>
                                 </ul>
                                 <div className="mh-table2 product-table table-responsive bg-light p-2">
-                                    {!state.products.length ? 
+                                    {!products.length ? 
                                         <div className="spinner-border spinner-border-sm" role="status"></div>
                                         :
                                         <>
-                                            {!filterProducts.length ? <PurchaseProductTable products={state.products} />
+                                            {!filterProducts.length ? <PurchaseProductTable products={products} />
                                                 : <PurchaseProductTable products={filterProducts} />
                                             }
                                         </>

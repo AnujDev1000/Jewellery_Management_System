@@ -1,18 +1,18 @@
 import React, { useContext, useState } from 'react'
 import HeadingTabs from '../components/HeadingTabs'
 import Navbar from "../components/Navbar"
-import OrderTable from '../components/tables/OrderTable'
+import UsersTable from '../components/tables/UserTables'
 import { Context } from '../context/Context'
 
-const Orders = () => {
-    const { orders } = useContext(Context)
-    const [tabs, setTabs] = useState([{name: "suppliers", value: 0}, {name: "amount", value: 0}, {name: "gold", value: 0}, {name: "silver", value: 0}])
+const Users = () => {
+    const { products, users } = useContext(Context)
+    const [tabs, setTabs] = useState([{name: "users", value: 0}, {name: "active", value: 0}])
     const [loading, setLoading] = useState(false)
 
     return (
         <>
             <Navbar />
-            <div className="orders my-2">
+            <div className="users my-2">
                 <div className="display-tabs">
                     <div className="row p-1">
                         {tabs.map((tab,i) => {
@@ -24,8 +24,8 @@ const Orders = () => {
                 </div>
 
                 <div className="product-table table-responsive bg-light p-2">
-                    {!orders.length ? <div className="spinner-border spinner-border-sm" role="status"></div>
-                        : <OrderTable orders={orders} />
+                    {!users.length ? <div className="spinner-border spinner-border-sm" role="status"></div>
+                        : <UsersTable users={users} />
                     }
                 </div>
             </div>
@@ -33,4 +33,4 @@ const Orders = () => {
     )
 }
 
-export default Orders
+export default Users

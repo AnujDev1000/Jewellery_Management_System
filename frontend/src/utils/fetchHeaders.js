@@ -6,7 +6,7 @@ const useFetchHeaders = () => {
 
     const headers = {
         'Content-Type': 'application/json',
-        'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzRlOTRiMTI4YTI1MGRhMTQyZmQ5MSIsImlhdCI6MTY2ODY5MzcyMSwiZXhwIjoxNjcxMjg1NzIxfQ.u6YVAkWpLkx0Wp8QQ58nXiS07wKa30cQDVe_mgKKQuo'
+        'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzRlOTRiMTI4YTI1MGRhMTQyZmQ5MSIsImlhdCI6MTY3MTU5OTE3MSwiZXhwIjoxNjcxNjg1NTcxfQ._7rsyijtrmdhNn29Y856E_YmsjlTG789x00dg0PuVcQ'
     }
 
     function getHeaders() {
@@ -16,10 +16,10 @@ const useFetchHeaders = () => {
         }
     }
 
-    function postHeaders(name, metal, carat, stone, weight, price, category, supplier) {
+    function postHeaders(body) {
         return { 
             method: "POST",
-            body: JSON.stringify({name, metal, carat, stone, weight, price, category, supplier}),
+            body: JSON.stringify(body),
             headers: headers,
         }
     }
@@ -31,7 +31,15 @@ const useFetchHeaders = () => {
         }
     }
 
-    return {getHeaders, postHeaders, deleteHeaders}
+    function updateHeaders(body) {
+        return { 
+            method: "PATCH",
+            body: JSON.stringify(body),
+            headers: headers,
+        }
+    }
+
+    return {getHeaders, postHeaders, deleteHeaders, updateHeaders}
 }
 
 export default useFetchHeaders

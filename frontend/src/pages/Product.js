@@ -6,55 +6,55 @@ import ProductTable from '../components/tables/ProductTable'
 import { Context } from '../context/Context'
 
 const Product = () => {
-    const { state } = useContext(Context)
-    // const products = state.products
-    // const categories = state.categories
+    const { products, categories } = useContext(Context)
 
     const [tabs, setTabs] = useState([{name: "products", value: 0}, {name: "amount", value: 0}, {name: "gold", value: 0}, {name: "silver", value: 0}])
     const [loading, setLoading] = useState(false)
-    const [filterProducts, setFilterProducts] = useState(state.products)
+    const [filterProducts, setFilterProducts] = useState(products)
+
+    const setdata = () => {
+        let total = 0
+        let totalGold = 0
+        let totalSilver = 0
+        products.map(product => {
+            total += product.price
+            if(product.metal === "gold"){
+                totalGold++
+            }
+            else{
+                totalSilver++
+            }
+        })
+
+        const newTabs = tabs.map(tab => {
+            if(tab.name === "products"){
+                tab.value = products.length
+                return tab
+            }
+            else if(tab.name === "amount"){
+                tab.value = total
+                return tab
+            }
+            else if(tab.name === "gold"){
+                tab.value = totalGold
+                return tab
+            }
+            else{
+                tab.value = totalSilver
+                return tab
+            }
+        })
+        setTabs(newTabs)
+    }
 
     useEffect(() => {
-        const setdata = () => {
-            let total = 0
-            let totalGold = 0
-            let totalSilver = 0
-            state.products.map(product => {
-                total += product.price
-                if(product.metal === "gold"){
-                    totalGold++
-                }
-                else{
-                    totalSilver++
-                }
-            })
-    
-            const newTabs = tabs.map(tab => {
-                if(tab.name === "products"){
-                    tab.value = state.products.length
-                    return tab
-                }
-                else if(tab.name === "amount"){
-                    tab.value = total
-                    return tab
-                }
-                else if(tab.name === "gold"){
-                    tab.value = totalGold
-                    return tab
-                }
-                else{
-                    tab.value = totalSilver
-                    return tab
-                }
-            })
-            setTabs(newTabs)
-        }
         setdata()
         
-    }, [state, filterProducts])
+    }, [filterProducts, products, categories])
+
 
     const handleSelectCategory = (arg) => {
-        setFilterProducts(state.products.filter(product => product.category.name === arg))
+        setFilterProducts(products.filter(product => product.category.name === arg))
     }
 
     return (
@@ -75,9 +75,9 @@ const Product = () => {
                     <ul className="nav nav-tabs d-flex justify-content-between">
                         <div className='d-flex justify-content-start'>
                             <li className="nav-item">
-                                <span className={`nav-link active=${true}`} onClick={e => { setFilterProducts(state.products) }}>All</span>
+                                <span className={`nav-link active=${true}`} onClick={e => { setFilterProducts(products) }}>All</span>
                             </li>
-                            {state.categories && state.categories.map((category, i) =>
+                            {categories && categories.map((category, i) =>
                                 <li key={i} className="nav-item">
                                     <span className="nav-link" onClick={e => { handleSelectCategory(category.name) }}>{category.name}</span>
                                 </li>
@@ -91,11 +91,10 @@ const Product = () => {
                     <ProductForm />
                     
                     <div className="mh-table product-table table-responsive bg-light p-2">
-                        {!state.products.length ? 
+                        {!products.length ? 
                             <div className="spinner-border spinner-border-sm" role="status"></div>
-                            :
-                            <>
-                                {!filterProducts.length ? <ProductTable products={state.products} />
+                            : <>
+                                {!filterProducts.length ? <ProductTable products={products} />
                                     : <ProductTable products={filterProducts} />
                                 }
                             </>

@@ -1,12 +1,54 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import { Context } from '../../context/Context'
+import useProductOperations from '../../hooks/useProductOperations'
 
 const ProductEditForm = ({ updateProduct, setUpdateProduct }) =>  {
-    const { state } = useContext(Context)
-    const categories = state.categories
-    const suppliers = state.suppliers
+    const { dispatch } = useContext(Context)
+    const [initialProduct, setInitialProduct] = useState(updateProduct) 
+    const { updateProducts } = useProductOperations()
+    const { categories, suppliers } = useContext(Context)
+    const [errors, setErrors] = useState(null)
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        setInitialProduct(updateProduct)
+    }, [updateProduct])
+
+    const compareData = () => {
+        let data = {}
+        for (const property in updateProduct){
+            if(updateProduct[property] !== initialProduct[property]){
+                data[property] = initialProduct[property]
+            }
+        }
+        return data
+    }
+
+    const handleUpdate = async (e) => {
+        e.preventDefault()
+        setLoading(true)
+        setErrors("")
+        
+        // console.log(compareData())
+        const product = await updateProducts(updateProduct._id, compareData())
+        if(product.error){
+            setErrors(product.error.error)
+            console.log(errors)
+            setLoading(false)
+        }
+        else{
+            console.log(product)
+            toast.success("Product Added Successful")
+            dispatch("UPDATE_PRODUCTS", product)
+            setUpdateProduct(null)
+            console.log(initialProduct)
+            setLoading(false)
+        }
+    }
 
     return <>
+    {initialProduct && initialProduct ? 
         <div className="modal fade" id="editexampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content">
@@ -25,8 +67,8 @@ const ProductEditForm = ({ updateProduct, setUpdateProduct }) =>  {
                                         className="form-control"
                                         id="name"
                                         placeholder="Enter Product name"
-                                        value={updateProduct.name}
-                                        onChange={e => setUpdateProduct({ ...updateProduct, name: e.target.value })}
+                                        value={initialProduct.name}
+                                        onChange={e => setInitialProduct({ ...initialProduct, name: e.target.value })}
                                     />
                                     <div className="valid-feedback">Looks good!</div>
                                     <div className="invalid-feedback">Please choose a username.</div>
@@ -39,8 +81,8 @@ const ProductEditForm = ({ updateProduct, setUpdateProduct }) =>  {
                                             className="form-control"
                                             id="metal"
                                             placeholder="Enter metal name"
-                                            value={updateProduct.metal}
-                                            onChange={e => setUpdateProduct({ ...updateProduct, metal: e.target.value })}
+                                            value={initialProduct.metal}
+                                            onChange={e => setInitialProduct({ ...initialProduct, metal: e.target.value })}
                                         />
                                         <div className="valid-feedback">Looks good!</div>
                                         <div className="invalid-feedback">Please choose a username.</div>
@@ -52,8 +94,8 @@ const ProductEditForm = ({ updateProduct, setUpdateProduct }) =>  {
                                             className="form-control"
                                             id="carat"
                                             placeholder="Enter carat"
-                                            value={updateProduct.carat}
-                                            onChange={e => setUpdateProduct({ ...updateProduct, carat: e.target.value })}
+                                            value={initialProduct.carat}
+                                            onChange={e => setInitialProduct({ ...initialProduct, carat: e.target.value })}
                                         />
                                         <div className="valid-feedback">Looks good!</div>
                                         <div className="invalid-feedback">Please choose a username.</div>
@@ -67,8 +109,8 @@ const ProductEditForm = ({ updateProduct, setUpdateProduct }) =>  {
                                         className="form-control"
                                         id="stone"
                                         placeholder="Enter stone"
-                                        value={updateProduct.stone}
-                                        onChange={e => setUpdateProduct({ ...updateProduct, stone: e.target.value })}
+                                        value={initialProduct.stone}
+                                        onChange={e => setInitialProduct({ ...initialProduct, stone: e.target.value })}
                                     />
                                     <div className="valid-feedback">Looks good!</div>
                                     <div className="invalid-feedback">Please choose a username.</div>
@@ -81,8 +123,8 @@ const ProductEditForm = ({ updateProduct, setUpdateProduct }) =>  {
                                             className="form-control"
                                             id="weight"
                                             placeholder="Enter Weight"
-                                            value={updateProduct.weight}
-                                            onChange={e => setUpdateProduct({ ...updateProduct, weight: e.target.value })}
+                                            value={initialProduct.weight}
+                                            onChange={e => setInitialProduct({ ...initialProduct, weight: e.target.value })}
                                         />
                                         <div className="valid-feedback">Looks good!</div>
                                         <div className="invalid-feedback">Please choose a username.</div>
@@ -94,31 +136,31 @@ const ProductEditForm = ({ updateProduct, setUpdateProduct }) =>  {
                                             className="form-control"
                                             id="price"
                                             placeholder="Enter Price"
-                                            value={updateProduct.price}
-                                            onChange={e => setUpdateProduct({ ...updateProduct, weight: e.target.value })}
+                                            value={initialProduct.price}
+                                            onChange={e => setInitialProduct({ ...initialProduct, price: e.target.value })}
                                         />
                                         <div className="valid-feedback">Looks good!</div>
                                         <div className="invalid-feedback">Please choose a username.</div>
                                     </div>
                                 </div>
+                                
                                 <select
-                                    onChange={e => setUpdateProduct({ ...updateProduct, category: e.target.value })}
+                                    onChange={e => setInitialProduct({ ...initialProduct, category: e.target.value })}
                                     className="form-select my-3 cursor-pointer">
-                                    <option selected>Category select menu</option>
+                                    <option  selected>Categories</option>
                                     {
-                                        categories.map(category => <option value={{name: category.name, _id: category._id}}>{category.name}</option>)
+                                        categories.map(category => <option value={category._id}>{category.name}</option>)
                                     }
                                 </select>
                                 <select
-                                    onChange={e => setUpdateProduct({ ...updateProduct, supplier: e.target.value })}
+                                    onChange={e => setInitialProduct({ ...initialProduct, supplier: e.target.value })}
                                     className="form-select my-3 cursor-pointer">
-                                    <option selected>Supplier select menu</option>
+                                    <option  selected>Suppliers</option>
                                     {
-                                        suppliers.map(supplier => <option value={{name: supplier.name, _id: supplier._id}}>{supplier.name}</option>)
+                                        suppliers.map(supplier => <option value={supplier._id}>{supplier.name}</option>)
                                     }
                                 </select>
-
-                                <button type="button" className="btn form-control btn-primary my-2" data-bs-dismiss="modal">Save changes</button>
+                                <button type="button" className="btn form-control btn-primary my-2" data-bs-dismiss="modal" onClick={handleUpdate}>Save changes</button>
                             </div>
                         </div>
                     </div>
@@ -126,6 +168,7 @@ const ProductEditForm = ({ updateProduct, setUpdateProduct }) =>  {
                 </div>
             </div>
         </div>
+     : <></>}
     </>
 }
 

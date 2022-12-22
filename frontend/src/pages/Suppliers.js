@@ -5,9 +5,7 @@ import SupplierTable from '../components/tables/SupplierTable'
 import { Context } from '../context/Context'
 
 const Suppliers = () => {
-    const { state } = useContext(Context)
-    const products = state.products
-    const suppliers = state.suppliers
+    const { suppliers } = useContext(Context)
     const [tabs, setTabs] = useState([{name: "suppliers", value: 0}, {name: "amount", value: 0}, {name: "gold", value: 0}, {name: "silver", value: 0}])
     const [loading, setLoading] = useState(false)
 

@@ -1,11 +1,12 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { Context } from '../../context/Context'
 import useProductOperations from '../../hooks/useProductOperations'
 
 const ProductDeleteForm = ({deleteId, setDeleteId}) => {
-    const { dispatch } = useContext(Context)
+    const { dispatch, products } = useContext(Context)
     const { deleteProduct } = useProductOperations()
+
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
@@ -18,7 +19,7 @@ const ProductDeleteForm = ({deleteId, setDeleteId}) => {
         else{
             console.log(product)
             toast.success("Product Deleted Successful")
-            dispatch({command: "DELETE_PRODUCTS", payload: product})
+            dispatch("DELETE_PRODUCTS", product)
             setDeleteId("")
         }
     }

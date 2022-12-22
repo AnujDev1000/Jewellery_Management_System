@@ -35,6 +35,10 @@ body
 {
     background-color: #2feb67;
 }
+.shadow-green
+{
+    box-shadow: .1rem .1rem .5rem #31ec69 ;
+}
 .bg-purple
 {
     background-color: #c955ff;
@@ -46,6 +50,10 @@ body
 .bg-light-cyan
 {
     background-color: #ff89ca;
+}
+.bg-grey
+{
+    background-color: #ebebeb;
 }
 .wh-100
 {

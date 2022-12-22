@@ -1,6 +1,6 @@
 const errorHandler = require("../middleware/errorHandler")
 const User = require("../models/userModel")
-
+ 
 const loginUser = async (req, res) => {
     const {email, password} = req.body
     try {
@@ -33,4 +33,15 @@ const registerUser = async (req, res) => {
     }
 }
 
-module.exports = {loginUser, registerUser, verifyUser}
+const getUsers = async (req, res) => {
+    try {
+        const user = await User.find()
+        if(user){
+            res.status(200).json(user)
+        }
+    } catch (error) {
+        res.status(404).json(error.message)
+    }
+}
+
+module.exports = {loginUser, registerUser, verifyUser, getUsers}

@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Rates from '../components/Rates'
 import Navbar from '../components/Navbar'
-import { homeMenu } from '../utils/headingData'
+import { homeMenuAdmin } from '../utils/headingData'
 import randomColor from '../utils/randomColor'
 import { AuthContext } from '../context/AuthContext'
 import { Context } from '../context/Context'
@@ -11,7 +11,7 @@ import { Context } from '../context/Context'
 const Home = () => {
     const { user } = useContext(AuthContext)
 
-    const menus = homeMenu()
+    const menus = homeMenuAdmin()
     let index = 0
     let classValue = ""
     return (

@@ -112,10 +112,20 @@ const deleteProduct = async (req, res) => {
 }
 
 const setProduct = async (req, res) => {
-    const id = req.params
+    const { id } = req.params
+    const newProduct = req.body
+    if(newProduct.hasOwnProperty("category")){
+        const fCategory = await Categories.findOne({_id: newProduct.category})
+        newProduct.category = {_id: fCategory._id, name: fCategory.name}
+    }
+    if(newProduct.hasOwnProperty("supplier")){
+        const fSupplier = await Suppliers.findOne({_id: newProduct.supplier})
+        newProduct.supplier = { _id: fSupplier._id, name: fSupplier.name}
+    }
+    
 
     try {
-        const product = await Products.findOneAndUpdate({id}, { ...req.body }, { new: true })
+        const product = await Products.findOneAndUpdate({_id: id}, { ...newProduct }, { new: true })
         if(product){
             res.status(200).json(product)
         }

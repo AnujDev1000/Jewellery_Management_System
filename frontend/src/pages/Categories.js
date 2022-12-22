@@ -5,9 +5,7 @@ import CategoryTable from '../components/tables/CategoryTable'
 import { Context } from '../context/Context'
 
 const Categories = () => {
-    const { state } = useContext(Context)
-    const products = state.products
-    const categories = state.categories
+    const { products, categories } = useContext(Context)
     const [tabs, setTabs] = useState([{name: "categories", value: 0}, {name: "amount", value: 0}, {name: "gold", value: 0}, {name: "silver", value: 0}])
     const [loading, setLoading] = useState(false)
 

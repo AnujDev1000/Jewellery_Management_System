@@ -44,10 +44,7 @@ const ProductTable = ({ products }) => {
                             <td className="text-truncate">
                                 <button className="btn btn-link btn-sm p-0 me-2" data-bs-toggle="modal" data-bs-target="#editexampleModal"
                                     onClick={e => setUpdateProduct(product)}>
-                                    <FaEdit className="fs-5"
-                                    />
-
-
+                                    <FaEdit className="fs-5"/>
                                 </button>
                                 <button className="btn btn-link btn-sm p-0" data-bs-toggle="modal" data-bs-target="#deleteModal"
                                 onClick={e => setDeleteId(product._id)}>
