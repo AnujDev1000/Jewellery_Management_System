@@ -5,11 +5,13 @@ import { useGetOrders } from '../hooks/useOrders'
 import { useGetSuppliers } from "../hooks/useSuppliers"
 import { useGetProducts } from "../hooks/useProducts"
 import { useGetUsers } from '../hooks/useUsers'
+import useProductOperations from '../hooks/useProductOperations'
+import useRates from '../hooks/useRates'
 
 export const Context = createContext()
 
-
 export const ContextProvider = ({ children }) => {
+    const { getProduct } = useProductOperations()
     
     const [state, setState] = useState({
         products: [],
@@ -19,10 +21,11 @@ export const ContextProvider = ({ children }) => {
         orders:[],
         employees: [],
         users: [],
-        errors: []
+        errors: [],
+        rates: {}
     })
 
-    const dataFunctions = { products: useGetProducts(), categories: useGetCategories() , suppliers: useGetSuppliers(), orders: useGetOrders(), employees :useGetEmployees(), users :useGetUsers() }
+    const dataFunctions = { products: useGetProducts(), categories: useGetCategories() , suppliers: useGetSuppliers(), orders: useGetOrders(), employees :useGetEmployees(), users :useGetUsers(), rates: useRates() }
 
     for (const property in state) {
         if(dataFunctions.hasOwnProperty(property)){
@@ -34,8 +37,11 @@ export const ContextProvider = ({ children }) => {
             }
         }   
     }
+
+    
     
     const dispatch = (type, payload) => {
+        const index = state.products.findIndex(product => product._id === payload._id)
         switch (type) {
             case "ADD_PRODUCTS":{
                 setState({...state, products: state.products.push(payload)})
@@ -44,21 +50,12 @@ export const ContextProvider = ({ children }) => {
             case "DELETE_PRODUCTS":{
                 setState({
                         ...state,
-                        products: state.products.filter(product => product._id !== payload._id)
+                        products: state.products.splice(index, 1)
                 })
                 break;
             }
             case "UPDATE_PRODUCTS":{
-                const newState = {
-                    ...state,
-                    products: state.products.map(product => {
-                        if(product._id === payload._id){
-                            return payload
-                        }
-                        return product
-                    })
-                }
-                setState(newState)
+                state.products[index] = payload
                 break;
             }
 

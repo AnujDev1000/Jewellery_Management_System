@@ -1,10 +1,17 @@
 import React, { useState } from 'react'
 import { FaPlus } from "react-icons/fa"
 
-const PurchaseProductTable = ({ products }) => {
+const PurchaseProductTable = ({ products, cart, setCart }) => {
     const keys = Object.keys(products[0]).filter(key => key != "_id" && key != "__v" && key != "stock" && key != "discription" && key != "supplier" && key != "createdAt" && key != "updatedAt")
 
 
+    console.log(cart)
+    const handleClick = (product) => {
+        let newCart = cart
+        newCart.push(product)
+        setCart(newCart)
+    }
+ 
     return (
         <table className="table table-sm table-borderless m-0">
             <thead>
@@ -35,9 +42,7 @@ const PurchaseProductTable = ({ products }) => {
                             </td>
                             <td className="text-truncate">{product.category.name}</td>
                             <td className="text-truncate">
-                                <button className="btn btn-danger btn-sm mb-1" 
-                                    // onClick={e => setUpdateProduct(product)}
-                                    >
+                                <button className="btn btn-danger btn-sm mb-1" onClick={(e) => handleClick(product)}>
                                     Add to cart
                                 </button>
                             </td>

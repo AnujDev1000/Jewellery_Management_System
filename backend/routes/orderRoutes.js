@@ -11,7 +11,7 @@ router.use(requireAuth)
 router.post("/add", addOrder)
 router.delete("/delete/:id", deleteOrder)
 router.get("/get", getOrder)
-router.get("/oreder/:id", getSingleOrder)
+router.get("/order/:id", getSingleOrder)
 router.patch("/set/:id", setOrder)
 
 

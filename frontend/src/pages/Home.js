@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Rates from '../components/Rates'
 import Navbar from '../components/Navbar'
@@ -10,7 +10,7 @@ import { Context } from '../context/Context'
 
 const Home = () => {
     const { user } = useContext(AuthContext)
-
+ 
     const menus = homeMenuAdmin()
     let index = 0
     let classValue = ""

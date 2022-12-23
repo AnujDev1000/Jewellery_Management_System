@@ -39,7 +39,7 @@ const ProductEditForm = ({ updateProduct, setUpdateProduct }) =>  {
         }
         else{
             console.log(product)
-            toast.success("Product Added Successful")
+            toast.success("Product Updated Successful")
             dispatch("UPDATE_PRODUCTS", product)
             setUpdateProduct(null)
             console.log(initialProduct)

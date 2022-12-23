@@ -20,6 +20,7 @@ const ProductAddForm = () => {
         setLoading(true)
         setErrors("")
 
+        console.log(inputs);
         const product = await addProduct(inputs)
         if(product.error){
             setErrors(product.error.error)
@@ -30,7 +31,7 @@ const ProductAddForm = () => {
             console.log(product)
             toast.success("Product Added Successful")
             dispatch("ADD_PRODUCTS", product)
-            setInputs({ name: "", metal: "", carat: 0, stone: "", weight: 0, price: 0, category: "Categories", supplier: "Suppliers" })
+            setInputs({ name: "", metal: "", carat: 0, stone: "", weight: 0, price: 0, category: "", supplier: "" })
             setLoading(false)
         }
     }

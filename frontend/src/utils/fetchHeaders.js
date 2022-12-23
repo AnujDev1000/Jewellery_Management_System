@@ -6,7 +6,15 @@ const useFetchHeaders = () => {
 
     const headers = {
         'Content-Type': 'application/json',
-        'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzRlOTRiMTI4YTI1MGRhMTQyZmQ5MSIsImlhdCI6MTY3MTU5OTE3MSwiZXhwIjoxNjcxNjg1NTcxfQ._7rsyijtrmdhNn29Y856E_YmsjlTG789x00dg0PuVcQ'
+        'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzRlOTRiMTI4YTI1MGRhMTQyZmQ5MSIsImlhdCI6MTY3MTc3MTg2MCwiZXhwIjoxNjcxODU4MjYwfQ.emQhHnjij2Rp4e_-nz9AkQsn6WTsw5j0UkopQexkLpw'
+    }
+
+    const config = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': `goldapi-diisrtlazavven-io`
+        }
     }
 
     function getHeaders() {
@@ -39,7 +47,7 @@ const useFetchHeaders = () => {
         }
     }
 
-    return {getHeaders, postHeaders, deleteHeaders, updateHeaders}
+    return {getHeaders, postHeaders, deleteHeaders, updateHeaders, config}
 }
 
 export default useFetchHeaders
