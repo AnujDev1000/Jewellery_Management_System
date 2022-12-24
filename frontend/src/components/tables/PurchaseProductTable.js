@@ -5,11 +5,22 @@ const PurchaseProductTable = ({ products, cart, setCart }) => {
     const keys = Object.keys(products[0]).filter(key => key != "_id" && key != "__v" && key != "stock" && key != "discription" && key != "supplier" && key != "createdAt" && key != "updatedAt")
 
 
-    console.log(cart)
-    const handleClick = (product) => {
-        let newCart = cart
-        newCart.push(product)
-        setCart(newCart)
+    const handleCart = (product) => {
+        if(cart.length){
+            const i = cart.findIndex(c => c._id === product._id)
+            if(i !== -1){
+                cart[i].count = cart[i].count + 1
+                setCart([...cart])
+            }
+            else{
+                product.count = 1
+                setCart([...cart, product])
+            }
+        }
+        else{
+            product.count = 1
+            setCart([...cart, product])
+        }
     }
  
     return (
@@ -42,7 +53,7 @@ const PurchaseProductTable = ({ products, cart, setCart }) => {
                             </td>
                             <td className="text-truncate">{product.category.name}</td>
                             <td className="text-truncate">
-                                <button className="btn btn-danger btn-sm mb-1" onClick={(e) => handleClick(product)}>
+                                <button className="btn btn-danger btn-sm mb-1" onClick={(e) => handleCart(product)}>
                                     Add to cart
                                 </button>
                             </td>

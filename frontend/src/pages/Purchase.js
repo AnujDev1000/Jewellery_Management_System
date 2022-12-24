@@ -11,10 +11,31 @@ const Purchase = () => {
     const [loading, setLoading] = useState(false)
     const [cart, setCart] = useState([])
     const [customer, setCustomer] = useState({name: "", phone: ""})
+    const [total, setTotal] = useState(0)
+    const [tax, setTax] = useState(0)
     const [filterProducts, setFilterProducts] = useState(products)
 
+    const setData = () => {
+        let taxData = 0
+        let totalData = 0
+        const silverTax = 50 + (3*50)/100
+        const goldTax = 5000 + (3*5000)/100
+        cart.map(c => {
+            if(c.metal === "gold"){
+                taxData = taxData + goldTax*c.weight*c.count
+                totalData = totalData + (c.price+goldTax*c.weight)*c.count
+            }
+            else{
+                taxData = taxData + silverTax*c.weight*c.count
+                totalData = totalData + (c.price+silverTax*c.weight)*c.count
+            }
+        })
+        setTax(taxData)
+        setTotal(totalData)
+    }
+
     useEffect(() => {
-        console.log(cart);
+        setData()
     }, [customer, cart])
 
     const handleSelectCategory = (arg) => {
@@ -26,7 +47,7 @@ const Purchase = () => {
             <Navbar />
             <div className="row mt-1">
                 <div className="col-md-8">
-                    <div className="row">
+                    <div className="row my-2 my-md-0">
                         <div className="col-">
                             <Rates />
                         </div>
@@ -66,7 +87,7 @@ const Purchase = () => {
                 </div>
                 <div className="col-md-4">
                     <div className="cart-section bg-white shadow-sm rounded p-2 h-specific">
-                        <PurchaseCart cart={cart} setCart={setCart} />
+                        <PurchaseCart cart={cart} setCart={setCart} total={total} tax={tax} />
                     </div>
                 </div>
             </div>
