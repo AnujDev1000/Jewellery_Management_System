@@ -6,30 +6,19 @@ const Suppliers = require("../models/suppliersModel")
 const Stocks = require("../models/stockModel")
 
 const addOrder = async (req, res) => {
-    const { productCount, productAmount, totalAmount, product, supplier, stock } = req.body
+    const { supplier, quantity, amount, products } = req.body 
 
-    const order = new Orders({ productCount, productAmount, totalAmount, product, supplier, stock })
+    const order = new Orders({ supplier, quantity, amount, products })
 
     try {
-        const session = await mongoose.startSession()
-        await session.startTransaction()
-
         // Orders
-        await order.save({session: session})
-
+        await order.save()
         // Suppliers
         const fSupplier = await Suppliers.findOne({_id: supplier._id})
         fSupplier.orders.push({_id:order._id})
-        fSupplier.orderCount = fSupplier.orderCount + 1
-        await fSupplier.save({session: session})
+        fSupplier.orderPending += 1
+        await fSupplier.save()
 
-        // Stock
-        const fStock = await Stocks.findOne({_id: stock._id})
-        fStock.order = { _id: order._id }
-        await fStock.save({session: session})
-
-        await session.commitTransaction()
-        session.endSession()
         res.status(200).json(order)
     } catch (error) {
         res.status(404).json(error.message)

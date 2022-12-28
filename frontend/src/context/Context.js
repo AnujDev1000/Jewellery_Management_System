@@ -1,17 +1,15 @@
-import React, { createContext, useEffect, useReducer, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import { useGetCategories } from '../hooks/useCategories'
 import { useGetEmployees } from '../hooks/useEmployees'
 import { useGetOrders } from '../hooks/useOrders'
 import { useGetSuppliers } from "../hooks/useSuppliers"
 import { useGetProducts } from "../hooks/useProducts"
 import { useGetUsers } from '../hooks/useUsers'
-import useProductOperations from '../hooks/useProductOperations'
 import useRates from '../hooks/useRates'
 
 export const Context = createContext()
 
 export const ContextProvider = ({ children }) => {
-    const { getProduct } = useProductOperations()
     
     const [state, setState] = useState({
         products: [],
@@ -22,7 +20,8 @@ export const ContextProvider = ({ children }) => {
         employees: [],
         users: [],
         errors: [],
-        rates: {}
+        purchases: [],
+        rates: {},
     })
 
     const dataFunctions = { products: useGetProducts(), categories: useGetCategories() , suppliers: useGetSuppliers(), orders: useGetOrders(), employees :useGetEmployees(), users :useGetUsers(), rates: useRates() }
@@ -58,7 +57,18 @@ export const ContextProvider = ({ children }) => {
                 state.products[index] = payload
                 break;
             }
-
+            case "UPDATE_PRODUCTS":{
+                state.products[index] = payload
+                break;
+            }
+            case "ADD_ORDER":{
+                setState({...state, orders: state.orders.push(payload)})
+                break;
+            }
+            case "ADD_PURCHASE":{
+                setState({...state, purchases: state.purchases.push(payload)})
+                break;
+            }
             case "ERRORS":{
                 setState({...state, errors: state.errors.push(payload)})
                 break;

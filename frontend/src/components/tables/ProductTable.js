@@ -6,7 +6,7 @@ import ProductEditForm from '../forms/ProductEditForm'
 const ProductTable = ({ products }) => {
     const [updateProduct, setUpdateProduct] = useState([])
     const [deleteId, setDeleteId] = useState("")
-    const keys = Object.keys(products[0]).filter(key => key != "_id" && key != "__v" && key != "stock" && key != "discription")
+    const keys = Object.keys(products[0]).filter(key => key != "_id" && key != "__v" && key != "discription" && key != "totalPrice" && key != "count")
 
 
     return (
@@ -39,6 +39,11 @@ const ProductTable = ({ products }) => {
                             </td>
                             <td className="text-truncate">{product.category.name}</td>
                             <td className="text-truncate">{product.supplier.name}</td>
+                            <td className="text-truncate">
+                                <span className="badge bg-dark text-white">
+                                    {product.stock.availableStock}
+                                </span>
+                            </td>
                             <td className="text-truncate">{product.createdAt.split("T")[0]}</td>
                             <td className="text-truncate">{product.updatedAt.split("T")[0]}</td>
                             <td className="text-truncate">

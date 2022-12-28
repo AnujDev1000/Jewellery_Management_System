@@ -1,28 +1,44 @@
 import React from 'react'
+import useCaratPrice from '../../utils/caratPrice'
 
-const PurchaseProductTable = ({ products, cart, setCart }) => {
+const OrderProductTable = ({ products, cart, setCart }) => {
+    const { goldCarat, sliverCarat } = useCaratPrice()
 
-    const keys = Object.keys(products[0]).filter(key => key != "_id" && key != "__v" && key != "stock" && key != "discription" && key != "supplier" && key != "createdAt" && key != "updatedAt" && key != "totalPrice")
+    const keys = Object.keys(products[0]).filter(key => key != "_id" && key != "__v" && key != "carat" && key != "stone" && key != "weight" && key != "category" && key != "discription" && key != "supplier" && key != "createdAt" && key != "updatedAt" && key != "totalPrice" && key != "count")
 
     const handleCart = (product) => {
         if(cart.length){
             const i = cart.findIndex(c => c._id === product._id)
             if(i !== -1){
-                cart[i].count = cart[i].count + 1
+                cart[i].count = parseInt(cart[i].count) + 1
                 setCart([...cart])
             }
             else{
                 product.count = 1
+                if(product.metal == "gold"){
+                    // product.totalPrice = goldCarat(product.carat)
+                    product.totalPrice = 5000
+                }
+                else{
+                    // product.totalPrice = sliverCarat(product.carat)
+                    product.totalPrice = 50
+                }
                 setCart([...cart, product])
             }
         }
         else{
             product.count = 1
+            if(product.metal == "gold"){
+                // product.totalPrice = goldCarat(product.carat)
+                product.totalPrice = 5000
+            }
+            else{
+                // product.totalPrice = sliverCarat(product.carat)
+                product.totalPrice = 50
+            }
             setCart([...cart, product])
         }
     }
- 
-    
 
     return (
         <table className="table table-sm table-borderless m-0">
@@ -46,13 +62,14 @@ const PurchaseProductTable = ({ products, cart, setCart }) => {
                                     :
                                     <span className="badge bg-secondary">{product.metal}</span>}
                             </td>
-                            <td className="text-truncate">{product.carat}</td>
-                            <td className="text-truncate">{product.stone}</td>
-                            <td className="text-truncate">{product.weight}</td>
                             <td className="text-truncate">
                                 <span className="badge bg-info">{product.price}</span>
                             </td>
-                            <td className="text-truncate">{product.category.name}</td>
+                            <td className="text-truncate">
+                                <span className="badge bg-dark text-white">
+                                    {product.stock.availableStock}
+                                </span>
+                            </td>
                             <td className="text-truncate">
                                 <button className="btn btn-danger btn-sm mb-1" onClick={(e) => handleCart(product)}>
                                     Add to cart
@@ -67,4 +84,4 @@ const PurchaseProductTable = ({ products, cart, setCart }) => {
     )
 }
 
-export default PurchaseProductTable
+export default OrderProductTable

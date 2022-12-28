@@ -74,19 +74,25 @@ const Product = () => {
 
                     <ul className="nav nav-tabs d-flex justify-content-between">
                         <div className='d-flex justify-content-start'>
-                            <li className="nav-item">
-                                <span className={`nav-link active=${true}`} onClick={e => { setFilterProducts(products) }}>All</span>
+                            <li className="nav-item cursor-pointer">
+                                <span className={`nav-link px-1 py-2 active=${true}`} onClick={e => { setFilterProducts(products) }}>All</span>
                             </li>
                             {categories && categories.map((category, i) =>
-                                <li key={i} className="nav-item">
-                                    <span className="nav-link" onClick={e => { handleSelectCategory(category.name) }}>{category.name}</span>
+                                <li key={i} className="nav-item cursor-pointer">
+                                    <span className="nav-link px-1 py-2" onClick={e => { handleSelectCategory(category.name) }}>{category.name}</span>
                                 </li>
                             )}
                         </div>
-                        <button type="button"
-                            className="btn btn-danger btn-sm my-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Add Product
-                        </button>
+                        <div className="add d-flex flex-row my-1">
+                            <button type="button"
+                                className="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Add Category
+                            </button>
+                            <button type="button"
+                                className="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Add Product
+                            </button>
+                        </div>
                     </ul>
                     <ProductForm />
                     

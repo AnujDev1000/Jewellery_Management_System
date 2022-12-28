@@ -1,15 +1,21 @@
 const Purchases = require("../models/purchaseModel")
+const Customers = require("../models/customerModel")
 
 const addPurchase = async (req, res) => {
-    const { name, phone } = req.body
+    const { customer, receipt, quantity, amount, taxAmount, products } = req.body
  
     try {
-        const purchase = await Purchases.create({ name, phone })
+        const purchase = await Purchases({ customer, receipt, quantity, amount, taxAmount, products })
+        const newCustomer = await Customers.create({name: customer.name, phone: customer.phone})
+
+        purchase.customer = { _id: newCustomer._id, name: newCustomer.name }
+        purchase.save()
+
         if(purchase){
             res.status(200).json(purchase)
         }
     } catch (error) {
-        res.status(404).json(error.message)
+        res.status(404).json({error: error.message})
     }
 }
 

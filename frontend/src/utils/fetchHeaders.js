@@ -6,7 +6,7 @@ const useFetchHeaders = () => {
 
     const headers = {
         'Content-Type': 'application/json',
-        'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzRlOTRiMTI4YTI1MGRhMTQyZmQ5MSIsImlhdCI6MTY3MTg2Nzk3NCwiZXhwIjoxNjcxOTU0Mzc0fQ.4ac81A0AtXFw6q12-R56YXLNurKYTSriiUoCcvs1zAs'
+        'authorization': 'Bearer ' + user.token
     }
 
     const config = {

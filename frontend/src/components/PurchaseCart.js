@@ -1,7 +1,9 @@
 import React from 'react'
 import { FaTrash } from "react-icons/fa"
+import Receipt from './Receipt'
+import PurchaseBiller, {  } from "../components/PurchaseBiller";
 
-const PurchaseCart = ({cart, setCart, total, tax}) => {
+const PurchaseCart = ({cart, setCart, total, tax, customer, receiptNo, loading, handlePurchase, errors}) => {
 
 
     const handleCart = (product) => {
@@ -16,6 +18,11 @@ const PurchaseCart = ({cart, setCart, total, tax}) => {
         }
     }
 
+    const handleWeight = (weight,i) => {
+        cart[i].weight = weight
+        setCart([...cart])
+    }
+
     return (
         <div  className="cart d-flex flex-column justify-content-between h-100">
             <div className="products p-2 mt-2">
@@ -28,8 +35,9 @@ const PurchaseCart = ({cart, setCart, total, tax}) => {
                                 <div className="p-2 me-2 bg-cyan text-white shadow-sm rounded w-100 d-flex flex-row justify-content-between align-items-center">
                                     <span className="">{c.name}</span><br/>
                                     <div className="fw-bold">
-                                        {c.price*c.count}
-                                        <span className="badge bg-warning ms-1 fs">{c.count}</span>
+                                        <span className="mx-1">{c.totalPrice}</span>
+                                        <input type="number" className="w-max rounded-start border-0 m-0 shadow-0 outline-0 ps-1" value={c.weight} onChange={e => handleWeight(e.target.value, i)} />
+                                        <span className="badge bg-warning rounded-0 rounded-end shadow-0 fs">{c.count}</span>
                                     </div>
                                 </div>
                                 <button className="btn btn-sm btn-danger p-2">
@@ -41,17 +49,8 @@ const PurchaseCart = ({cart, setCart, total, tax}) => {
                     }
                 </div>
             </div>
-            <div className="counting p-3 bg-info rounded shadow-sm m-2">
-                <div className="text-white w-100 d-flex flex-row justify-content-between align-items-center">
-                    <span className="fw-bold" >Tax</span>
-                    <span>{tax}</span>
-                </div>
-                <div className="text-white w-100 d-flex flex-row justify-content-between align-items-center">
-                    <span className="fw-bold text-uppercase fs-5" >Total</span>
-                    <span className="fw-bold fs-5" >{total}</span>
-                </div>
-                <button className="btn bg-primary mt-2 btn-lg shadow text-white w-100">Receipt</button>
-            </div>
+            <PurchaseBiller tax={tax} total={total} loading={loading} handlePurchase={handlePurchase} errors={errors}  />
+            <Receipt customer={customer} receiptNo={receiptNo} cart={cart} setCart={setCart} total={total} tax={tax} />
         </div>
     )
 }

@@ -35,10 +35,6 @@ body
 {
     background-color: #2feb67;
 }
-.shadow-green
-{
-    box-shadow: .1rem .1rem .5rem #31ec69 ;
-}
 .bg-purple
 {
     background-color: #c955ff;
@@ -99,4 +95,46 @@ body
 .h-specific
 {
     height: 600px;
+}
+.h-specific2
+{
+    height: 490px;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+.w-max
+{
+    width: 50px;
+}
+.w-max-1
+{
+    width: 30px;
+}
+.w-max-2
+{
+    width: 70px;
+}
+.outline-0
+{
+    outline: none;
+}
+.line-height-0
+{
+    line-height: 0;
+}
+.w-max-content
+{
+    width: max-content;
+}
+.hr-dashed
+{
+    border-bottom: 2px dashed rgb(70, 70, 70);
+    background-color: transparent;
+}
+.border-dashed
+{
+    border-bottom: 1px dashed rgb(165, 162, 162);
 }

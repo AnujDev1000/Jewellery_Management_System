@@ -19,9 +19,10 @@ export const authReducer = (state, action) => {
 export const AuthContextProvider = ({ children }) => {
 
     const [state, dispatch] = useReducer(authReducer, {
-        user: sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : null
+        user: sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")).user : null
     })
-    console.log("AuthContext State : " + state.user)
+    console.log("AuthContext State")
+    console.log(state.user);
 
 
     return(

@@ -5,7 +5,8 @@ const suppliersModel = mongoose.Schema({
     phone: { type: String, default: "" },
     productCount: { type: Number, default: 0},
     products: { type: [], required: true, default: [] },
-    orderCount: { type: Number, default: 0},
+    orderPending: { type: Number, default: 0},
+    orderCompleted: { type: Number, default: 0},
     orders: { type: [], required: true, default: [] }
 }, { timestamps: true })
 

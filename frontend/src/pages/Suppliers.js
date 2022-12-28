@@ -19,10 +19,15 @@ const Suppliers = () => {
                             return (
                                 <HeadingTabs tab={tab} loading={loading} key={i} />
                             )
-                        })}
+                        })} 
                     </div>
                 </div>
-
+                <div className="w-100 d-flex justify-content-end mb-1">
+                    <button type="button"
+                        className="btn btn-primary btn-sm float-right">
+                        Add Supplier
+                    </button>
+                </div>
                 <div className="product-table table-responsive bg-light p-2">
                     {!suppliers.length ? <div className="spinner-border spinner-border-sm" role="status"></div>
                         : <SupplierTable suppliers={suppliers} />
