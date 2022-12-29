@@ -10,7 +10,7 @@ import OrderCart from '../components/OrderCart'
 import useOrderOperation from '../hooks/useOrderOperation'
 
 const Orders = () => {
-    const { products, suppliers, orders, dispatch } = useContext(Context)
+    const { products, suppliers, orders, stocks, dispatch } = useContext(Context)
     const { addOrder } = useOrderOperation()
     const { roundToTwo } = useRound()
     const [loading, setLoading] = useState(false)
@@ -18,6 +18,7 @@ const Orders = () => {
     const [cart, setCart] = useState([])
     const [total, setTotal] = useState(0)
     const [filterProducts, setFilterProducts] = useState(products)
+    const [filterOrders, setFilterOrders] = useState(orders)
     const [tabs, setTabs] = useState([{name: "Orders", value: 0}, {name: "Completed", value: 0}, {name: "Pending", value: 0}, {name: "Suppliers", value: 0}])
 
     const setTabData = () => {
@@ -58,10 +59,14 @@ const Orders = () => {
 
     useEffect(() => {
         setData()
-    }, [cart])
+    }, [cart, stocks, filterProducts, filterOrders, total])
 
     const handleSelectSupplier = (arg) => {
         setFilterProducts(products.filter(product => product.supplier.name === arg))
+    }
+    
+    const handleSelectOrder = (arg) => {
+        setFilterOrders(orders.filter(order => order.status === arg))
     }
 
     const handlePurchase = async () => {
@@ -82,7 +87,8 @@ const Orders = () => {
                     count: c.count,
                     price: c.totalPrice,
                     weight: c.weight,
-                    carat: c.carat
+                    carat: c.carat,
+                    stock: c.stock
                 }
             })
         }
@@ -124,9 +130,28 @@ const Orders = () => {
                             <div className="col-md-6">
                                 <div className="orders-section bg-white shadow-sm rounded p-2 ">
                                     <span className="fw-bold text-secondary">Orders</span><br/>
+                                    <ul className="nav nav-tabs d-flex justify-content-between">
+                                        <div className='d-flex justify-content-start'>
+                                            <li className="nav-item cursor-pointer">
+                                                <span className={`nav-link px-1 py-2 active=${true}`} onClick={e => { setFilterOrders(orders) }}>All</span>
+                                            </li>
+                                            <li className="nav-item cursor-pointer">
+                                                <span className="nav-link px-1 py-2" onClick={e => { handleSelectOrder("pending") }}>Pending</span>
+                                            </li>
+                                            <li className="nav-item cursor-pointer">
+                                                <span className="nav-link px-1 py-2" onClick={e => { handleSelectOrder("completed") }}>Completed</span>
+                                            </li>
+                                        </div>
+                                    </ul>
                                     <div className="order-table mh-table table-responsive bg-light p-2">
-                                        {!orders.length ? <div className="spinner-border spinner-border-sm" role="status"></div>
-                                            : <OrderTable orders={orders} />
+                                        {!orders.length ? 
+                                            <div className="spinner-border spinner-border-sm" role="status"></div>
+                                            :
+                                            <>
+                                                {!filterOrders.length ? <span className="fw-bold">No Orders!</span>
+                                                    : <OrderTable orders={filterOrders} setCart={setCart} />
+                                                }
+                                            </>
                                         }
                                     </div>
                                 </div>
@@ -151,7 +176,7 @@ const Orders = () => {
                                             <div className="spinner-border spinner-border-sm" role="status"></div>
                                             :
                                             <>
-                                                {!filterProducts.length ? <OrderProductTable products={products} cart={cart} setCart={setCart} />
+                                                {!filterProducts.length ? <span className="fw-bold">No Products!</span>
                                                     : <OrderProductTable products={filterProducts} cart={cart} setCart={setCart} />
                                                 }
                                             </>

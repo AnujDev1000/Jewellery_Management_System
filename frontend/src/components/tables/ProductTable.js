@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { FaEdit, FaTrash } from "react-icons/fa"
+import { Context } from '../../context/Context'
 import ProductDeleteForm from '../forms/ProductDeleteForm'
 import ProductEditForm from '../forms/ProductEditForm'
 
-const ProductTable = ({ products }) => {
+const ProductTable = ({ products, stocks }) => {
     const [updateProduct, setUpdateProduct] = useState([])
     const [deleteId, setDeleteId] = useState("")
     const keys = Object.keys(products[0]).filter(key => key != "_id" && key != "__v" && key != "discription" && key != "totalPrice" && key != "count")
@@ -19,7 +20,12 @@ const ProductTable = ({ products }) => {
                 </tr>
             </thead>
             <tbody>
-                {products.map((product, i) => {
+                {products.map((product, i) => {   
+                    const index = stocks.findIndex(stock => stock._id === product.stock._id)
+                    let availableStock = 0
+                    if(index != -1){
+                        availableStock = stocks[index].availableStock            
+                    }
                     return (
                         <tr key={i} className="">
                             <td scope="row" className="fw-bold">{i}</td>
@@ -41,7 +47,7 @@ const ProductTable = ({ products }) => {
                             <td className="text-truncate">{product.supplier.name}</td>
                             <td className="text-truncate">
                                 <span className="badge bg-dark text-white">
-                                    {product.stock.availableStock}
+                                    {availableStock}
                                 </span>
                             </td>
                             <td className="text-truncate">{product.createdAt.split("T")[0]}</td>

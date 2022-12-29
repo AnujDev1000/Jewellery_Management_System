@@ -44,4 +44,18 @@ const getUsers = async (req, res) => {
     }
 }
 
-module.exports = {loginUser, registerUser, verifyUser, getUsers}
+
+const setUser = async (req, res) => {
+    const { id } = req.params
+
+    try {
+        const user = await User.findOneAndUpdate({_id: id}, { ...req.body }, { new: true })
+        if(user){
+            res.status(200).json(user)
+        }
+    } catch (error) {
+        res.status(404).json(error.message)
+    }
+}
+
+module.exports = {loginUser, registerUser, verifyUser, getUsers, setUser}

@@ -14,9 +14,6 @@ const useProductOperations = () => {
         console.log("response: " + json)
         return json
     }
-    
-    
-
 
     const deleteProduct = async (id) => {
         console.log(id)

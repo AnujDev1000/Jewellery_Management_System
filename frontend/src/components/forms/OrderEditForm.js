@@ -1,42 +1,41 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { toast } from 'react-toastify'
 import { Context } from '../../context/Context'
-import useProductOperations from '../../hooks/useProductOperations'
+import useOrderOperation from '../../hooks/useOrderOperation'
 
-const ProductDeleteForm = ({deleteId, setDeleteId}) => {
-    const { dispatch, products } = useContext(Context)
-    const { deleteProduct } = useProductOperations()
-
+const OrderEditForm = ({ updateOrder, setUpdateOrder, setCart }) => {
+    const { dispatch } = useContext(Context)
+    const { updateOrders } = useOrderOperation()
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
 
-        const product = await deleteProduct(deleteId)
-        if(product.error){
-            console.log(product.error)
+        const order = await updateOrders(updateOrder._id)
+        if(order.error){
+            console.log(order.error)
             toast.error("Error occured!")
         }
         else{
-            console.log(product)
-            toast.success("Product Deleted Successful")
-            dispatch("DELETE_PRODUCTS", product)
-            dispatch("UPDATE_DELETE_CATEGORIES", product)
-            dispatch("UPDATE_DELETE_SUPPLIERS", product)
-            dispatch("DELETE_STOCKS", product)
-            setDeleteId("")
+            console.log(order)
+            toast.success("Order Completed Successful")
+            dispatch("UPDATE_ORDER", order)
+            dispatch("ADD_STOCKS", order.products)
+            setUpdateOrder({})
+            setCart([])
+            // dispatch("DELETE_PRODUCTS", order)
         }
     }
 
     return <>
-        <div class="modal fade" id="deleteModal" >
+        <div class="modal fade" id="editModal" >
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Change Status</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Are You sure You want to Delete this Product !!!
+                        Change Order Status to Complete !
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
                         <button type="button" class="btn btn-success" data-bs-dismiss="modal">No</button>
@@ -48,4 +47,4 @@ const ProductDeleteForm = ({deleteId, setDeleteId}) => {
     </>
 }
 
-export default ProductDeleteForm
+export default OrderEditForm

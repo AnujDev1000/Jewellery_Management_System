@@ -41,7 +41,7 @@ const deleteSupplier = async (req, res) => {
     const { id } = req.params
 
     try {
-        const supplier = await Suppliers.findOneAndDelete({id})
+        const supplier = await Suppliers.findOneAndDelete({_id: id})
         if(supplier){
             res.status(200).json(supplier)
         }

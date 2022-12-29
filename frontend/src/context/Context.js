@@ -6,6 +6,9 @@ import { useGetSuppliers } from "../hooks/useSuppliers"
 import { useGetProducts } from "../hooks/useProducts"
 import { useGetUsers } from '../hooks/useUsers'
 import useRates from '../hooks/useRates'
+import { useGetStocks } from '../hooks/useStocks'
+import { useGetPurchase } from '../hooks/usePurchase'
+import reducer from '../reducers/reducer'
 
 export const Context = createContext()
 
@@ -24,7 +27,7 @@ export const ContextProvider = ({ children }) => {
         rates: {},
     })
 
-    const dataFunctions = { products: useGetProducts(), categories: useGetCategories() , suppliers: useGetSuppliers(), orders: useGetOrders(), employees :useGetEmployees(), users :useGetUsers(), rates: useRates() }
+    const dataFunctions = { products: useGetProducts(), categories: useGetCategories() , suppliers: useGetSuppliers(), orders: useGetOrders(), employees :useGetEmployees(), users :useGetUsers(), stocks: useGetStocks(), purchases: useGetPurchase(),  rates: useRates() }
 
     for (const property in state) {
         if(dataFunctions.hasOwnProperty(property)){
@@ -38,45 +41,8 @@ export const ContextProvider = ({ children }) => {
     }
 
     
-    
     const dispatch = (type, payload) => {
-        const index = state.products.findIndex(product => product._id === payload._id)
-        switch (type) {
-            case "ADD_PRODUCTS":{
-                setState({...state, products: state.products.push(payload)})
-                break;
-            }
-            case "DELETE_PRODUCTS":{
-                setState({
-                        ...state,
-                        products: state.products.splice(index, 1)
-                })
-                break;
-            }
-            case "UPDATE_PRODUCTS":{
-                state.products[index] = payload
-                break;
-            }
-            case "UPDATE_PRODUCTS":{
-                state.products[index] = payload
-                break;
-            }
-            case "ADD_ORDER":{
-                setState({...state, orders: state.orders.push(payload)})
-                break;
-            }
-            case "ADD_PURCHASE":{
-                setState({...state, purchases: state.purchases.push(payload)})
-                break;
-            }
-            case "ERRORS":{
-                setState({...state, errors: state.errors.push(payload)})
-                break;
-            }
-         
-            default:
-                break;
-        }
+        reducer(type, payload, state, setState)
     }
 
     useEffect(() => {

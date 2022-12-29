@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import CategoryForm from '../components/forms/CategoryForm'
 import ProductForm from '../components/forms/ProductForm'
 import HeadingTabs from '../components/HeadingTabs'
 import Navbar from "../components/Navbar"
@@ -6,7 +7,7 @@ import ProductTable from '../components/tables/ProductTable'
 import { Context } from '../context/Context'
 
 const Product = () => {
-    const { products, categories } = useContext(Context)
+    const { products, categories, stocks } = useContext(Context)
 
     const [tabs, setTabs] = useState([{name: "products", value: 0}, {name: "amount", value: 0}, {name: "gold", value: 0}, {name: "silver", value: 0}])
     const [loading, setLoading] = useState(false)
@@ -49,8 +50,7 @@ const Product = () => {
 
     useEffect(() => {
         setdata()
-        
-    }, [filterProducts, products, categories])
+    }, [filterProducts, products, categories, stocks, loading])
 
 
     const handleSelectCategory = (arg) => {
@@ -85,7 +85,7 @@ const Product = () => {
                         </div>
                         <div className="add d-flex flex-row my-1">
                             <button type="button"
-                                className="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                className="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                                 Add Category
                             </button>
                             <button type="button"
@@ -95,13 +95,14 @@ const Product = () => {
                         </div>
                     </ul>
                     <ProductForm />
-                    
+                    <CategoryForm />
+
                     <div className="mh-table product-table table-responsive bg-light p-2">
                         {!products.length ? 
                             <div className="spinner-border spinner-border-sm" role="status"></div>
                             : <>
-                                {!filterProducts.length ? <ProductTable products={products} />
-                                    : <ProductTable products={filterProducts} />
+                                {!filterProducts.length ? <span className="fw-bold">No Products!</span>
+                                    : <ProductTable products={filterProducts} stocks={stocks} />
                                 }
                             </>
                         }

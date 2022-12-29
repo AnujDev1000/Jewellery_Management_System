@@ -63,26 +63,27 @@ const deleteOrder = async (req, res) => {
 }
 
 const setOrder = async (req, res) => {
-    const id = req.params
-
+    const { id } = req.params
+    const order = await Orders.findOne({_id: id})
+    
     try {
-        const order = await Orders.findOne({_id: id})
 
-        const session = await mongoose.startSession()
-        await session.startTransaction()
+        // stock
+        order.products.map(async (product) => {
+            const stock = await Stocks.findOne({_id: product.stock._id})
+            stock.availableStock += product.count
+            stock.save()
+        })
 
         // Orders
         order.status = "completed"
-        await order.save({session: session})
+        order.save()
 
-        // Stock
-        const fStock = await Stocks.findOne({_id: order.stock._id})
-        fStock.order = {}
-        fStock.availableStock = fStock.availableStock + order.productCount
-        await fStock.save({session: session})
-
-        await session.commitTransaction()
-        session.endSession()
+        // Suppliers
+        const fSupplier = await Suppliers.findOne({_id: order.supplier._id})
+        fSupplier.orderPending -= 1
+        fSupplier.orderCompleted += 1
+        await fSupplier.save()
 
         res.status(200).json(order)
     } catch (error) {

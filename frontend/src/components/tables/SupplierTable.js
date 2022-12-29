@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FaEdit, FaTrash } from "react-icons/fa"
+import SupplierDeleteForm from '../forms/SupplierDeleteForm'
 
 const SupplierTable = ({suppliers}) => {
-        const keys = Object.keys(suppliers[0]).filter(key => key != "_id" && key != "__v" && key != "products" && key != "orders"  )    
+    const [deleteId, setDeleteId] = useState("")
+    const keys = Object.keys(suppliers[0]).filter(key => key != "_id" && key != "__v" && key != "products" && key != "orders"  )    
 
     return (
         <table className="table table-sm table-borderless m-0">
@@ -34,14 +36,17 @@ const SupplierTable = ({suppliers}) => {
                                     <button className="btn btn-link btn-sm p-0 me-2">
                                         <FaEdit className="fs-5" />
                                     </button>
-                                    <button className="btn btn-link btn-sm p-0">
+                                    <button className="btn btn-link btn-sm p-0"  data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    onClick={e => setDeleteId(supplier._id)}>
                                         <FaTrash className="fs-5" />
                                     </button>
                                 </td>
                             </tr>
                         )
                     })}     
-                                          
+
+                
+                    {deleteId.length ? <SupplierDeleteForm deleteId={deleteId} setDeleteId={setDeleteId} /> : null }                
                 </tbody>
             </table>
     )

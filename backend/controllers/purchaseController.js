@@ -1,19 +1,31 @@
 const Purchases = require("../models/purchaseModel")
 const Customers = require("../models/customerModel")
+const Stocks = require("../models/stockModel")
+const mongoose = require("mongoose")
 
 const addPurchase = async (req, res) => {
     const { customer, receipt, quantity, amount, taxAmount, products } = req.body
  
+    const purchase = await Purchases({ customer, receipt, quantity, amount, taxAmount, products })
+    const newCustomer = await Customers({name: customer.name, phone: customer.phone})
     try {
-        const purchase = await Purchases({ customer, receipt, quantity, amount, taxAmount, products })
-        const newCustomer = await Customers.create({name: customer.name, phone: customer.phone})
+        
+        // stock
+        purchase.products.map(async (product) => {
+            const stock = await Stocks.findOne({_id: product.stock._id})
+            stock.availableStock -= product.count
+            stock.save()
+        })
 
+        // purchase
         purchase.customer = { _id: newCustomer._id, name: newCustomer.name }
         purchase.save()
 
-        if(purchase){
-            res.status(200).json(purchase)
-        }
+        // customer
+        newCustomer.save()
+
+
+        res.status(200).json(purchase)
     } catch (error) {
         res.status(404).json({error: error.message})
     }

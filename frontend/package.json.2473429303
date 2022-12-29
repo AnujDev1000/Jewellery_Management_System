@@ -9,7 +9,6 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^1.2.0",
     "chart.js": "^4.1.1",
-    "faker": "^5.5.3",
     "otp-generator": "^4.0.0",
     "react": "^16.13.1",
     "react-chartjs-2": "^5.1.0",

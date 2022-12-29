@@ -31,6 +31,9 @@ const ProductAddForm = () => {
             console.log(product)
             toast.success("Product Added Successful")
             dispatch("ADD_PRODUCTS", product)
+            dispatch("UPDATE_ADD_CATEGORIES", product)
+            dispatch("UPDATE_ADD_SUPPLIERS", product)
+            dispatch("ADD_STOCKS", { _id: product.stock._id, availableStock: 0, product: { _id: product._id, name: product.name } })
             setInputs({ name: "", metal: "", carat: 0, stone: "", weight: 0, price: 0, category: "", supplier: "" })
             setLoading(false)
         }

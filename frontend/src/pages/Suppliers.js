@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import SupplierForm from '../components/forms/SupplierForm'
 import HeadingTabs from '../components/HeadingTabs'
 import Navbar from "../components/Navbar"
 import SupplierTable from '../components/tables/SupplierTable'
@@ -23,11 +24,11 @@ const Suppliers = () => {
                     </div>
                 </div>
                 <div className="w-100 d-flex justify-content-end mb-1">
-                    <button type="button"
-                        className="btn btn-primary btn-sm float-right">
+                    <button type="button" className="btn btn-primary btn-sm float-right"  data-bs-toggle="modal" data-bs-target="#exampleModal2">
                         Add Supplier
                     </button>
                 </div>
+                <SupplierForm />
                 <div className="product-table table-responsive bg-light p-2">
                     {!suppliers.length ? <div className="spinner-border spinner-border-sm" role="status"></div>
                         : <SupplierTable suppliers={suppliers} />

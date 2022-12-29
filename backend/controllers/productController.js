@@ -21,7 +21,7 @@ const addProduct = async (req, res) => {
             await session.startTransaction()
 
             // // products
-            product.stock = { _id: stock._id, availableStock: stock.availableStock }
+            product.stock = { _id: stock._id }
             await product.save({session: session})
 
             // categories

@@ -1,31 +1,32 @@
 import React, { useContext, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { Context } from '../../context/Context'
-import useProductOperations from '../../hooks/useProductOperations'
+import useSupplierOperation from '../../hooks/useSupplierOperation'
 
-const ProductDeleteForm = ({deleteId, setDeleteId}) => {
-    const { dispatch, products } = useContext(Context)
-    const { deleteProduct } = useProductOperations()
+const SupplierDeleteForm = ({deleteId, setDeleteId}) => {
+    const { dispatch } = useContext(Context)
+    const { deleteSupplier } = useSupplierOperation()
 
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
 
-        const product = await deleteProduct(deleteId)
-        if(product.error){
-            console.log(product.error)
+        const supplier = await deleteSupplier(deleteId)
+        if(supplier.error){
+            console.log(supplier.error)
             toast.error("Error occured!")
         }
         else{
-            console.log(product)
-            toast.success("Product Deleted Successful")
-            dispatch("DELETE_PRODUCTS", product)
-            dispatch("UPDATE_DELETE_CATEGORIES", product)
-            dispatch("UPDATE_DELETE_SUPPLIERS", product)
-            dispatch("DELETE_STOCKS", product)
+            console.log(supplier)
+            toast.success("Supplier Deleted Successfully")
+            dispatch("DELETE_SUPPLIER", supplier)
             setDeleteId("")
         }
     }
+
+    useEffect(() => {
+        
+    }, [deleteId])
 
     return <>
         <div class="modal fade" id="deleteModal" >
@@ -36,7 +37,7 @@ const ProductDeleteForm = ({deleteId, setDeleteId}) => {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Are You sure You want to Delete this Product !!!
+                        Are You sure You want to Delete this Supplier !!!
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
                         <button type="button" class="btn btn-success" data-bs-dismiss="modal">No</button>
@@ -48,4 +49,4 @@ const ProductDeleteForm = ({deleteId, setDeleteId}) => {
     </>
 }
 
-export default ProductDeleteForm
+export default SupplierDeleteForm

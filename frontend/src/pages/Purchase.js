@@ -12,7 +12,7 @@ import usePurchaseOperation from '../hooks/usePurchaseOperation'
 
 const Purchase = () => {
     const  { addPurchase } = usePurchaseOperation()
-    const { products, categories, dispatch } = useContext(Context)
+    const { products, categories, dispatch, stocks } = useContext(Context)
     const { goldCarat, sliverCarat } = useCaratPrice()
     const { roundToTwo } = useRound()
     const [loading, setLoading] = useState(false)
@@ -53,12 +53,11 @@ const Purchase = () => {
 
     useEffect(() => {
         setData()
-    }, [customer, cart])
+    }, [customer, cart, stocks , filterProducts])
 
     const handleSelectCategory = (arg) => {
         setFilterProducts(products.filter(product => product.category.name === arg))
     }
-
 
     const handlePurchase = async () => {
             setLoading(true)
@@ -79,7 +78,8 @@ const Purchase = () => {
                         name: c.name,
                         count: c.count,
                         price: c.totalPrice,
-                        weight: c.weight
+                        weight: c.weight,
+                        stock: c.stock
                     }
                 })
             }
@@ -94,6 +94,7 @@ const Purchase = () => {
                 console.log(purchase)
                 toast.success("Saved Changes Successful")
                 dispatch("ADD_PURCHASE", purchase)
+                dispatch("DELETE_STOCKS", purchase.products)
                 setLoading(false)
                 setCart([])
                 setReceiptNo(Math.floor(Math.random() * 10000)+1000)
@@ -136,7 +137,7 @@ const Purchase = () => {
                                         <div className="spinner-border spinner-border-sm" role="status"></div>
                                         :
                                         <>
-                                            {!filterProducts.length ? <PurchaseProductTable products={products} cart={cart} setCart={setCart} />
+                                            {!filterProducts.length ? <span className="fw-bold">No Products!</span>
                                                 : <PurchaseProductTable products={filterProducts} cart={cart} setCart={setCart} />
                                             }
                                         </>

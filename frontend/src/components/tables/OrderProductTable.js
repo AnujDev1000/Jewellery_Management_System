@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
+import { Context } from '../../context/Context'
 import useCaratPrice from '../../utils/caratPrice'
 
 const OrderProductTable = ({ products, cart, setCart }) => {
+    const { stocks } = useContext(Context)
     const { goldCarat, sliverCarat } = useCaratPrice()
 
     const keys = Object.keys(products[0]).filter(key => key != "_id" && key != "__v" && key != "carat" && key != "stone" && key != "weight" && key != "category" && key != "discription" && key != "supplier" && key != "createdAt" && key != "updatedAt" && key != "totalPrice" && key != "count")
+
+    useEffect(() => {
+    }, [stocks])
 
     const handleCart = (product) => {
         if(cart.length){
@@ -51,6 +56,8 @@ const OrderProductTable = ({ products, cart, setCart }) => {
             </thead>
             <tbody>
                 {products.map((product, i) => {
+                    const index = stocks.findIndex(stock => stock._id === product.stock._id)
+                    const availableStock = stocks[index].availableStock
                     return (
                         <tr key={i} className="">
                             <td scope="row" className="fw-bold">{i}</td>
@@ -67,7 +74,7 @@ const OrderProductTable = ({ products, cart, setCart }) => {
                             </td>
                             <td className="text-truncate">
                                 <span className="badge bg-dark text-white">
-                                    {product.stock.availableStock}
+                                    {availableStock}
                                 </span>
                             </td>
                             <td className="text-truncate">
