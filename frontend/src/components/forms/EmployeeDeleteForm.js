@@ -1,41 +1,43 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { Context } from '../../context/Context'
-import useOrderOperation from '../../hooks/useOrderOperation'
+import useEmployeeOperation from '../../hooks/useEmployeeOperation'
 
-const OrderEditForm = ({ updateOrder, setUpdateOrder, setCart }) => {
+const EmployeeDeleteForm = ({deleteId, setDeleteId}) => {
     const { dispatch } = useContext(Context)
-    const { updateOrders } = useOrderOperation()
+    const { deleteEmployee } = useEmployeeOperation()
+
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
 
-        const order = await updateOrders(updateOrder._id)
-        if(order.error){
-            console.log(order.error)
+        const employee = await deleteEmployee(deleteId)
+        if(employee.error){
+            console.log(employee.error)
             toast.error("Error occured!")
         }
         else{
-            console.log(order)
-            toast.success("Order Completed Successful")
-            dispatch("UPDATE_ORDER", order)
-            dispatch("UPDATE_ADD_STOCKS", order.products)
-            setUpdateOrder({})
-            setCart([])
-            // dispatch("DELETE_PRODUCTS", order)
+            console.log(employee)
+            toast.success("Supplier Deleted Successfully")
+            dispatch("DELETE_EMPLOYEE", employee)
+            setDeleteId("")
         }
     }
 
+    useEffect(() => {
+        
+    }, [deleteId])
+
     return <>
-        <div class="modal fade" id="editModal" >
+        <div class="modal fade" id="deleteModal" >
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Change Status</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Change Order Status to Complete !
+                        Are You sure You want to Delete this Employee !!!
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
                         <button type="button" class="btn btn-success" data-bs-dismiss="modal">No</button>
@@ -47,4 +49,4 @@ const OrderEditForm = ({ updateOrder, setUpdateOrder, setCart }) => {
     </>
 }
 
-export default OrderEditForm
+export default EmployeeDeleteForm

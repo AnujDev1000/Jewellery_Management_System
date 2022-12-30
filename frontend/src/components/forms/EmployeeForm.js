@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { Context } from '../../context/Context'
-import useSupplierOperation from '../../hooks/useSupplierOperation'
+import useEmployeeOperation from '../../hooks/useEmployeeOperation'
 
-const SupplierForm = () => {
+const EmployeeForm = () => {
     const { dispatch } = useContext(Context)
-    const { addSupplier } = useSupplierOperation()
+    const { addEmployee } = useEmployeeOperation()
 
     const [errors, setErrors] = useState(null)
     const [loading, setLoading] = useState(true)
-    const [inputs, setInputs] = useState({ name:"", phone: ""})
+    const [inputs, setInputs] = useState({ name:"", phone: "", address: "", salary: null, type: ""})
     
     useEffect(() => {
     }, [loading, inputs])
@@ -19,20 +19,23 @@ const SupplierForm = () => {
         setLoading(true)
         setErrors("")
 
-        const supplier = await addSupplier(inputs)
-        if(supplier.error){
-            setErrors(supplier.error.error)
+        const employee = await addEmployee(inputs)
+        if(employee.error){
+            setErrors(employee.error.error)
             console.log(errors)
             setLoading(false)
         }
         else{
-            console.log(supplier)
-            toast.success("Supplier Added Successful")
-            dispatch("ADD_SUPPLIER", supplier)
+            console.log(employee)
+            toast.success("Employee Added Successful")
+            dispatch("ADD_EMPLOYEE", employee)
             setLoading(false)
-            setInputs({ name: "", phone: ""})
+            setInputs({ name:"", phone: "", address: "", salary: null, type: ""})
         }
     }
+
+    useEffect(() => {
+    }, [inputs, loading])
 
     return (
         <>
@@ -43,7 +46,7 @@ const SupplierForm = () => {
                             <div className="card-body">
                                 <div className="p-2">
                                     <div className='d-flex justify-content-between'>
-                                        <h2 className="fw-bold mb-3 text-center">Add Supplier</h2>
+                                        <h2 className="fw-bold mb-3 text-center">Add Employee</h2>
                                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div>
@@ -52,7 +55,7 @@ const SupplierForm = () => {
                                             type="text"
                                             className="form-control"
                                             id="name"
-                                            placeholder="Enter Supplier name"
+                                            placeholder="Enter Employee name"
                                             value={inputs.name}
                                             onChange={e => setInputs({ ...inputs, name: e.target.value })}
                                         />
@@ -63,9 +66,42 @@ const SupplierForm = () => {
                                             type="text"
                                             className="form-control"
                                             id="name"
-                                            placeholder="Enter Supplier phone"
+                                            placeholder="Enter Employee phone"
                                             value={inputs.phone}
                                             onChange={e => setInputs({ ...inputs, phone: e.target.value })}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="name">Address</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="name"
+                                            placeholder="Enter Employee Address..."
+                                            value={inputs.address}
+                                            onChange={e => setInputs({ ...inputs, address: e.target.value })}
+                                        />
+                                    </div>
+                                    <div className="mt-2">
+                                        <label htmlFor="name">Salary</label>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            id="name"
+                                            placeholder="Enter Employee Salary"
+                                            value={inputs.salary}
+                                            onChange={e => setInputs({ ...inputs, salary: e.target.value })}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="name">Type</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="name"
+                                            placeholder="Enter Employee Type"
+                                            value={inputs.type}
+                                            onChange={e => setInputs({ ...inputs, type: e.target.value })}
                                         />
                                     </div>
                                     <button type="button" className="btn form-control btn-primary mt-3" data-bs-dismiss="modal" onClick={handleFormSubmit}>
@@ -86,4 +122,4 @@ const SupplierForm = () => {
     )
 }
 
-export default SupplierForm
+export default EmployeeForm

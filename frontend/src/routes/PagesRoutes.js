@@ -8,9 +8,9 @@ import Sales from "../pages/Sales";
 import Purchase from "../pages/Purchase";
 import Categories from "../pages/Categories";
 import Employees from "../pages/Employees";
-import Stocks from "../pages/Stocks";
 import Suppliers from "../pages/Suppliers";
 import Orders from "../pages/Orders";
+import Bills from '../pages/Bills';
 import Navigater from '../components/Navigate';
 
 // context
@@ -42,8 +42,8 @@ const PagesRoutes = () => {
                     <Route path="/categories" element={ <ContextProvider><Categories /></ContextProvider> } />
                     {/* <Route path="/categories" element={user &&  user ? <ContextProvider><Categories /></ContextProvider> : <Navigater path="/" command="authorise" />}/> */}
                     
-                    <Route path="/stocks" element={ <ContextProvider><Stocks /></ContextProvider> } />
-                    {/* <Route path="/stocks" element={user &&  user ? <ContextProvider><Stocks /></ContextProvider> : <Navigater path="/" command="authorise" />}/> */}
+                    <Route path="/bills" element={ <ContextProvider><Bills /></ContextProvider> } />
+                    {/* <Route path="/bills" element={user &&  user ? <ContextProvider><Bills /></ContextProvider> : <Navigater path="/" command="authorise" />}/> */}
                     
                     <Route path="/employees" element={ <ContextProvider><Employees /></ContextProvider> } />
                     {/* <Route path="/employees" element={user &&  user.isAdmin ? <ContextProvider><Employees /></ContextProvider> : <Navigater path="/" command="authorise" />}/> */}

@@ -10,3 +10,5 @@ ReactDOM.render(
       <App />
     </AuthContextProvider>
 ,document.getElementById('root'));
+
+// git add . && git commit -m "COMMIT" && git push origin main

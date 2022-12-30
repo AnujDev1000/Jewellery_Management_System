@@ -39,7 +39,9 @@ const Receipt = ({cart, tax, total, customer, receiptNo}) => {
                                 <td className="text-start">{c.name}</td>
                                 <td className="text-start">{c.count}</td>
                                 <td className="text-start">{c.weight}</td>
-                                <td className="text-end">{c.totalPrice}</td>
+                                <td className="text-end">
+                                    {c.totalPrice  && c.totalPrice ? c.totalPrice : c.price}
+                                </td>
                             </tr>
                         )}
                     </table>

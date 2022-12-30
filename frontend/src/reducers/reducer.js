@@ -105,6 +105,18 @@ const reducer = (type, payload, state, setState) => {
             })
             break;
         }
+        case "ADD_EMPLOYEE":{
+            setState({...state, employees: state.employees.push(payload)})
+            break;
+        }
+        case "DELETE_EMPLOYEE":{
+            const index = state.employees.findIndex(employee => employee._id === payload._id)
+            setState({
+                    ...state,
+                    employees: state.employees.splice(index, 1)
+            })
+            break;
+        }
         case "ERRORS":{
             setState({...state, errors: state.errors.push(payload)})
             break;
