@@ -57,7 +57,10 @@ const OrderProductTable = ({ products, cart, setCart }) => {
             <tbody>
                 {products.map((product, i) => {
                     const index = stocks.findIndex(stock => stock._id === product.stock._id)
-                    const availableStock = stocks[index].availableStock
+                    let availableStock = 0
+                    if(index != -1){
+                        availableStock = stocks[index].availableStock            
+                    }
                     return (
                         <tr key={i} className="">
                             <td scope="row" className="fw-bold">{i}</td>

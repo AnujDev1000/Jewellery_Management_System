@@ -7,6 +7,7 @@ const PurchaseProductTable = ({ products, cart, setCart }) => {
 
     const keys = Object.keys(products[0]).filter(key => key != "_id" && key != "__v" && key != "discription" && key != "supplier" && key != "createdAt" && key != "updatedAt" && key != "totalPrice" && key != "availableStock")
 
+
     useEffect(() => {
     }, [stocks])
 
@@ -56,7 +57,10 @@ const PurchaseProductTable = ({ products, cart, setCart }) => {
             <tbody>
                 {products.map((product, i) => {
                     const index = stocks.findIndex(stock => stock._id === product.stock._id)
-                    const availableStock = stocks[index].availableStock
+                    let availableStock = 0
+                    if(index != -1){
+                        availableStock = stocks[index].availableStock            
+                    }
                     return (
                         <tr key={i} className="">
                             <td scope="row" className="fw-bold">{i}</td>
