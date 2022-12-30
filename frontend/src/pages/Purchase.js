@@ -94,7 +94,7 @@ const Purchase = () => {
                 console.log(purchase)
                 toast.success("Saved Changes Successful")
                 dispatch("ADD_PURCHASE", purchase)
-                dispatch("DELETE_STOCKS", purchase.products)
+                dispatch("UPDATE_DELETE_STOCKS", purchase.products)
                 setLoading(false)
                 setCart([])
                 setReceiptNo(Math.floor(Math.random() * 10000)+1000)

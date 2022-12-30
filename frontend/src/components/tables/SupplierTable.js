@@ -4,7 +4,7 @@ import SupplierDeleteForm from '../forms/SupplierDeleteForm'
 
 const SupplierTable = ({suppliers}) => {
     const [deleteId, setDeleteId] = useState("")
-    const keys = Object.keys(suppliers[0]).filter(key => key != "_id" && key != "__v" && key != "products" && key != "orders"  )    
+    const keys = Object.keys(suppliers[0]).filter(key => key != "_id" && key != "__v" && key != "products" && key != "orders" && key != "createdAt" && key != "updatedAt"  )    
 
     return (
         <table className="table table-sm table-borderless m-0">
@@ -12,6 +12,8 @@ const SupplierTable = ({suppliers}) => {
                     <tr className="">
                         <th scope="col">#</th>
                         {keys.map((key,i) => <th key={i} scope="col">{key}</th>)}
+                        <th scope="col">createdAt</th>
+                        <th scope="col">updatedAt</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -23,8 +25,6 @@ const SupplierTable = ({suppliers}) => {
                                 {/* {keys.map(key => <td>{}</td>)} */}
                                 <td className="text-truncate">{supplier.name}</td>
                                 <td className="text-truncate">{supplier.phone}</td>
-                                <td className="text-truncate">{supplier.createdAt.split("T")[0]}</td>
-                                <td className="text-truncate">{supplier.updatedAt.split("T")[0]}</td>
                                 <td className="text-truncate">{supplier.productCount}</td>
                                 <td className="text-truncate">
                                     <span className="badge bg-success">{supplier.orderCompleted}</span>
@@ -32,6 +32,8 @@ const SupplierTable = ({suppliers}) => {
                                 <td className="text-truncate">
                                     <span className="badge bg-danger">{supplier.orderPending}</span>
                                 </td>
+                                <td className="text-truncate">{supplier.createdAt.split("T")[0]}</td>
+                                <td className="text-truncate">{supplier.updatedAt.split("T")[0]}</td>
                                 <td className="text-truncate">
                                     <button className="btn btn-link btn-sm p-0 me-2">
                                         <FaEdit className="fs-5" />

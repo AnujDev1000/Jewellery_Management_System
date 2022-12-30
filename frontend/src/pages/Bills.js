@@ -7,8 +7,25 @@ import { Context } from '../context/Context'
 const Bills = () => {
     const { purchases } = useContext(Context)
 
-    const [tabs, setTabs] = useState([{name: "products", value: 0}, {name: "amount", value: 0}, {name: "gold", value: 0}, {name: "silver", value: 0}])
+    const [tabs, setTabs] = useState([{name: "bills", value: 0}, {name: "amount", value: 0},])
     const [loading, setLoading] = useState(false)
+
+    const setTabData = () => {
+        let amount = 0
+        purchases.map(purchase => {
+            amount += purchase.amount
+        })
+        tabs.map(tab => {
+            if(tab.name === "bills"){
+                tab.value = purchases.length
+            }
+            else{
+                tab.value = amount
+            }
+        })
+    }
+    setTabData()
+
 
     return (
         <>

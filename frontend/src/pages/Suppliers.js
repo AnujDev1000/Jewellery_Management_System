@@ -7,8 +7,29 @@ import { Context } from '../context/Context'
 
 const Suppliers = () => {
     const { suppliers } = useContext(Context)
-    const [tabs, setTabs] = useState([{name: "suppliers", value: 0}, {name: "amount", value: 0}, {name: "gold", value: 0}, {name: "silver", value: 0}])
+    const [tabs, setTabs] = useState([{name: "suppliers", value: 0}, {name: "highest", value: ""}])
     const [loading, setLoading] = useState(false)
+
+    const setTabData = () => {
+        let highest = 0
+        let highestName = ""
+        suppliers.map(supplier => {
+            if(supplier.productCount > highest){
+                highest = supplier.highest
+                highestName = supplier.name
+            }
+        })
+        tabs.map(tab => {
+            if(tab.name === "suppliers"){
+                tab.value = suppliers.length
+            }
+            else{
+                tab.value = highestName
+            }
+        })
+    }
+    setTabData()
+
 
     return (
         <>
