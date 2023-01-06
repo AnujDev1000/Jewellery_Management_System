@@ -5,7 +5,7 @@ import { Context } from '../../context/Context'
 const PurchaseProductTable = ({ products, cart, setCart }) => {
     const { stocks } = useContext(Context)
 
-    const keys = Object.keys(products[0]).filter(key => key != "_id" && key != "__v" && key != "discription" && key != "supplier" && key != "createdAt" && key != "updatedAt" && key != "totalPrice" && key != "availableStock")
+    const keys = Object.keys(products[0]).filter(key => key !== "_id" && key !== "__v" && key !== "discription" && key !== "supplier" && key !== "createdAt" && key !== "updatedAt" && key !== "totalPrice" && key !== "availableStock")
 
 
     useEffect(() => {
@@ -58,16 +58,16 @@ const PurchaseProductTable = ({ products, cart, setCart }) => {
                 {products.map((product, i) => {
                     const index = stocks.findIndex(stock => stock._id === product.stock._id)
                     let availableStock = 0
-                    if(index != -1){
+                    if(index !== -1){
                         availableStock = stocks[index].availableStock            
                     }
                     return (
                         <tr key={i} className="">
-                            <td scope="row" className="fw-bold">{i}</td>
+                            <td className="fw-bold">{i}</td>
                             {/* {keys.map(key => <td>{}</td>)} */}
                             <td className="text-truncate">{product.name}</td>
                             <td className="text-truncate">
-                                {product.metal == "gold" ?
+                                {product.metal === "gold" ?
                                     <span className="badge bg-warning">{product.metal}</span>
                                     :
                                     <span className="badge bg-secondary">{product.metal}</span>}

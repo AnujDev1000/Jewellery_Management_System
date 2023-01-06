@@ -18,10 +18,10 @@ export const DoughnutSales = () => {
             hoverOffset: 4
         }]
     };
-    const config = {
-        type: 'doughnut',
-        data: data,
-    }
+    // const config = {
+    //     type: 'doughnut',
+    //     data: data,
+    // }
     return <>
         <Doughnut data={data} />
     </>

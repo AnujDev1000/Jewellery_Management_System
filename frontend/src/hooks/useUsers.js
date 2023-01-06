@@ -10,7 +10,7 @@ const useGetUsers = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch("/users/get", getHeaders())    
+                const response = await fetch("/api/users/get", getHeaders())    
                 const json = await response.json()
                 if(json.error){
                    setErrors(json) 

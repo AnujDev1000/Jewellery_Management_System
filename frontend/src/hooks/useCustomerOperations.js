@@ -6,7 +6,7 @@ const useCustomerOperations = () => {
 
     const addCustomer = async (inputs) => {
 
-        const response = await fetch("/customers/add", postHeaders(inputs))
+        const response = await fetch("/api/customers/add", postHeaders(inputs))
         // console.log(response)
         const json = await response.json()
         
@@ -17,7 +17,7 @@ const useCustomerOperations = () => {
     
     const deleteCustomer = async (id) => {
         console.log(id)
-        const response = await fetch(`/customers/delete/${id}`, deleteHeaders())
+        const response = await fetch(`/api/customers/delete/${id}`, deleteHeaders())
         const json = await response.json()
         
         console.log("response: " + json)
@@ -27,7 +27,7 @@ const useCustomerOperations = () => {
 
     const updateCustomer = async (id, body) => {
         console.log(body)
-        const response = await fetch(`/customers/set/${id}`, updateHeaders(body))
+        const response = await fetch(`/api/customers/set/${id}`, updateHeaders(body))
         const json = await response.json()
         
         console.log("response: " + json)

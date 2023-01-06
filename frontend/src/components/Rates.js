@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { Context } from '../context/Context'
 import useRound from '../utils/round'
 
@@ -15,16 +15,16 @@ const GoldApi = () => {
                             <h2 className="title text-uppercase fw-bold">gold</h2>
                             <div className="rates">
                                 <div className="badge m-1 p-2 pb-md-1 bg-success"><span className="fw-bold me-2">24k</span> 
-                                    {/* {roundToTwo(rates.goldRate.price_gram_24k)} */}
+                                    {rates && rates ? roundToTwo(rates.goldRate.price_gram_24k) : null}
                                 </div>
                                 <div className="badge m-1 p-2 pb-md-1 bg-success"><span className="fw-bold me-2">22k</span> 
-                                    {/* {roundToTwo(rates.goldRate.price_gram_22k)} */}
+                                    {rates && rates ? roundToTwo(rates.goldRate.price_gram_22k) : null}
                                 </div>
                                 <div className="badge m-1 p-2 pb-md-1 bg-success"><span className="fw-bold me-2">20k</span> 
-                                    {/* {roundToTwo(rates.goldRate.price_gram_20k)} */}
+                                    {rates && rates ? roundToTwo(rates.goldRate.price_gram_20k) : null}
                                 </div>
                                 <div className="badge m-1 p-2 pb-md-1 bg-success"><span className="fw-bold me-2">18k</span> 
-                                    {/* {roundToTwo(rates.goldRate.price_gram_18k)} */}
+                                    {rates && rates ? roundToTwo(rates.goldRate.price_gram_18k) : null}
                                 </div>
                             </div>
                         </div>
@@ -36,16 +36,16 @@ const GoldApi = () => {
                             <h2 className="title text-uppercase fw-bold">silver</h2>
                             <div className="rates">
                                 <div className="badge m-1 p-2 pb-md-1 bg-success"><span className="fw-bold me-2">24k</span> 
-                                    {/* {roundToTwo(rates.silverRate.price_gram_24k)} */}
+                                    {rates && rates ? roundToTwo(rates.silverRate.price_gram_24k) : null}
                                 </div>
                                 <div className="badge m-1 p-2 pb-md-1 bg-success"><span className="fw-bold me-2">22k</span> 
-                                    {/* {roundToTwo(rates.silverRate.price_gram_22k)} */}
+                                    {rates && rates ? roundToTwo(rates.silverRate.price_gram_22k) : null}
                                 </div>
                                 <div className="badge m-1 p-2 pb-md-1 bg-success"><span className="fw-bold me-2">20k</span> 
-                                    {/* {roundToTwo(rates.silverRate.price_gram_20k)} */}
+                                    {rates && rates ? roundToTwo(rates.silverRate.price_gram_20k) : null}
                                 </div>
                                 <div className="badge m-1 p-2 pb-md-1 bg-success"><span className="fw-bold me-2">18k</span> 
-                                    {/* {roundToTwo(rates.silverRate.price_gram_18k)} */}
+                                    {rates && rates ? roundToTwo(rates.silverRate.price_gram_18k) : null}
                                 </div>
                             </div>
                         </div>

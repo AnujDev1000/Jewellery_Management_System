@@ -6,7 +6,7 @@ const OrderProductTable = ({ products, cart, setCart }) => {
     const { stocks } = useContext(Context)
     const { goldCarat, sliverCarat } = useCaratPrice()
 
-    const keys = Object.keys(products[0]).filter(key => key != "_id" && key != "__v" && key != "carat" && key != "stone" && key != "weight" && key != "category" && key != "discription" && key != "supplier" && key != "createdAt" && key != "updatedAt" && key != "totalPrice" && key != "count")
+    const keys = Object.keys(products[0]).filter(key => key !== "_id" && key !== "__v" && key !== "carat" && key !== "stone" && key !== "weight" && key !== "category" && key !== "discription" && key !== "supplier" && key !== "createdAt" && key !== "updatedAt" && key !== "totalPrice" && key !== "count")
 
     useEffect(() => {
     }, [stocks])
@@ -63,11 +63,11 @@ const OrderProductTable = ({ products, cart, setCart }) => {
                     }
                     return (
                         <tr key={i} className="">
-                            <td scope="row" className="fw-bold">{i}</td>
+                            <td className="fw-bold">{i}</td>
                             {/* {keys.map(key => <td>{}</td>)} */}
                             <td className="text-truncate">{product.name}</td>
                             <td className="text-truncate">
-                                {product.metal == "gold" ?
+                                {product.metal === "gold" ?
                                     <span className="badge bg-warning">{product.metal}</span>
                                     :
                                     <span className="badge bg-secondary">{product.metal}</span>}

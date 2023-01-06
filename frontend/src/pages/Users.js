@@ -19,6 +19,7 @@ const Users = () => {
             else{
                 deActiveData += 1
             }
+            return user
         })
         tabs.map(tab => {
             if(tab.name === "users"){
@@ -30,6 +31,7 @@ const Users = () => {
             else{
                 tab.value = deActiveData
             }
+            return tab
         })
     }
     setTabData()

@@ -4,7 +4,7 @@ import OrderEditForm from '../forms/OrderEditForm'
 const OrderTable = ({orders, setCart}) => {
     const [updateOrder, setUpdateOrder] = useState({})
 
-    const keys = Object.keys(orders[0]).filter(key => key != "_id" && key != "__v" && key != "updatedAt")
+    const keys = Object.keys(orders[0]).filter(key => key !== "_id" && key !== "__v" && key !== "updatedAt")
 
     useEffect(() => {
     }, [updateOrder])
@@ -23,7 +23,7 @@ const OrderTable = ({orders, setCart}) => {
                     {orders && orders.map((order, i) => {
                         return (
                             <tr key={i} className="">
-                                <td scope="row" className="fw-bold">{i}</td>
+                                <td className="fw-bold">{i}</td>
                                 {/* {keys.map(key => <td>{}</td>)} */}
                                 <td className="text-truncate">{order.supplier.name.split(" ")[0]}</td>
                                 <td className="text-truncate">{order.quantity}</td>
@@ -31,7 +31,7 @@ const OrderTable = ({orders, setCart}) => {
                                     <span className="badge bg-info">{order.amount}</span>
                                 </td>
                                 <td className="text-truncate">
-                                    {order.status == "pending" ?
+                                    {order.status === "pending" ?
                                         <span className="badge bg-danger cursor-pointer" data-bs-toggle="modal" data-bs-target="#editModal" onClick={e => setUpdateOrder(order)}>{order.status}</span>
                                         :
                                         <span className="badge bg-success cursor-pointer">{order.status}</span>}

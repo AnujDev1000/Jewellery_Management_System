@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { toast } from 'react-toastify'
 import { Context } from '../../context/Context'
 import useProductOperations from '../../hooks/useProductOperations'
 
 const ProductDeleteForm = ({deleteId, setDeleteId}) => {
-    const { dispatch, products } = useContext(Context)
+    const { dispatch } = useContext(Context)
     const { deleteProduct } = useProductOperations()
 
 

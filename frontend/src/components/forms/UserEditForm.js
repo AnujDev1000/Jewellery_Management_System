@@ -11,7 +11,7 @@ const UserEditForm = ({ updateUser, setUpdateUser, setLoading, type, setType }) 
         e.preventDefault()
 
         let user = {}
-        if(type == "state"){
+        if(type === "state"){
             user = await updateUsers(updateUser._id, {isActive: !updateUser.isActive})
         }
         else{

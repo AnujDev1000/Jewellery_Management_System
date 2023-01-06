@@ -4,11 +4,11 @@ import { Context } from '../../context/Context'
 import useProductOperations from '../../hooks/useProductOperations'
 
 const ProductAddForm = () => {
-    const { products, categories, suppliers,  dispatch } = useContext(Context)
+    const { categories, suppliers,  dispatch } = useContext(Context)
     const { addProduct } = useProductOperations()
 
     const [errors, setErrors] = useState(null)
-    const [loading, setLoading] = useState(true)
+    // const [loading, setLoading] = useState(true)
     const [inputs, setInputs] = useState({ name: "", metal: "", carat: 0, stone: "", weight: 0, price: 0, category: "Categories", supplier: "Suppliers" })
 
     useEffect(() => {
@@ -17,7 +17,7 @@ const ProductAddForm = () => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
-        setLoading(true)
+        // setLoading(true)
         setErrors("")
 
         console.log(inputs);
@@ -25,7 +25,7 @@ const ProductAddForm = () => {
         if(product.error){
             setErrors(product.error.error)
             console.log(errors)
-            setLoading(false)
+            // setLoading(false)
         }
         else{
             console.log(product)
@@ -35,7 +35,7 @@ const ProductAddForm = () => {
             dispatch("UPDATE_ADD_SUPPLIERS", product)
             dispatch("ADD_STOCKS", { _id: product.stock._id, availableStock: 0, product: { _id: product._id, name: product.name } })
             setInputs({ name: "", metal: "", carat: 0, stone: "", weight: 0, price: 0, category: "", supplier: "" })
-            setLoading(false)
+            // setLoading(false)
         }
     }
     

@@ -1,11 +1,10 @@
-import React from 'react'
 import useFetchHeaders from '../utils/fetchHeaders'
 
 const useEmployeeOperation = () => {
     const { postHeaders, deleteHeaders } = useFetchHeaders()
 
     const addEmployee = async (inputs) => {
-        const response = await fetch("/employees/add", postHeaders(inputs))
+        const response = await fetch("/api/employees/add", postHeaders(inputs))
         // console.log(response)
         const json = await response.json()
         
@@ -15,7 +14,7 @@ const useEmployeeOperation = () => {
 
     const deleteEmployee = async (id) => {
         console.log(id)
-        const response = await fetch(`/employees/delete/${id}`, deleteHeaders())
+        const response = await fetch(`/api/employees/delete/${id}`, deleteHeaders())
         const json = await response.json()
         
         console.log("response: " + json)

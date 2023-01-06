@@ -9,7 +9,7 @@ const ProductEditForm = ({ updateProduct, setUpdateProduct }) =>  {
     const { updateProducts } = useProductOperations()
     const { categories, suppliers } = useContext(Context)
     const [errors, setErrors] = useState(null)
-    const [loading, setLoading] = useState(true)
+    // const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         setInitialProduct(updateProduct)
@@ -27,7 +27,7 @@ const ProductEditForm = ({ updateProduct, setUpdateProduct }) =>  {
 
     const handleUpdate = async (e) => {
         e.preventDefault()
-        setLoading(true)
+        // setLoading(true)
         setErrors("")
         
         // console.log(compareData())
@@ -35,7 +35,7 @@ const ProductEditForm = ({ updateProduct, setUpdateProduct }) =>  {
         if(product.error){
             setErrors(product.error.error)
             console.log(errors)
-            setLoading(false)
+            // setLoading(false)
         }
         else{
             console.log(product)
@@ -43,7 +43,7 @@ const ProductEditForm = ({ updateProduct, setUpdateProduct }) =>  {
             dispatch("UPDATE_PRODUCTS", product)
             setUpdateProduct(null)
             console.log(initialProduct)
-            setLoading(false)
+            // setLoading(false)
         }
     }
 

@@ -14,6 +14,7 @@ const Bills = () => {
         let amount = 0
         purchases.map(purchase => {
             amount += purchase.amount
+            return purchase
         })
         tabs.map(tab => {
             if(tab.name === "bills"){
@@ -22,6 +23,7 @@ const Bills = () => {
             else{
                 tab.value = amount
             }
+            return tab
         })
     }
     setTabData()

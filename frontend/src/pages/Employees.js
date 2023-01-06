@@ -6,7 +6,7 @@ import EmployeeTable from '../components/tables/EmployeeTable'
 import { Context } from '../context/Context'
 
 const Employees = () => {
-    const { products, employees } = useContext(Context)
+    const { employees } = useContext(Context)
     const [tabs, setTabs] = useState([{name: "employees", value: 0},])
     const [loading, setLoading] = useState(false)
 
@@ -20,6 +20,7 @@ const Employees = () => {
             else{
                 tab.value = 0
             }
+            return tab
         })
     }
     setTabData()

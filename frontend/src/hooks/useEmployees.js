@@ -1,4 +1,4 @@
-import { lazy, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useFetchHeaders from '../utils/fetchHeaders'
 
 
@@ -10,7 +10,7 @@ const useGetEmployees = () => {
     useEffect(() => {
         const fetchEmployees = async () => {
             try {
-                const response = await fetch("/employees/get", getHeaders())    
+                const response = await fetch("/api/employees/get", getHeaders())    
                 const json = await response.json()
                 if(json.error){
                    setErrors(json) 

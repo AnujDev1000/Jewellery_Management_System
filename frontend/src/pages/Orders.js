@@ -12,7 +12,7 @@ import useOrderOperation from '../hooks/useOrderOperation'
 const Orders = () => {
     const { products, suppliers, orders, stocks, dispatch } = useContext(Context)
     const { addOrder } = useOrderOperation()
-    const { roundToTwo } = useRound()
+    // const { roundToTwo } = useRound()
     const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState({})
     const [cart, setCart] = useState([])
@@ -25,12 +25,13 @@ const Orders = () => {
         let completed = 0
         let pending = 0
         orders.map(order => {
-            if(order.status == "completed"){
+            if(order.status === "completed"){
                 completed += 1
             }
             else{
                 pending += 1
             }
+            return order
         })
         tabs.map(tab => {
             if(tab.name === "Orders"){
@@ -45,6 +46,7 @@ const Orders = () => {
             else{
                 tab.value = suppliers.length
             }
+            return tab
         })
     }
     setTabData()
@@ -53,6 +55,7 @@ const Orders = () => {
         let totalData = 0
         cart.map(c => {
             totalData = totalData + (c.totalPrice)*c.count
+            return c
         })
         setTotal(Math.round(totalData))
     }
@@ -157,10 +160,10 @@ const Orders = () => {
                                 </div>
                             </div>
                             <div className="col-md-6">
-                                <div className="products-section bg-white shadow-sm rounded p-2 ">
+                                <div className="products-section bg-white shadow-sm rounded p-2 mt-2 mt-md-0">
                                     <span className="fw-bold text-secondary">Products</span>
                                     <ul className="nav nav-tabs d-flex justify-content-between">
-                                        <div className='d-flex justify-content-start'>
+                                        <div className='d-flex justify-content-start overflow-auto'>
                                             <li className="nav-item cursor-pointer">
                                                 <span className={`nav-link px-1 py-2 active=${true}`} onClick={e => { setFilterProducts(products) }}>All</span>
                                             </li>
@@ -187,7 +190,7 @@ const Orders = () => {
                         </div>
                     </div>
                     <div className="col-md-3">
-                        <div className="cart-section bg-white shadow-sm rounded p-2 h-specific">
+                        <div className="cart-section bg-white shadow-sm rounded p-2 h-specific mt-2 mt-md-0">
                             <OrderCart loading={loading} cart={cart}  setCart={setCart} total={total} errors={errors} handlePurchase={handlePurchase} />
                         </div>
                     </div>

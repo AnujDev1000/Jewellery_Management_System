@@ -18,6 +18,7 @@ const Suppliers = () => {
                 highest = supplier.highest
                 highestName = supplier.name
             }
+            return supplier
         })
         tabs.map(tab => {
             if(tab.name === "suppliers"){
@@ -26,6 +27,7 @@ const Suppliers = () => {
             else{
                 tab.value = highestName
             }
+            return tab
         })
     }
     setTabData()

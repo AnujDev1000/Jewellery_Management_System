@@ -1,4 +1,3 @@
-import React from 'react'
 
 const reducer = (type, payload, state, setState) => {
     switch (type) {
@@ -36,6 +35,7 @@ const reducer = (type, payload, state, setState) => {
             payload.map(product => {
                 const index = state.stocks.findIndex(stock => stock.product._id === product._id)
                 state.stocks[index].availableStock -= product.count
+                return product
             })
             break;
         }
@@ -43,6 +43,7 @@ const reducer = (type, payload, state, setState) => {
             payload.map(product => {
                 const index = state.stocks.findIndex(stock => stock.product._id === product._id)
                 state.stocks[index].availableStock += product.count
+                return product
             })
             break;
         }

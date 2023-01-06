@@ -4,7 +4,7 @@ import EmployeeDeleteForm from '../forms/EmployeeDeleteForm'
 
 const EmployeeTable = ({employees}) => {
     const [deleteId, setDeleteId] = useState("")
-    const keys = Object.keys(employees[0]).filter(key => key != "_id" && key != "__v" && key != "products"  )    
+    const keys = Object.keys(employees[0]).filter(key => key !== "_id" && key !== "__v" && key !== "products"  )    
 
     return (
         <table className="table table-sm table-borderless m-0">
@@ -19,7 +19,7 @@ const EmployeeTable = ({employees}) => {
                     {employees.map((employee,i) => {
                         return (
                             <tr key={i} className="">
-                                <td scope="row" className="fw-bold">{i}</td>
+                                <td className="fw-bold">{i}</td>
                                 {/* {keys.map(key => <td>{}</td>)} */}
                                 <td className="text-truncate">{employee.name}</td>
                                 <td className="text-truncate">{employee.phone}</td>

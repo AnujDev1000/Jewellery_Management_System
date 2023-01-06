@@ -10,7 +10,7 @@ const useGetStocks = () => {
     useEffect(() => {
         const fetchStocks = async () => {
             try {
-                const response = await fetch("/stocks/get", getHeaders())    
+                const response = await fetch("/api/stocks/get", getHeaders())    
                 const json = await response.json()
                 if(json.error){
                    setErrors(json) 

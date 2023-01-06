@@ -1,4 +1,3 @@
-import React from 'react'
 import useFetchHeaders from '../utils/fetchHeaders'
 
 const useUserOperation = () => {
@@ -6,7 +5,7 @@ const useUserOperation = () => {
 
     const updateUsers = async (id, body) => {
         console.log(id)
-        const response = await fetch("/users/set/" + id, updateHeaders(body))
+        const response = await fetch("/api/users/set/" + id, updateHeaders(body))
         // console.log(response)
         const json = await response.json()
         

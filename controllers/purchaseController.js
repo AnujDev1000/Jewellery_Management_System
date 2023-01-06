@@ -14,16 +14,15 @@ const addPurchase = async (req, res) => {
         purchase.products.map(async (product) => {
             const stock = await Stocks.findOne({_id: product.stock._id})
             stock.availableStock -= product.count
-            stock.save()
+            await stock.save()
         })
 
         // purchase
         purchase.customer = { _id: newCustomer._id, name: newCustomer.name }
-        purchase.save()
+        await purchase.save()
 
         // customer
-        newCustomer.save()
-
+        await newCustomer.save()
 
         res.status(200).json(purchase)
     } catch (error) {

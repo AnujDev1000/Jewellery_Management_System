@@ -25,6 +25,7 @@ const Product = () => {
             else{
                 totalSilver++
             }
+            return product
         })
 
         const newTabs = tabs.map(tab => {
@@ -73,7 +74,7 @@ const Product = () => {
                 <div className="bg-white shadow-sm rounded p-3 mt-2">
 
                     <ul className="nav nav-tabs d-flex justify-content-between">
-                        <div className='d-flex justify-content-start'>
+                        <div className='d-flex justify-content-start overflow-auto'>
                             <li className="nav-item cursor-pointer">
                                 <span className={`nav-link px-1 py-2 active=${true}`} onClick={e => { setFilterProducts(products) }}>All</span>
                             </li>

@@ -1,17 +1,23 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Rates from '../components/Rates'
 import Navbar from '../components/Navbar'
-import { homeMenuAdmin } from '../utils/headingData'
+import { homeMenu, homeMenuAdmin } from '../utils/headingData'
 import randomColor from '../utils/randomColor'
 import { AuthContext } from '../context/AuthContext'
-import { Context } from '../context/Context'
 
 
 const Home = () => {
     const { user } = useContext(AuthContext)
+
+    let menus = []
+    if(user.isAdmin){
+        menus = homeMenuAdmin()
+    }
+    else{
+        menus = homeMenu()
+    }
  
-    const menus = homeMenuAdmin()
     let index = 0
     let classValue = ""
     return (

@@ -29,23 +29,24 @@ const Purchase = () => {
         let totalData = 0
         cart.map(c => {
             if(c.metal === "gold"){
-                // const goldTax = (3*goldCarat(c.carat))/100
-                // const rate = goldCarat(c.carat)*c.weight + goldTax
-                // c.totalPrice = roundToTwo(c.price + rate)
-                const goldTax = (3*5000)/100
-                c.totalPrice = c.price + 5000*c.weight + goldTax
+                // const goldTax = (3*5000)/100
+                // c.totalPrice = c.price + 5000*c.weight + goldTax
+                const goldTax = (3*goldCarat(c.carat))/100
+                const rate = goldCarat(c.carat)*c.weight + goldTax
+                c.totalPrice = roundToTwo(c.price + rate)
                 taxData = taxData + goldTax*c.count
                 totalData = totalData + (c.totalPrice)*c.count
             }
             else{
-                // const silverTax = (3*sliverCarat(c.carat))/100
-                // const rate = sliverCarat(c.carat)*c.weight + silverTax
-                // c.totalPrice = roundToTwo(c.price + rate)
-                const silverTax = (3*50)/100
-                c.totalPrice = c.price + 50*c.weight + silverTax
+                // const silverTax = (3*50)/100
+                // c.totalPrice = c.price + 50*c.weight + silverTax
+                const silverTax = (3*sliverCarat(c.carat))/100
+                const rate = sliverCarat(c.carat)*c.weight + silverTax
+                c.totalPrice = roundToTwo(c.price + rate)
                 taxData = taxData + silverTax*c.count
                 totalData = totalData + (c.totalPrice)*c.count
             }
+            return c
         })
         setTax(roundToTwo(taxData))
         setTotal(Math.round(totalData))
@@ -120,7 +121,7 @@ const Purchase = () => {
                         </div>
                         <div className="col-*">
                             <div className="products-section bg-white shadow-sm rounded p-2 mt-1">
-                                <ul className="nav nav-tabs d-flex justify-content-between">
+                                <ul className="nav nav-tabs d-flex justify-content-between overflow-auto">
                                     <div className='d-flex justify-content-start'>
                                         <li className="nav-item cursor-pointer">
                                             <span className={`nav-link px-1 py-2 active=${true}`} onClick={e => { setFilterProducts(products) }}>All</span>

@@ -10,7 +10,7 @@ const useGetSuppliers = () => {
     useEffect(() => {
         const fetchSuppliers = async () => {
             try {
-                const response = await fetch("/suppliers/get", getHeaders())    
+                const response = await fetch("/api/suppliers/get", getHeaders())    
                 const json = await response.json()
                 if(json.error){
                    setErrors(json) 

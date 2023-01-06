@@ -1,4 +1,3 @@
-import React from 'react'
 
 const useRound = () => {    
     const roundToTwo =(num) => {

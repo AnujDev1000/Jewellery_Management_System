@@ -1,5 +1,7 @@
 const mongoose = require("mongoose")
 const express = require("express")
+const path = require("path")
+const errorHandler = require("./middleware/errorHandler")
 require("dotenv").config()
 
 // Express App
@@ -24,15 +26,23 @@ app.use("/api/employees" ,require("./routes/employeeRoutes"))
 app.use("/api/customers" ,require("./routes/customerRoutes"))
 app.use("/api/purchases" ,require("./routes/purchaseRoutes"))
 
-// Listening to port
-app.listen(process.env.PORT, () => {
-    console.log("Listening to port : " + process.env.PORT)
+// Static files
+app.use(express.static(path.join(__dirname, "./frontend/build")))
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "./frontend/build/index.html"), function (err) {
+        res.status(404).send(err)
+    })
 })
 
 // Connection to Database
 mongoose.connect(process.env.DBURI)
     .then(() => {
         console.log("Connnected to DB!")
+        app.listen(process.env.PORT, () => {
+            console.log("Listening to port : " + process.env.PORT)
+            console.log("URL : http://localhost:4000/")
+        })
     })
     .catch(err =>{
         console.log(err)    

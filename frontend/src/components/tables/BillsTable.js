@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Receipt from '../Receipt'
 
 const BillsTable = ({purchases}) => {
-    const keys = Object.keys(purchases[0]).filter(key => key != "_id" && key != "__v" && key != "updatedAt")
+    const keys = Object.keys(purchases[0]).filter(key => key !== "_id" && key !== "__v" && key !== "updatedAt")
 
     useEffect(() => {
     }, [])
@@ -23,7 +23,7 @@ const BillsTable = ({purchases}) => {
                             <tr key={i} className="">
                                 <Receipt customer={{name: purchase.customer.name, phone: ""}} receiptNo={purchase.receipt} cart={purchase.products} setCart={""} total={purchase.amount} tax={purchase.taxAmount} />
 
-                                <td scope="row" className="fw-bold">{i}</td>
+                                <td className="fw-bold">{i}</td>
                                 {/* {keys.map(key => <td>{}</td>)} */}
                                 <td className="text-truncate">{purchase.customer.name}</td>
                                 <td className="text-truncate">

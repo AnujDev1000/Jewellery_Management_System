@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaCartPlus, FaChartBar, FaGem, FaLayerGroup, FaList, FaPersonBooth, FaReceipt, FaShippingFast, FaUserFriends } from "react-icons/fa"
+import { FaCartPlus, FaChartBar, FaGem, FaLayerGroup, FaPersonBooth, FaReceipt, FaShippingFast, FaUserFriends } from "react-icons/fa"
 
 export const homeMenuAdmin = () => {
     return [

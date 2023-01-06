@@ -1,6 +1,5 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { Context } from '../context/Context'
-import useRound from "./round"
 
 const useCaratPrice = () => {
     const { rates } = useContext(Context)

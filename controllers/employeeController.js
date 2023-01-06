@@ -28,7 +28,7 @@ const getSingleEmployee = async (req, res) => {
     const { id } = req.params
 
     try {
-        const employee = await Employees.find({id})
+        const employee = await Employees.find({_id: id})
         if(employee){
             res.status(200).json(employee)
         }
@@ -41,7 +41,7 @@ const deleteEmployee = async (req, res) => {
     const { id } = req.params
 
     try {
-        const employee = await Employees.findOneAndDelete({id})
+        const employee = await Employees.findOneAndDelete({_id: id})
         if(employee){
             res.status(200).json(employee)
         }
@@ -54,7 +54,7 @@ const setEmployee = async (req, res) => {
     const id = req.params
 
     try {
-        const employee = await Employees.findOneAndUpdate({id}, { ...req.body }, { new: true })
+        const employee = await Employees.findOneAndUpdate({_id: id}, { ...req.body }, { new: true })
         if(employee){
             res.status(200).json(employee)
         }

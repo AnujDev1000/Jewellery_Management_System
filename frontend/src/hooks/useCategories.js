@@ -10,7 +10,7 @@ const useGetCategories = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await fetch("/categories/get", getHeaders())    
+                const response = await fetch("/api/categories/get", getHeaders())    
                 const json = await response.json()
                 if(json.error){
                    setErrors(json) 

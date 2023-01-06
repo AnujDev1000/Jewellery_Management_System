@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { FaEdit, FaTrash } from "react-icons/fa"
+import { FaEdit } from "react-icons/fa"
 import UserEditForm from '../forms/UserEditForm'
 
 const UsersTable = ({users, setLoading}) => {
     const [updateUser, setUpdateUser] = useState({})
     const [type, setType] = useState("")
-    const keys = Object.keys(users[0]).filter(key => key != "_id" && key != "__v" && key != "password" && key != "otp"  && key != "isAdmin" && key != "isActive")    
+    const keys = Object.keys(users[0]).filter(key => key !== "_id" && key !== "__v" && key !== "password" && key !== "otp"  && key !== "isAdmin" && key !== "isActive")    
 
     const handleUser = (t, user) => {
         setType(t)
@@ -28,7 +28,7 @@ const UsersTable = ({users, setLoading}) => {
                     {users.map((user,i) => {
                         return (
                             <tr key={i} className="">
-                                <td scope="row" className="fw-bold">{i}</td>
+                                <td className="fw-bold">{i}</td>
                                 {/* {keys.map(key => <td>{}</td>)} */}
                                 <td className="text-truncate">{user.firstName}</td>
                                 <td className="text-truncate">{user.lastName}</td>

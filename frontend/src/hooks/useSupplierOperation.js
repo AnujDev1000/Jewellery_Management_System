@@ -1,11 +1,10 @@
-import React from 'react'
 import useFetchHeaders from '../utils/fetchHeaders'
 
 const useSupplierOperation = () => {
     const { postHeaders, deleteHeaders } = useFetchHeaders()
 
     const addSupplier = async (inputs) => {
-        const response = await fetch("/suppliers/add", postHeaders(inputs))
+        const response = await fetch("/api/suppliers/add", postHeaders(inputs))
         // console.log(response)
         const json = await response.json()
         
@@ -15,7 +14,7 @@ const useSupplierOperation = () => {
 
     const deleteSupplier = async (id) => {
         console.log(id)
-        const response = await fetch(`/suppliers/delete/${id}`, deleteHeaders())
+        const response = await fetch(`/api/suppliers/delete/${id}`, deleteHeaders())
         const json = await response.json()
         
         console.log("response: " + json)

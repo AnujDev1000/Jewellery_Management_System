@@ -10,7 +10,7 @@ const useGetOrders = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await fetch("/orders/get", getHeaders())    
+                const response = await fetch("/api/orders/get", getHeaders())    
                 const json = await response.json()
                 if(json.error){
                    setErrors(json) 

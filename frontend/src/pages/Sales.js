@@ -16,12 +16,12 @@ const Sales = () => {
                     </div>
                 </div>
                 <div className="col-md-5">
-                    <div className="monthly bg-white shadow-sm rounded p-2 h-100">
+                    <div className="monthly bg-white shadow-sm rounded p-2 h-100 mt-2 mt-md-0">
                         <BarSales />
                     </div>
                 </div>
                 <div className="col-md-3 p-0">
-                    <div className="headings bg-white shadow-sm rounded p-2 h-100">
+                    <div className="headings bg-white shadow-sm rounded p-2 h-100 my-2 my-md-0">
                         <div className="row">
                             <div className="col-">
                                 <div className="bg-cyan text-white shadow-sm rounded p-2">
@@ -37,7 +37,7 @@ const Sales = () => {
                     </div>
                 </div>
                 <div className="col-md-5 p-0">
-                    <div className="product-sale bg-white shadow-sm rounded h-specific3 p-2 my-2">
+                    <div className="product-sale bg-white shadow-sm rounded h-specific3 p-2 my-2 ">
                         <LineChartRevenue />
                     </div>
                 </div>

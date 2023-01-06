@@ -24,35 +24,35 @@ const PagesRoutes = () => {
     return (  
             <div className="container">     
                 <Routes>
-                    <Route path="/home" element={ <ContextProvider><Home /></ContextProvider> } />
-                    {/* <Route path="/home" element={user && user ? <ContextProvider><Home /></ContextProvider> : <Navigater path="/" command="notExists" />} /> */}
+                    {/* <Route path="/home" element={ <ContextProvider><Home /></ContextProvider> } /> */}
+                    <Route path="/home" element={user && user ? <ContextProvider><Home /></ContextProvider> : <Navigater path="/" command="notExists" />} />
                     
-                    <Route path="/products" element={ <ContextProvider><Product /></ContextProvider> } />
-                    {/* <Route path="/products" element={user && user ? <ContextProvider><Product /></ContextProvider> : <Navigater path="/" command="authorise" />}/> */}
+                    {/* <Route path="/products" element={ <ContextProvider><Product /></ContextProvider> } /> */}
+                    <Route path="/products" element={user && user ? <ContextProvider><Product /></ContextProvider> : <Navigater path="/" command="authorise" />}/>
                     
-                    <Route path="/sales" element={ <ContextProvider><Sales  /></ContextProvider> } />
-                    {/* <Route path="/sales" element={user &&  user.isAdmin ? <ContextProvider><Sales  /></ContextProvider> : <Navigater path="/" command="authorise" />}/> */}
+                    {/* <Route path="/sales" element={ <ContextProvider><Sales  /></ContextProvider> } /> */}
+                    <Route path="/sales" element={user &&  user.isAdmin ? <ContextProvider><Sales  /></ContextProvider> : <Navigater path="/" command="authorise" />}/>
                     
-                    <Route path="/users" element={ <ContextProvider><Users  /></ContextProvider> } />
-                    {/* <Route path="/users" element={user &&  user.isAdmin ? <ContextProvider><Users  /></ContextProvider> : <Navigater path="/" command="authorise" />}/> */}
+                    {/* <Route path="/users" element={ <ContextProvider><Users  /></ContextProvider> } /> */}
+                    <Route path="/users" element={user &&  user.isAdmin ? <ContextProvider><Users  /></ContextProvider> : <Navigater path="/" command="authorise" />}/>
                     
-                    <Route path="/purchase" element={ <ContextProvider><Purchase  /></ContextProvider> } />
-                    {/* <Route path="/purchase" element={user &&  user.isAdmin ? <ContextProvider><Purchase  /></ContextProvider> : <Navigater path="/" command="authorise" />}/> */}
+                    {/* <Route path="/purchase" element={ <ContextProvider><Purchase  /></ContextProvider> } /> */}
+                    <Route path="/purchase" element={user &&  user ? <ContextProvider><Purchase  /></ContextProvider> : <Navigater path="/" command="authorise" />}/>
                     
-                    <Route path="/categories" element={ <ContextProvider><Categories /></ContextProvider> } />
-                    {/* <Route path="/categories" element={user &&  user ? <ContextProvider><Categories /></ContextProvider> : <Navigater path="/" command="authorise" />}/> */}
+                    {/* <Route path="/categories" element={ <ContextProvider><Categories /></ContextProvider> } /> */}
+                    <Route path="/categories" element={user &&  user ? <ContextProvider><Categories /></ContextProvider> : <Navigater path="/" command="authorise" />}/>
                     
-                    <Route path="/bills" element={ <ContextProvider><Bills /></ContextProvider> } />
-                    {/* <Route path="/bills" element={user &&  user ? <ContextProvider><Bills /></ContextProvider> : <Navigater path="/" command="authorise" />}/> */}
+                    {/* <Route path="/bills" element={ <ContextProvider><Bills /></ContextProvider> } /> */}
+                    <Route path="/bills" element={user &&  user ? <ContextProvider><Bills /></ContextProvider> : <Navigater path="/" command="authorise" />}/>
                     
-                    <Route path="/employees" element={ <ContextProvider><Employees /></ContextProvider> } />
-                    {/* <Route path="/employees" element={user &&  user.isAdmin ? <ContextProvider><Employees /></ContextProvider> : <Navigater path="/" command="authorise" />}/> */}
+                    {/* <Route path="/employees" element={ <ContextProvider><Employees /></ContextProvider> } /> */}
+                    <Route path="/employees" element={user &&  user.isAdmin ? <ContextProvider><Employees /></ContextProvider> : <Navigater path="/" command="authorise" />}/>
                     
-                    <Route path="/suppliers" element={ <ContextProvider><Suppliers /></ContextProvider> } />
-                    {/* <Route path="/suppliers" element={user &&  user ? <ContextProvider><Suppliers /></ContextProvider> : <Navigater path="/" command="authorise" />}/> */}
+                    {/* <Route path="/suppliers" element={ <ContextProvider><Suppliers /></ContextProvider> } /> */}
+                    <Route path="/suppliers" element={user &&  user ? <ContextProvider><Suppliers /></ContextProvider> : <Navigater path="/" command="authorise" />}/>
                     
-                    <Route path="/orders" element={ <ContextProvider><Orders /></ContextProvider> } />
-                    {/* <Route path="/orders" element={user &&  user ? <ContextProvider><Orders /></ContextProvider> : <Navigater path="/" command="authorise" />}/> */}
+                    {/* <Route path="/orders" element={ <ContextProvider><Orders /></ContextProvider> } /> */}
+                    <Route path="/orders" element={user &&  user ? <ContextProvider><Orders /></ContextProvider> : <Navigater path="/" command="authorise" />}/>
                 </Routes>   
             </div>    
     )

@@ -1,4 +1,3 @@
-import React from 'react'
 import useFetchHeaders from '../utils/fetchHeaders'
 
 const usePurchaseOperation = () => {
@@ -6,7 +5,7 @@ const usePurchaseOperation = () => {
 
     const addPurchase = async (inputs) => {
         console.log(inputs)
-        const response = await fetch("/purchases/add", postHeaders(inputs))
+        const response = await fetch("/api/purchases/add", postHeaders(inputs))
         // console.log(response)
         const json = await response.json()
         
