@@ -41,12 +41,10 @@ mongoose.connect(process.env.DBURI)
         console.log("Connnected to DB!")
         app.listen(process.env.PORT, () => {
             console.log("Listening to port : " + process.env.PORT)
-            console.log("URL : http://localhost:4000/")
         })
     })
     .catch(err =>{
         console.log(err)    
     })
-
 
 // git add . && git commit -m "COMMIT" && git push origin main

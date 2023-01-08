@@ -32,6 +32,10 @@ const errorHandler = (err) => {
             return {error: {code: err, message: "Already Verified"}}
             break
         }
+        case "STATE": {
+            return {error: {code: err, message: "User is not Active!"}}
+            break
+        }
         default:{
             return {error: {code: "TECHNICAL", message: err}}
             break

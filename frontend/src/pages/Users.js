@@ -54,10 +54,12 @@ const Users = () => {
                     </div>
                 </div>
 
-                <div className="product-table table-responsive bg-light p-2">
-                    {!users.length ? <div className="spinner-border spinner-border-sm" role="status"></div>
-                        : <UsersTable users={users} setLoading={setLoading} />
-                    }
+                <div className="bg-white shadow-sm rounded p-3 mt-2">
+                    <div className="mh-table3 user-table table-responsive bg-light p-2">
+                        {!users.length ? <div className="spinner-border spinner-border-sm" role="status"></div>
+                            : <UsersTable users={users} setLoading={setLoading} />
+                        }
+                    </div>
                 </div>
             </div>
         </>

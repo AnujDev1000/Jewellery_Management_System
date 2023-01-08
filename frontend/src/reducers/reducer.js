@@ -60,8 +60,16 @@ const reducer = (type, payload, state, setState) => {
             break;
         }
         case "UPDATE_USER":{
-            const index = state.categories.findIndex(user => user._id === payload._id)
+            const index = state.users.findIndex(user => user._id === payload._id)
             state.users[index] = payload
+            break;
+        }
+        case "DELETE_USER":{
+            const index = state.users.findIndex(user => user._id === payload._id)
+            setState({
+                    ...state,
+                    users: state.users.splice(index, 1)
+            })
             break;
         }
         case "ADD_CATEGORY":{

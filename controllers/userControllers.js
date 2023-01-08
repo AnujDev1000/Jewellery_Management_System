@@ -1,5 +1,6 @@
 const errorHandler = require("../middleware/errorHandler")
 const User = require("../models/userModel")
+const Otp = require("../models/userOtpModel")
  
 const loginUser = async (req, res) => {
     const {email, password} = req.body
@@ -44,6 +45,20 @@ const getUsers = async (req, res) => {
     }
 }
 
+const deleteUser = async (req, res) => {
+    const { id } = req.params
+
+    try {
+        const user = await User.findOneAndDelete({_id: id})
+        const otp = await Otp.findOneAndDelete({_id: user.otp})
+        
+        if(user){
+            res.status(200).json(user)
+        }
+    } catch (error) {
+        res.status(404).json(error.message)
+    }
+}
 
 const setUser = async (req, res) => {
     const { id } = req.params
@@ -58,4 +73,4 @@ const setUser = async (req, res) => {
     }
 }
 
-module.exports = {loginUser, registerUser, verifyUser, getUsers, setUser}
+module.exports = {loginUser, registerUser, verifyUser, getUsers, setUser, deleteUser}

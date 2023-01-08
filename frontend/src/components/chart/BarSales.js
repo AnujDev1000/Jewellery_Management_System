@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS } from 'chart.js/auto'
 
 export const BarSales = () => {
     const [yearData, setyearData] = useState([
@@ -36,17 +37,17 @@ export const BarSales = () => {
         },],
     };
 
-    // const config = {
-    //     type: 'bar',
-    //     data: data,
-    //     options: {
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true
-    //             }
-    //         }
-    //     },
-    // };
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        },
+    };
     return <>
         <Bar data={data} />
     </>

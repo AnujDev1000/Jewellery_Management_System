@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { FaEdit } from "react-icons/fa"
+import { FaEdit, FaTrash } from "react-icons/fa"
+import UserDeleteForm from '../forms/UserDeleteForm'
 import UserEditForm from '../forms/UserEditForm'
 
 const UsersTable = ({users, setLoading}) => {
     const [updateUser, setUpdateUser] = useState({})
+    const [deleteId, setDeleteId] = useState("")
     const [type, setType] = useState("")
     const keys = Object.keys(users[0]).filter(key => key !== "_id" && key !== "__v" && key !== "password" && key !== "otp"  && key !== "isAdmin" && key !== "isActive")    
 
@@ -51,11 +53,15 @@ const UsersTable = ({users, setLoading}) => {
                                     <button className="btn btn-link btn-sm p-0 me-2" >
                                         <FaEdit className="fs-5"/>
                                     </button>
+                                    <button className="btn btn-link btn-sm p-0">
+                                        <FaTrash className="fs-5" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                        onClick={e => setDeleteId(user._id)} />
+                                    </button>
                                 </td>
                             </tr>
                         )
                     })}     
-                                          
+                    {deleteId.length ? <UserDeleteForm deleteId={deleteId} setDeleteId={setDeleteId} /> : null }                
                 </tbody>
             </table>
         </>

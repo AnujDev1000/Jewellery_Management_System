@@ -110,30 +110,6 @@ userSchema.statics.register = async function(email, password, firstName, lastNam
 }
 
 
-// Login method
-userSchema.statics.login = async function(email, password) {
-    
-    if(!email || !password){
-        throw Error("EMPTY")
-    }
-    else{
-        if(validator.isEmail(email)){
-            const user = await this.findOne({email})
-            if(user && await bcrypt.compare(password, user.password) ){
-                const token = generateToken(user._id)
-                return { isAdmin: user.isAdmin, id: user._id, token: token }
-            }
-            else{
-                throw Error("LOGIN")
-            }
-        }
-        else{
-            throw Error("EMAIL")
-        }
-    }
-}
- 
-
 // Verify method
 userSchema.statics.verify = async function(email, password, otp, firstName, lastName) {
     const userOtp = await UserOtp.findOne({email})
@@ -166,5 +142,35 @@ userSchema.statics.verify = async function(email, password, otp, firstName, last
         throw Error("VERIFY")
     }
 }
+
+// Login method
+userSchema.statics.login = async function(email, password) {
+    
+    if(!email || !password){
+        throw Error("EMPTY")
+    }
+    else{
+        if(validator.isEmail(email)){
+            const user = await this.findOne({email})
+            if(user.isActive){
+                if(user && await bcrypt.compare(password, user.password) ){
+                    const token = generateToken(user._id)
+                    return { isAdmin: user.isAdmin, id: user._id, token: token }
+                }
+                else{
+                    throw Error("LOGIN")
+                }
+            }
+            else{
+                throw Error("STATE")
+            }
+        }
+        else{
+            throw Error("EMAIL")
+        }
+    }
+}
+ 
+
 
 module.exports = mongoose.model('userData', userSchema)

@@ -1,7 +1,7 @@
 import useFetchHeaders from '../utils/fetchHeaders'
 
 const useUserOperation = () => {
-    const { updateHeaders } = useFetchHeaders()
+    const { updateHeaders, deleteHeaders } = useFetchHeaders()
 
     const updateUsers = async (id, body) => {
         console.log(id)
@@ -11,9 +11,18 @@ const useUserOperation = () => {
         
         console.log("response: " + json)
         return json
+    } 
+
+    const deleteUser = async (id) => {
+        console.log(id)
+        const response = await fetch(`/api/users/delete/${id}`, deleteHeaders())
+        const json = await response.json()
+        
+        console.log("response: " + json)
+        return json
     }
 
-    return { updateUsers }
+    return { updateUsers, deleteUser }
 }
 
 export default useUserOperation

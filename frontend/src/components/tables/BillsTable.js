@@ -3,9 +3,22 @@ import Receipt from '../Receipt'
 
 const BillsTable = ({purchases}) => {
     const keys = Object.keys(purchases[0]).filter(key => key !== "_id" && key !== "__v" && key !== "updatedAt")
+    const [customer, setCustomer] = useState({name: "", phone: ""})
+    const [total, setTotal] = useState(0)
+    const [tax, setTax] = useState(0)
+    const [receiptNo, setReceiptNo] = useState(0)
+    const [cart, setCart] = useState([])
 
     useEffect(() => {
     }, [])
+
+    const handleReceipt = (purchase) => {
+        setCustomer({name: purchase.customer.name, phone: ""})
+        setTotal(purchase.amount)
+        setTax(purchase.taxAmount)
+        setReceiptNo(purchase.receipt)
+        setCart(purchase.products)
+    }
 
     return (
         <>
@@ -21,8 +34,6 @@ const BillsTable = ({purchases}) => {
                     {purchases && purchases.map((purchase, i) => {
                         return (
                             <tr key={i} className="">
-                                <Receipt customer={{name: purchase.customer.name, phone: ""}} receiptNo={purchase.receipt} cart={purchase.products} setCart={""} total={purchase.amount} tax={purchase.taxAmount} />
-
                                 <td className="fw-bold">{i}</td>
                                 {/* {keys.map(key => <td>{}</td>)} */}
                                 <td className="text-truncate">{purchase.customer.name}</td>
@@ -60,16 +71,16 @@ const BillsTable = ({purchases}) => {
                                 </td>
                                 <td className="text-truncate">{purchase.createdAt.split("T")[0]}</td>
                                 <td className="text-truncate">
-                                    <button className="btn btn-danger btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#receipt">
+                                    <button className="btn btn-danger btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#receipt" onClick={e => {handleReceipt(purchase)}}>
                                         Receipt
                                     </button>
                                 </td>
                             </tr>
                         )
                     })}
-
                 </tbody>
             </table>
+            <Receipt customer={customer} receiptNo={receiptNo} cart={cart} setCart={""} total={total} tax={tax} />
         </>
     )
 }

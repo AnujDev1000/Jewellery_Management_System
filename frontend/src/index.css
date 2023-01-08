@@ -27,6 +27,10 @@ body
 {
     font-size: 3.7rem;
 }
+.fs-big-1
+{
+    font-size: 8rem;
+}
 .bg-melon
 {
     background-color: #ff896c;
@@ -92,6 +96,11 @@ body
     max-height: 325px;
     overflow: auto;
 }
+.mh-table3
+{
+    max-height: 450px;
+    overflow: auto;
+}
 .h-specific
 {
     height: 600px;
@@ -145,4 +154,8 @@ input[type=number]::-webkit-outer-spin-button {
 .overflow-auto
 {
     overflow: auto;
+}
+.text-cyan
+{
+    color: #8855ff;
 }

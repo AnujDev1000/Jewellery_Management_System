@@ -42,11 +42,12 @@ const Bills = () => {
                         })}
                     </div>
                 </div>
-                
-                <div className="product-table table-responsive bg-light p-2">
-                    {!purchases.length ? <div className="spinner-border spinner-border-sm" role="status"></div>
-                        : <BillsTable purchases={purchases} />
-                    }
+                <div className="bg-white shadow-sm rounded p-3 mt-2">
+                    <div className="mh-table3 bills-table table-responsive bg-light p-2">
+                        {!purchases.length ? <div className="spinner-border spinner-border-sm" role="status"></div>
+                            : <BillsTable purchases={purchases} />
+                        }
+                    </div>
                 </div>
             </div>
         </>
