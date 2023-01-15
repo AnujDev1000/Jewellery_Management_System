@@ -1,12 +1,13 @@
 import React, { useContext, useEffect } from 'react'
 import { Context } from '../../context/Context'
 import useCaratPrice from '../../utils/caratPrice'
+import { HiCurrencyRupee } from "react-icons/hi"
 
 const OrderProductTable = ({ products, cart, setCart }) => {
     const { stocks } = useContext(Context)
     const { goldCarat, sliverCarat } = useCaratPrice()
 
-    const keys = Object.keys(products[0]).filter(key => key !== "_id" && key !== "__v" && key !== "carat" && key !== "stone" && key !== "weight" && key !== "category" && key !== "discription" && key !== "supplier" && key !== "createdAt" && key !== "updatedAt" && key !== "totalPrice" && key !== "count")
+    const keys = Object.keys(products[0]).filter(key => key !== "_id" && key !== "__v" && key !== "carat" && key !== "stone" && key !== "category" && key !== "discription" && key !== "supplier" && key !== "createdAt" && key !== "updatedAt" && key !== "totalPrice" && key !== "count")
 
     useEffect(() => {
     }, [stocks])
@@ -72,8 +73,12 @@ const OrderProductTable = ({ products, cart, setCart }) => {
                                     :
                                     <span className="badge bg-secondary">{product.metal}</span>}
                             </td>
+                            <td className="text-truncate">{product.weight}g</td>
                             <td className="text-truncate">
-                                <span className="badge bg-info">{product.price}</span>
+                                <span className="badge bg-info">
+                                    <HiCurrencyRupee className="fs-6" /> 
+                                    {product.price}
+                                </span>
                             </td>
                             <td className="text-truncate">
                                 <span className="badge bg-dark text-white">

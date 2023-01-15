@@ -1,7 +1,7 @@
 
 const useRound = () => {    
     const roundToTwo =(num) => {
-        return (Math.round(num * 100) / 100);
+        return (Math.round(num * 10) / 10);
     }
     return { roundToTwo }
 }

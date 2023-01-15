@@ -18,7 +18,9 @@ const Navbar = () => {
                 </a>
                     {/* {user.isAdmin ? "Admin" : "Employee"} */}
                 <div className="user d-flex align-items-center justify-content-center ">
-                    <span className="pe-2 text-white">{user.isAdmin ? "Admin" : "Employee"}</span>
+                    <span className="pe-2 text-white">
+                        <div className="badge bg-white text-dark">{user.isAdmin ? "Admin" : "Employee"}</div>
+                    </span>
                     <button className="btn btn-warning" onClick={logout}>logout</button>
                 </div>
             </div>

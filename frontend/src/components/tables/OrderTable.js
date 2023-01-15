@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import OrderEditForm from '../forms/OrderEditForm'
+import { HiCurrencyRupee } from "react-icons/hi"
 
 const OrderTable = ({orders, setCart}) => {
     const [updateOrder, setUpdateOrder] = useState({})
@@ -28,7 +29,10 @@ const OrderTable = ({orders, setCart}) => {
                                 <td className="text-truncate">{order.supplier.name.split(" ")[0]}</td>
                                 <td className="text-truncate">{order.quantity}</td>
                                 <td className="text-truncate">
-                                    <span className="badge bg-info">{order.amount}</span>
+                                    <span className="badge bg-info">
+                                        <HiCurrencyRupee className="fs-6" /> 
+                                        {order.amount}
+                                    </span>
                                 </td>
                                 <td className="text-truncate">
                                     {order.status === "pending" ?

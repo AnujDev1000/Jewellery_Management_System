@@ -4,18 +4,18 @@ import { Chart as ChartJS } from 'chart.js/auto'
 
 export const BarSales = () => {
     const [yearData, setyearData] = useState([
-        {year: 2012,profit: 500}, 
-        {year: 2013,profit: 600}, 
-        {year: 2016,profit: 700}, 
-        {year: 2015,profit: 200}, 
-        {year: 2022,profit: 100}, 
-        {year: 2023,profit: 800}
+        {month: "Jan",product: 5}, 
+        {month: "Feb",product: 6}, 
+        {month: "Mar",product: 7}, 
+        {month: "Apr",product: 2}, 
+        {month: "May",product: 1}, 
+        {month: "Jun",product: 8}
     ])
     const data = {
-        labels: yearData.map(item => item.year),
+        labels: yearData.map(item => item.month),
         datasets: [{
-            label: 'Total Profit Monthly',
-            data: yearData.map(item => item.profit),
+            label: 'Monthly Products Sale',
+            data: yearData.map(item => item.product),
             backgroundColor: [
                 'rgba(255, 99, 132)',
                 'rgba(255, 159, 64)',

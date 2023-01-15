@@ -27,10 +27,10 @@ const SupplierTable = ({suppliers}) => {
                                 <td className="text-truncate">{supplier.phone}</td>
                                 <td className="text-truncate">{supplier.productCount}</td>
                                 <td className="text-truncate">
-                                    <span className="badge bg-success">{supplier.orderCompleted}</span>
+                                    <span className="badge bg-danger">{supplier.orderPending}</span>
                                 </td>
                                 <td className="text-truncate">
-                                    <span className="badge bg-danger">{supplier.orderPending}</span>
+                                    <span className="badge bg-success">{supplier.orderCompleted}</span>
                                 </td>
                                 <td className="text-truncate">{supplier.createdAt.split("T")[0]}</td>
                                 <td className="text-truncate">{supplier.updatedAt.split("T")[0]}</td>

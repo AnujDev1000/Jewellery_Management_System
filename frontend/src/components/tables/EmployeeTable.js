@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { FaEdit, FaTrash } from "react-icons/fa"
 import EmployeeDeleteForm from '../forms/EmployeeDeleteForm'
+import { HiCurrencyRupee } from "react-icons/hi"
 
 const EmployeeTable = ({employees}) => {
     const [deleteId, setDeleteId] = useState("")
@@ -25,7 +26,10 @@ const EmployeeTable = ({employees}) => {
                                 <td className="text-truncate">{employee.phone}</td>
                                 <td className="text-truncate">{employee.address.slice(0,30)}</td>
                                 <td className="text-truncate">
-                                    <span className="badge bg-info">{employee.salary}</span>
+                                    <span className="badge bg-info">
+                                        <HiCurrencyRupee className="fs-6" /> 
+                                        {employee.salary}
+                                    </span>
                                 </td>
                                 <td className="text-truncate">
                                     <span className="badge bg-danger">{employee.type}</span>

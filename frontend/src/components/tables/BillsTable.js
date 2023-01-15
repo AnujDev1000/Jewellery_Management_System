@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Receipt from '../Receipt'
+import { HiCurrencyRupee } from "react-icons/hi"
 
 const BillsTable = ({purchases}) => {
     const keys = Object.keys(purchases[0]).filter(key => key !== "_id" && key !== "__v" && key !== "updatedAt")
@@ -44,7 +45,10 @@ const BillsTable = ({purchases}) => {
                                     <span className="badge bg-dark">{purchase.quantity}</span>
                                 </td>
                                 <td className="text-truncate">
-                                    {purchase.amount}
+                                    <span className="badge bg-info">
+                                        <HiCurrencyRupee className="fs-6" /> 
+                                        {purchase.amount}
+                                    </span>
                                 </td>
                                 <td className="text-truncate">
                                     {purchase.payment == "cash" ? <span className="badge bg-success">{purchase.payment}</span>

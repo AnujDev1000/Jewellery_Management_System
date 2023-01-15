@@ -9,13 +9,13 @@ const Suppliers = () => {
     const { suppliers } = useContext(Context)
     const [tabs, setTabs] = useState([{name: "suppliers", value: 0}, {name: "highest", value: ""}])
     const [loading, setLoading] = useState(false)
-
+    
     const setTabData = () => {
         let highest = 0
         let highestName = ""
         suppliers.map(supplier => {
             if(supplier.productCount > highest){
-                highest = supplier.highest
+                highest = supplier.productCount
                 highestName = supplier.name
             }
             return supplier

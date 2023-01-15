@@ -36,8 +36,8 @@ const PurchaseCart = ({cart, setCart, total, tax, customer, receiptNo, loading, 
                                     <span className="">{c.name}</span><br/>
                                     <div className="fw-bold">
                                         <span className="mx-1">{c.totalPrice}</span>
-                                        <input type="number" className="w-max rounded-start border-0 m-0 shadow-0 outline-0 ps-1" value={c.weight} onChange={e => handleWeight(e.target.value, i)} />
-                                        <span className="badge bg-warning rounded-0 rounded-end shadow-0 fs">{c.count}</span>
+                                        <input type="number" className="w-max rounded me-1 border-0 m-0 shadow-0 outline-0 ps-1" value={c.weight} onChange={e => handleWeight(e.target.value, i)} />
+                                        <span className="badge bg-warning rounded shadow-0">{c.count}</span>
                                     </div>
                                 </div>
                                 <button className="btn btn-sm btn-danger p-2">

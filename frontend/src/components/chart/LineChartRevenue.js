@@ -5,19 +5,19 @@ import faker from 'faker';
 
 ChartJS.register( CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
 
 export const data = {
     labels,
     datasets: [
         {
-            label: 'Loss ',
+            label: 'Spend',
             data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
         },
         {
-            label: 'Profit ',
+            label: 'Sold',
             data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
             borderColor: 'rgb(53, 162, 235)',
             backgroundColor: 'rgba(53, 162, 235, 0.5)',

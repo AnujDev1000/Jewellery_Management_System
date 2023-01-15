@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { Context } from '../../context/Context'
+import { HiCurrencyRupee } from "react-icons/hi"
 
 const PurchaseProductTable = ({ products, cart, setCart }) => {
     const { stocks } = useContext(Context)
@@ -72,11 +73,20 @@ const PurchaseProductTable = ({ products, cart, setCart }) => {
                                     :
                                     <span className="badge bg-secondary">{product.metal}</span>}
                             </td>
-                            <td className="text-truncate">{product.carat}</td>
-                            <td className="text-truncate">{product.stone}</td>
-                            <td className="text-truncate">{product.weight}</td>
                             <td className="text-truncate">
-                                <span className="badge bg-info">{product.price}</span>
+                                {product.carat}
+                                <span className="fs">k</span>
+                            </td>
+                            <td className="text-truncate">{product.stone}</td>
+                            <td className="text-truncate">
+                                {product.weight}
+                                <span className="fs">g</span>
+                            </td>
+                            <td className="text-truncate">
+                                <span className="badge bg-info">
+                                    <HiCurrencyRupee className="fs-6" /> 
+                                    {product.price}
+                                </span>
                             </td>
                             <td className="text-truncate">{product.category.name}</td>
                             <td className="text-truncate">
